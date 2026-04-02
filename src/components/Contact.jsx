@@ -9,51 +9,47 @@ import { slideIn } from "../utils/motion";
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
   const formRef = useRef();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const handleChange = (e) => {
-    const {name, target} = e.target;
-    setForm({...form, [name]: value})
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setLoading(true);
+    setError("");
 
-    emailjs.send(
-      'service_q0sea68',
-      'template_bt6atbs',
-      {
-        from_name: form.name,
-        to_name: 'Mr. Lotta',
-        from_email: form.email,
-        to_email: "Lottanna47@gmail.com",
-        message: form.message,
-      },
-      'JgJv0ZIuo0S-eaVVP'
-      ).then(()=> {
+    emailjs
+      .send(
+        "service_q0sea68",
+        "template_bt6atbs",
+        {
+          from_name: form.name,
+          to_name: "Mr. Lotta",
+          from_email: form.email,
+          to_email: "Lottanna47@gmail.com",
+          message: form.message,
+        },
+        "JgJv0ZIuo0S-eaVVP"
+      )
+      .then(() => {                              {/* ✅ proper .then().catch() chain */}
         setLoading(false);
-        alert('Thank you, I will get back to you as soon as possible');
-
-        setForm({
-          name: '',
-          email: '',
-          message: '',
-        })
-      }), (error) => {
-        setLoading(false)
-
-        console.log('error');
-
-        alert('Please try again')
-      }
+        setSuccess(true);
+        setForm({ name: "", email: "", message: "" });
+        setTimeout(() => setSuccess(false), 5000);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.error(err);
+        setError("Something went wrong. Please try again.");
+      });
   };
+
   return (
     <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
       <motion.div
@@ -63,62 +59,68 @@ const Contact = () => {
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadText}>Contact.</h3>
 
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className="mt-12 flex flex-col gap-8"
-        >
+        {success && (
+          <div className="mt-4 p-4 bg-green-900/30 border border-green-500/30 rounded-lg text-green-400 text-sm">
+            ✓ Message sent! I'll get back to you soon.
+          </div>
+        )}
+        {error && (
+          <div className="mt-4 p-4 bg-red-900/30 border border-red-500/30 rounded-lg text-red-400 text-sm">
+            {error}
+          </div>
+        )}
+
+        <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4"> Your Name</span>
+            <span className="text-white font-medium mb-4">Your Name</span>
             <input
               type="text"
               name="name"
               value={form.name}
               onChange={handleChange}
-              placeholder="What is your name?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium"
+              placeholder="What's your name?"
+              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium" {/* ✅ outline-none */}
             />
           </label>
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4"> Your Email</span>
+            <span className="text-white font-medium mb-4">Your Email</span>
             <input
               type="email"
               name="email"
               value={form.email}
               onChange={handleChange}
-              placeholder="What is your email?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium"
+              placeholder="your@email.com"
+              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
             />
           </label>
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4"> Your Message </span>
+            <span className="text-white font-medium mb-4">Your Message</span>
             <textarea
               rows="7"
               name="message"
               value={form.message}
               onChange={handleChange}
-              placeholder="How can I serve you?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium"
+              placeholder="What can I help you with?"
+              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
             />
           </label>
-
           <button
-          type="submit"
-          className="bg-tertiary py-3 px-8 outine-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl "
+            type="submit"
+            disabled={loading}
+            className="bg-tertiary py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl disabled:opacity-50 transition-opacity"
           >
-            {loading ? 'Sending...' : 'Send'}
-            
+            {loading ? "Sending..." : "Send Message →"}
           </button>
         </form>
       </motion.div>
 
       <motion.div
-      variants={slideIn('right', 'tween', 0.2, 1)}
-      className='xl: flex-1 xl:h-auto md:h-[550px] h-[350px]'
+        variants={slideIn("right", "tween", 0.2, 1)}
+        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px]" {/* ✅ removed space after xl: */}
       >
-        <EarthCanvas/> </motion.div>
+        <EarthCanvas />
+      </motion.div>
     </div>
   );
 };
-
 export default SectionWrapper(Contact, "contact");

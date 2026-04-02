@@ -8,23 +8,26 @@ import { fadeIn, textVariant } from "../utils/motion";
 
 import { SectionWrapper } from "../hoc";
 
-const ServiceCard = ({ index, title, icon }) => {
-  return (
-    <Tilt className="xs:w-[250px] w-full">
-      <motion.div
-        variants={fadeIn("right", "spring", 0.5 * index, 0.75)}
-        className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
-      >
-        <div options={{  max:45, scale: 1, speed: 450 }} className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col">
-          <img
-          src={icon} alt={title} clasName='w-16 h-16 object-contain'
-          />
-          <h3 className="text-white text-20px font-bold text-center">{title}</h3>
-        </div>
-      </motion.div>
-    </Tilt>
-  );
-};
+const ServiceCard = ({ index, title, icon }) => (
+  <Tilt
+    className="xs:w-[250px] w-full"
+    options={{ max: 45, scale: 1, speed: 450 }} {/* ✅ moved here from inner div */}
+  >
+    <motion.div
+      variants={fadeIn("right", "spring", 0.5 * index, 0.75)}
+      className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
+    >
+      <div className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col">
+        <img
+          src={icon}
+          alt={title}
+          className="w-16 h-16 object-contain" {/* ✅ was clasName */}
+        />
+        <h3 className="text-white text-[20px] font-bold text-center">{title}</h3> {/* ✅ was text-20px */}
+      </div>
+    </motion.div>
+  </Tilt>
+);
 
 const About = () => {
   return (
@@ -34,9 +37,9 @@ const About = () => {
         <h2 className={styles.sectionHeadText}>Overview.</h2>
       </motion.div>
       <motion.p
-        variants={fadeIn("", "", 0.1, 1)}
-        className="mt-4 text-secondary text-[17px] max-3xl leading-[30px]"
-      >
+  variants={fadeIn("", "", 0.1, 1)}
+  className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]" {/* ✅ was max-3xl */}
+>
         I am an experienced software developer with a passion for creating
         efficient, scalable, and user-friendly applications. Over the years, I
         have honed my skills in various programming languages and frameworks,
