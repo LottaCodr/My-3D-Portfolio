@@ -42,6 +42,24 @@ const Contact = () => {
             </svg>
           </a>
           <a
+            href="https://wa.me/2349135775141"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative px-6 py-3 border border-[#cfa96e] text-[#cfa96e] font-medium rounded-full transition-all duration-300 hover:bg-[#cfa96e] hover:text-[#0a0a0f]"
+          >
+            WhatsApp
+            <svg
+              className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M18 8a6 6 0 0 0-7.73 5.7 6.6 6.6 0 0 0 2.31 8.84L21 8l-3-3z" />
+              <path d="M21 3.19a9 9 0 1 1-2.86 5.82L23 9.19 21 3.19zM4.22 7.25a13 13 0 1 1 1.86-6.78L5.05 9.53 4.22 7.25z" />
+            </svg>
+          </a>
+          <a
             href="https://github.com/LottaCodr"
             className="group relative px-6 py-3 border border-white/5 text-white font-medium rounded-full transition-all duration-300 hover:bg-[#0a0a0f] hover:text-[#cfa96e]"
           >
