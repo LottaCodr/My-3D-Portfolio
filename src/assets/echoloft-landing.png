@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#1a1a2e" />
+  <text x="200" y="150" fill="#cfa96e" font-family="Arial" font-size="30" text-anchor="middle">
+    Echoloft
+  </text>
+  <text x="200" y="200" fill="#71717a" font-family="Arial" font-size="20" text-anchor="middle">
+    Landing Page
+  </text>
+</svg>

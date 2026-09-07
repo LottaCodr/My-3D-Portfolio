@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#1a1a2e" />
+  <circle cx="200" cy="150" r="80" fill="#cfa96e" />
+  <text x="200" y="155" fill="#0a0a0f" font-family="Arial" font-size="30" text-anchor="middle">
+    S
+  </text>
+  <text x="200" y="200" fill="#0a0a0f" font-family="Arial" font-size="30" text-anchor="middle">
+    o
+  </text>
+  <text x="200" y="245" fill="#0a0a0f" font-family="Arial" font-size="30" text-anchor="middle">
+    cial
+  </text>
+  <text x="200" y="290" fill="#0a0a0f" font-family="Arial" font-size="20" text-anchor="middle">
+    Lite
+  </text>
+</svg>
