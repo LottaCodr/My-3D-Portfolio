@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#1a1a2e" />
+  <path d="M200 80 C200 80 180 120 180 180 C180 240 220 280 280 280 C340 280 360 240 360 180 C360 120 340 80 200 80 Z" fill="#cfa96e" />
+  <text x="200" y="200" fill="#0a0a0f" font-family="Arial" font-size="25" text-anchor="middle">
+    Glimms AI
+  </text>
+</svg>

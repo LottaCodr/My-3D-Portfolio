@@ -30,6 +30,21 @@ import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 
+/* New project assets */
+import glimmsMobile from "./glimms-mobile.png";
+import glimmsAi from "./glimms-ai.png";
+import healthCare from "./health-care.png";
+import agro from "./agro.png";
+import gardenFairyApp from "./garden-fairy-app.png";
+import gardenFairyServer from "./garden-fairy-server.png";
+import theColorGreen from "./the-color-green.png";
+import fixam from "./fixam-mobile.png";
+import echoloft from "./echoloft-landing.png";
+import voting from "./voting.png";
+import socialLite from "./social-lite.png";
+import petroelemites from "./petroelemites.png";
+import lottacodr from "./lottacodr.png";
+
 export {
   logo,
   backend,
@@ -59,4 +74,18 @@ export {
   carrent,
   jobit,
   tripguide,
+  /* New project assets */
+  glimmsMobile,
+  glimmsAi,
+  healthCare,
+  agro,
+  gardenFairyApp,
+  gardenFairyServer,
+  theColorGreen,
+  fixam,
+  echoloft,
+  voting,
+  socialLite,
+  petroelemites,
+  lottacodr,
 };

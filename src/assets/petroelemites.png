@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#1a1a2e" />
+  <path d="M100 150 Q200 50 300 150 L300 200 L100 200 Z" fill="#cfa96e" />
+  <path d="M150 100 Q200 150 250 100" fill="#0a0a0f" />
+  <circle cx="200" cy="180" r="30" fill="#cfa96e" />
+  <text x="200" y="280" fill="#0a0a0f" font-family="Arial" font-size="25" text-anchor="middle">
+    Petroelemites
+  </text>
+</svg>

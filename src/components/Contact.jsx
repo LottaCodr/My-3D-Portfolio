@@ -1,126 +1,73 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
-
-import { styles } from "../styles";
-import {EarthCanvas} from './canvas';
 import { SectionWrapper } from "../hoc";
-import { slideIn } from "../utils/motion";
+import { styles } from "../styles";
 
 const Contact = () => {
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
-  const formRef = useRef();
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    emailjs
-      .send(
-        "service_q0sea68",
-        "template_bt6atbs",
-        {
-          from_name: form.name,
-          to_name: "Mr. Lotta",
-          from_email: form.email,
-          to_email: "Lottanna47@gmail.com",
-          message: form.message,
-        },
-        "JgJv0ZIuo0S-eaVVP"
-      )
-      .then(() => {                              {/* ✅ proper .then().catch() chain */}
-        setLoading(false);
-        setSuccess(true);
-        setForm({ name: "", email: "", message: "" });
-        setTimeout(() => setSuccess(false), 5000);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.error(err);
-        setError("Something went wrong. Please try again.");
-      });
-  };
-
   return (
-    <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
+    <section
+      className="py-24 md:py-32 bg-[rgba(10,10,15,0.5)] backdrop-blur border-t border-[rgba(255,255,255,0.05)]"
+    >
       <motion.div
-        variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
+        variants={{
+          hidden: { y: -50, opacity: 0 },
+          show: { y: 0, opacity: 1, transition: { type: "spring", duration: 1.25 } },
+        }}
       >
-        <p className={styles.sectionSubText}>Get in touch</p>
-        <h3 className={styles.sectionHeadText}>Contact.</h3>
+        <p className="text-secondary text-sm">Get In Touch</p>
+        <h2 className="text-2xl font-bold text-white">Contact.</h2>
+      </motion.div>
 
-        {success && (
-          <div className="mt-4 p-4 bg-green-900/30 border border-green-500/30 rounded-lg text-green-400 text-sm">
-            ✓ Message sent! I'll get back to you soon.
-          </div>
-        )}
-        {error && (
-          <div className="mt-4 p-4 bg-red-900/30 border border-red-500/30 rounded-lg text-red-400 text-sm">
-            {error}
-          </div>
-        )}
+      <div className="max-w-3xl mx-auto text-center">
+        <p className="mt-6 text-secondary text-lg leading-relaxed">
+          Ready to collaborate on your next project? Let's talk about how we can
+          bring your vision to life. I'm always open to discussing new ideas,
+          interesting projects, or just saying hello.
+        </p>
 
-        <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
-          <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Name</span>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="What's your name?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium" 
-            />
-          </label>
-          <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Email</span>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="your@email.com"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
-            />
-          </label>
-          <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Message</span>
-            <textarea
-              rows="7"
-              name="message"
-              value={form.message}
-              onChange={handleChange}
-              placeholder="What can I help you with?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
-            />
-          </label>
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-tertiary py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl disabled:opacity-50 transition-opacity"
+        <div className="mt-8 flex justify-center gap-8">
+          <a
+            href="mailto:hello@lottacodr.com"
+            className="group relative px-6 py-3 text-[#0a0a0f] bg-[#cfa96e] text-[#0a0a0f] font-medium rounded-full transition-all duration-300 hover:bg-[#a78755]"
           >
-            {loading ? "Sending..." : "Send Message →"}
-          </button>
-        </form>
-      </motion.div>
+            hello@lottacodr.com
+            <svg
+              className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 0l8 8L4 12z" />
+            </svg>
+          </a>
+          <a
+            href="https://github.com/LottaCodr"
+            className="group relative px-6 py-3 border border-white/5 text-white font-medium rounded-full transition-all duration-300 hover:bg-[#0a0a0f] hover:text-[#cfa96e]"
+          >
+            GitHub
+            <svg
+              className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M9 19c-5 1-5-4-7-8a48 48 0 0 0-2-8v-.5a36 36 0 0 0 3-2.8 2 2 0 0 1 1.4 0 12 12 0 0 0 2 2.8c0 2.2-1.4 3.6-3 4a29 29 0 0 0-.5 2.5 12 12 0 0 0-.7 1.2c-.4-.2-.8-.3-1.2-.3-.2 0-.4.1-.5.1a19.2 19.2 0 0 1-3.2-1.6 8 8 0 0 1-1.7-.8c-.2 0-.4.1-.5.1a12 12 0 0 0-4 2.4c-.8-2.1-1.4-4.4-1.4-7 0-2.4 1.5-4.7 3.5-6.1a9.85 9.85 0 0 0 .8-1.3 2 2 0 0 1 1.2-.3 7 7 0 0 1 1.6-.5 4 4 0 0 1 2.3 0 4.5 4.5 0 0 1 1.7.2c.3-.2.5-.3.7-.5a24.6 24.6 0 0 1 1.2-.2 12 12 0 0 0 2 2.8c0 1.4.5 2.6.7 3.8z" />
+            </svg>
+          </a>
+        </div>
 
-      <motion.div
-        variants={slideIn("right", "tween", 0.2, 1)}
-        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px]" 
-      >
-        <EarthCanvas />
-      </motion.div>
-    </div>
+        <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.1)]">
+          <p className="text-secondary text-sm">
+            <strong>Location:</strong> Nigeria<br />
+            <strong>Available for:</strong> Freelance & Full-time<br />
+            <strong>Response:</strong> Within 24 hours
+          </p>
+        </div>
+      </div>
+    </section>
   );
 };
+
 export default SectionWrapper(Contact, "contact");

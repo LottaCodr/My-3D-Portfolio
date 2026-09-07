@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#1a1a2e" />
+  <path d="M0 150 L400 150 L400 300 L0 300" fill="#cfa96e" />
+  <circle cx="200" cy="250" r="40" fill="#0a0a0f" />
+  <text x="200" y="280" fill="#cfa96e" font-family="Arial" font-size="25" text-anchor="middle">
+    Garden Fairy Server
+  </text>
+</svg>
