@@ -138,6 +138,25 @@ describe("case studies", () => {
 });
 
 describe("profile metrics", () => {
+  it("derives the hero counts from the projects array, not hardcoded copy", () => {
+    // Regression: the hero pitch once said "Fourteen shipped products, nine of
+    // them live" while the stats row below it read 16 / 10.
+    const shipped = stats.find((s) => s.label === "Products shipped");
+    const live = stats.find((s) => s.label === "Live right now");
+
+    expect(shipped.value).toBe(String(projects.length));
+    expect(live.value).toBe(String(projects.filter((p) => p.live_url).length));
+  });
+
+  it("keeps no stale product counts in free-text copy", () => {
+    const blob = `${profile.pitch} ${JSON.stringify(stats)}`;
+    // Any spelled-out count in prose is a second source of truth waiting to rot.
+    expect(blob).not.toMatch(
+      /\b(Fourteen|Fifteen|Sixteen|Seventeen|eighteen|nineteen|twenty)\b/i,
+    );
+    expect(profile.pitch).not.toMatch(/\b\d+ shipped\b|\bnine of them\b/i);
+  });
+
   it("does not repeat the invented follower/star counts", () => {
     const blob = JSON.stringify({ stats, profile });
     // The old About section claimed 847 followers and 12 stars; the GitHub API
@@ -268,6 +287,22 @@ describe("rendered app", () => {
  * 3. Interaction
  * ======================================================================== */
 describe("work filters", () => {
+  it("states the counts in the heading from live data", () => {
+    const { container } = render(<App />);
+    const heading = [...container.querySelectorAll("h2")].find((h) =>
+      /products\./.test(h.textContent),
+    );
+    const live = projects.filter((p) => p.live_url).length;
+    expect(heading.textContent).toBe(
+      `${projects.length} products. ${live} of them live right now.`.replace(
+        /\d+/g,
+        (n) =>
+          ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine",
+           "Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen"][n],
+      ),
+    );
+  });
+
   it("narrows the grid and announces the count", () => {
     render(<App />);
 

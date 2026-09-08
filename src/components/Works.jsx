@@ -3,7 +3,16 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Tilt } from "react-tilt";
 import { SectionWrapper } from "../hoc";
 import SectionHeading from "./ui/SectionHeading";
-import { projects, projectFilters } from "../constants";
+import { projects, projectFilters, liveProjectCount } from "../constants";
+
+/* Small integers read better spelled out in a headline. Kept local and
+   deliberately limited — anything larger falls back to the numeral. */
+const WORDS = [
+  "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
+  "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
+  "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty",
+];
+const word = (n) => WORDS[n] ?? String(n);
 import { useIsTouch } from "../hooks/useMediaQuery";
 import { ArrowUpRight, Github, Globe } from "./ui/Icons";
 
@@ -189,8 +198,8 @@ function Works() {
       <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading
           eyebrow="Selected work"
-          title="Sixteen products. Ten of them live right now."
-          lede="Every card below links somewhere real — a deployment you can click through, or the repository if the product has no public web surface. No dead links: two URLs in the previous version of this page returned 404 and were removed."
+          title={`${word(projects.length)} products. ${word(liveProjectCount)} of them live right now.`}
+          lede="Every card below links somewhere real — a deployment you can click through, or the repository if the product has no public web surface. Every deployment URL on this page was fetched and checked before it was listed."
         />
       </div>
 

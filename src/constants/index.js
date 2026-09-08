@@ -48,7 +48,7 @@ export const profile = {
   github: "https://github.com/LottaCodr",
   site: "https://lotaport.vercel.app",
   pitch:
-    "I build production web platforms, mobile apps and AI pipelines — from hospital records systems to eight-service inference stacks. Fourteen shipped products, nine of them live.",
+    "I build production web platforms, mobile apps and AI pipelines — from hospital records systems to eight-service inference stacks.",
 };
 
 /* Navigation */
@@ -64,13 +64,6 @@ export const navLinks = [
    on the live product itself. The previous version claimed 847 followers and
    12 stars; the API returns 22 and 8. See docs/ux-research.md §2.1 B6.
    ------------------------------------------------------------------------- */
-export const stats = [
-  { label: "Products shipped", value: "16", suffix: "" },
-  { label: "Live right now", value: "10", suffix: "" },
-  { label: "Public repos", value: "115", suffix: "" },
-  { label: "Years building", value: "5", suffix: "+" },
-];
-
 /* Services */
 export const services = [
   {
@@ -371,6 +364,19 @@ export const projects = [
     live_url: "https://lotaport.vercel.app",
     source_code_link: "https://github.com/LottaCodr/My-3D-Portfolio",
   },
+];
+
+/* Hero metrics. The first two are derived from `projects` above rather than
+   written out, so adding or linking a project cannot leave a stale number in
+   the hero, the Work heading or the page metadata. Only the GitHub figure is
+   hard-coded, because it comes from the API rather than this file. */
+export const liveProjectCount = projects.filter((p) => p.live_url).length;
+
+export const stats = [
+  { label: "Products shipped", value: String(projects.length), suffix: "" },
+  { label: "Live right now", value: String(liveProjectCount), suffix: "" },
+  { label: "Public repos", value: "115", suffix: "" },
+  { label: "Years building", value: "5", suffix: "+" },
 ];
 
 /* ---------------------------------------------------------------------------
