@@ -229,10 +229,10 @@ export const projects = [
     category: "ai",
     year: "2026",
     role: "Backend engineer",
-    tagline: "Orders, payments and a background AI worker for the Garden Fairy storefront.",
+    tagline: "The production API behind the Garden Fairy storefront and its admin desk.",
     description:
-      "Express + TypeScript API handling routing, business logic, authentication and Flutterwave payment webhooks, plus a queue-backed worker that runs the AI pipeline off the request path.",
-    tags: ["Express", "TypeScript", "Mongoose", "Flutterwave"],
+      "Express 5 + Mongoose REST API: session-cookie accounts, a DB-backed catalogue, multi-device carts including guest carts, atomic checkout with stock reservation, Flutterwave payments, delivery-rate estimates, reviews, wishlist and a full admin operations surface.",
+    tags: ["Express 5", "TypeScript", "Mongoose", "Flutterwave"],
     image: coverGardenFairyServer,
     source_code_link:
       "https://github.com/LottaCodr/Garden-Fairy-Order-and-Payment-Server",
@@ -246,7 +246,7 @@ export const projects = [
     tagline: "Pixel-faithful Figma-to-code for a sustainable-fashion events brand.",
     description:
       "Monochrome editorial site with black side rails, stacked display headlines and brand strips — rebuilt from three Figma frames across four routed pages, with a skip link and semantic landmarks baked in.",
-    tags: ["Next.js", "TypeScript", "Tailwind 4", "React Router"],
+    tags: ["React 19", "TypeScript", "Vite 6", "Tailwind 4"],
     image: coverColorGreen,
     live_url: "https://the-color-green.vercel.app",
     source_code_link: "https://github.com/LottaCodr/TheColorGreen",
@@ -260,7 +260,7 @@ export const projects = [
     tagline: "A conversion-first sales site for a ₦120k website package aimed at Nigerian SMEs.",
     description:
       "Package breakdown, case-study grid, three-step process, audience segments and FAQ — closing on a WhatsApp deep link. Shipped with a UI/UX designer and a brand designer.",
-    tags: ["HTML", "CSS", "JavaScript", "SEO"],
+    tags: ["React", "TypeScript", "Vite", "SEO"],
     image: coverEcholoft,
     live_url: "https://echoloft-landing-page.vercel.app",
     source_code_link: "https://github.com/LottaCodr/Echoloft-Landing-Page",
@@ -271,39 +271,43 @@ export const projects = [
     category: "web",
     year: "2025",
     role: "Full-stack engineer",
-    tagline: "Automated birthday outreach for a 1,000+ member parish — with phone numbers encrypted at rest.",
+    tagline: "Birthday outreach for a parish, built to send nothing it shouldn't.",
     description:
-      "Operations dashboard for Living Water Mega Parish: member directory, calendar-driven reminders, SMS queue and role-based permissions that mask phone numbers unless your role allows it.",
-    tags: ["TypeScript", "React", "Node.js", "RBAC"],
+      "Mobile-first internal system for Living Water Mega Parish (RCCG): holds the member detail pastoral care needs, builds a privacy-minimised daily digest, and delivers only to verified opted-in staff endpoints with a receipt per message. Ships configured for mock delivery.",
+    tags: ["TypeScript", "React", "privacy-first"],
     live_url: "https://lwmp-alert-automation.vercel.app",
     source_code_link: "https://github.com/LottaCodr/LWMP-alert-automation",
   },
   {
     id: "mobile-voting",
-    name: "Privacy-First Voting",
+    name: "CivicVote",
     category: "mobile",
-    year: "2025",
+    year: "2026",
     role: "Mobile engineer",
-    tagline: "A voter portal that stores aggregate counts and never an individual vote.",
+    tagline: "A research-led voter portal that publishes aggregates and never an individual vote.",
     description:
-      "Flutter client on Supabase with multi-context ballots, MFA-aware submission, authority-assigned eligibility and aggregate-only result storage — so a leaked database cannot reveal how anyone voted.",
-    tags: ["Flutter", "Dart", "Supabase", "MFA"],
+      "Expo client on Supabase: election-readiness dashboard, pre-ballot orientation, one-contest-at-a-time voting with intentional undervotes, full-ballot review, separate cast confirmation and a choice-free receipt. Aggregate-only results, and explicit preview-vs-certification boundaries.",
+    tags: ["Expo", "React Native", "TypeScript", "Supabase", "a11y"],
     image: coverVoting,
     source_code_link: "https://github.com/LottaCodr/Mobile-Voting-Application",
   },
   {
     id: "petroelemites",
-    name: "Petroelemites",
-    category: "creative",
-    year: "2025",
-    role: "Creative technologist",
-    tagline: "Interactive WebGL study of mineral strata and crystal formation.",
+    name: "Petroelemites Investment",
+    category: "landing",
+    year: "2026",
+    role: "Frontend engineer",
+    tagline: "Corporate site for a registered Nigerian oil & gas investment company.",
     description:
-      "Three.js scene with GLSL shaders for realistic mineral materials, orbit controls, selection highlights and a geological data overlay. Written as computational art, used as a teaching aid.",
-    tags: ["Three.js", "WebGL", "GLSL", "React"],
+      "Single-page marketing site for Petroelemites Investment Company Limited — trust and compliance section with CAC details, interest-expression form wired to Formspree, GA4 conversion tracking on submit, plus privacy and terms routes.",
+    tags: ["React 19", "TypeScript", "Vite", "Tailwind 4", "Framer Motion"],
     image: coverPetroelemites,
+    // TODO(live_url): the repo's `homepage` field is
+    // https://petroelemites-beige.vercel.app, which returns
+    // 404 DEPLOYMENT_NOT_FOUND as of 2026-09-08. Awaiting the current URL
+    // before shipping it — see docs/ux-research.md §4.
     source_code_link: "https://github.com/LottaCodr/Petroelemites",
-    note: "Deployment retired — source only",
+    note: "Live URL pending",
   },
   {
     id: "hilink",
@@ -324,22 +328,22 @@ export const projects = [
     category: "mobile",
     year: "2026",
     role: "Mobile engineer",
-    tagline: "On-device style intelligence — the camera does the detecting, not the cloud.",
+    tagline: "Outfits from the clothes you already own, filtered by weather and occasion.",
     description:
-      "React Native companion to Glimms AI. Scans clothing and furniture locally, queues uploads for bad signal, and renders generated lookbooks with confidence scoring.",
-    tags: ["React Native", "TypeScript", "NativeWind", "Expo"],
+      "Expo companion to Glimms AI. A style-setup flow captures weather, occasion and colour preference; users upload closet pieces and get combinations, then save favourite looks over time.",
+    tags: ["Expo Router", "React Native", "Zustand", "TanStack Query"],
     source_code_link: "https://github.com/LottaCodr/Glimms-mobile",
   },
   {
     id: "fixam",
-    name: "FIXAM",
+    name: "FixAm",
     category: "mobile",
-    year: "2024",
+    year: "2026",
     role: "Mobile engineer",
-    tagline: "A fashion discovery app with a recommendation feed built for low-end Android.",
+    tagline: "Lagos-first home services — book a verified artisan, pay, track the job.",
     description:
-      "React Native client with a lookbook discovery feed, style-recommendation cards and a bottom tab shell. Tuned for smooth 60fps scrolling on budget hardware.",
-    tags: ["React Native", "TypeScript", "NativeWind"],
+      "Expo client for booking vetted local artisans, with Flutterwave checkout, job tracking and OTP auth. Ships in a keyless mock mode so it can be demoed before any Supabase project exists.",
+    tags: ["Expo", "React Native", "TypeScript", "Supabase", "Flutterwave"],
     source_code_link: "https://github.com/LottaCodr/FIXAM-Mobile-App",
   },
   {
@@ -348,9 +352,9 @@ export const projects = [
     category: "web",
     year: "2024",
     role: "Frontend engineer",
-    tagline: "A social client with almost nothing in it — deliberately.",
+    tagline: "A minimal social client scaffolded from the Vite + TypeScript template.",
     description:
-      "React + TypeScript exercise in restraint: one timeline column, no infinite feed, no engagement mechanics. Built to see how much of a social product you can remove before it stops working.",
+      "Early experiment in stripping a social product back to its minimum. Kept in the portfolio as a record of the scaffold rather than as finished work.",
     tags: ["React", "TypeScript", "Vite"],
     source_code_link: "https://github.com/LottaCodr/SocialLite-Web-App-",
   },
@@ -499,7 +503,7 @@ export const caseStudies = [
     ],
     role: "Frontend engineer",
     timeline: "2025",
-    stack: ["Next.js", "TypeScript", "Tailwind 4", "React Router 7", "Archivo", "Playfair Display"],
+    stack: ["Vite 6", "React 19", "TypeScript", "Tailwind 4", "React Router 7", "Archivo", "Playfair Display"],
     problem:
       "A sustainable-fashion events brand had three finished Figma frames and no site. The frames leaned hard on editorial typography — stacked display headlines, black side rails, brand strips — which is exactly the kind of design that falls apart when it becomes responsive.",
     constraints:
