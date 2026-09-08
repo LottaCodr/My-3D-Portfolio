@@ -21,7 +21,7 @@ export default function ScrollProgress() {
     <motion.div
       aria-hidden="true"
       style={{ scaleX }}
-      className="fixed inset-x-0 top-0 z-progress h-[2px] origin-left bg-gradient-to-r from-accent via-accentsoft to-accent"
+      className="pointer-events-none fixed inset-x-0 top-0 z-progress h-[2px] origin-left bg-gradient-to-r from-accent via-accentsoft to-accent"
     />
   );
 }

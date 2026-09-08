@@ -1,7 +1,7 @@
 import { SectionWrapper } from "../hoc";
 import Reveal from "./ui/Reveal";
 import SectionHeading from "./ui/SectionHeading";
-import { capabilities, profile, services, skillsPills } from "../constants";
+import { capabilities, profile, skillsPills } from "../constants";
 import { Check, Spark } from "./ui/Icons";
 
 function About() {
@@ -9,31 +9,24 @@ function About() {
     <>
       <SectionHeading
         eyebrow="Introduction"
-        title="I ship software that has to survive contact with real users."
-        lede="Five years of building for hospitals, farmers, fashion brands and church communities. The through-line is the same each time: a system that a non-technical person can use on their first attempt, running on infrastructure that does not fall over when the third-party API has a bad day."
+        title="I build software that survives real users."
+        lede="5+ years shipping for hospitals, startups and brands — interfaces anyone can master on the first try, on infrastructure that holds up when third-party APIs don't."
       />
 
       <div className="mt-14 grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
         <Reveal className="space-y-6 text-[1.0625rem] leading-[1.75] text-muted">
           <p>
-            I work full-stack, but I start at the interface. Most of my projects
-            began with someone who could not complete a task — a nurse who could
-            not see the queue, an investor who could not read a farm listing, a
-            parish administrator re-keying phone numbers by hand — and ended with
-            that task taking a quarter of the time.
+            I&apos;m full-stack but interface-first. Every project starts with
+            someone stuck — a nurse who can&apos;t see the queue, an investor who
+            can&apos;t read a listing — and ends with that task taking a fraction
+            of the time.
           </p>
           <p>
-            That bias shapes the engineering. I type everything end to end because
-            a runtime surprise in a clinical workflow is not an inconvenience. I
-            write deterministic fallbacks into AI pipelines because a provider
-            outage should degrade quality, not break a request. And I treat
-            accessibility as a build step rather than a cleanup pass, because
-            retrofitting focus states onto a monochrome design is harder than
-            designing them once.
+            Typed end to end. Resilient by design. Accessible from day one — not
+            as a cleanup pass.
           </p>
           <p>
-            Currently based in {profile.location}, working with teams remotely and
-            building{" "}
+            Based in {profile.location}, working remotely and building{" "}
             <a
               href="https://glimms-waitlist.vercel.app"
               target="_blank"
@@ -42,8 +35,7 @@ function About() {
             >
               Glimms
             </a>{" "}
-            — an AI styling product that generates outfits, room layouts and garden
-            plans from what people already own.
+            — AI styling from what you already own.
           </p>
 
           <ul className="flex flex-wrap gap-2 pt-2">
@@ -77,38 +69,6 @@ function About() {
             </div>
           ))}
         </Reveal>
-      </div>
-
-      {/* Services */}
-      <div className="mt-20">
-        <h3 className="mono text-xs uppercase tracking-[0.16em] text-faint">
-          How I can help
-        </h3>
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service, i) => (
-            <Reveal
-              as="li"
-              key={service.title}
-              delay={i * 0.06}
-              className="card group p-6 transition-colors duration-300 hover:border-accent/40"
-            >
-              <img
-                src={service.icon}
-                alt=""
-                aria-hidden="true"
-                width={36}
-                height={36}
-                className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-110"
-              />
-              <h4 className="mt-5 text-base font-semibold text-fg">
-                {service.title}
-              </h4>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                {service.blurb}
-              </p>
-            </Reveal>
-          ))}
-        </ul>
       </div>
     </>
   );

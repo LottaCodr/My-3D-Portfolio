@@ -6,7 +6,7 @@
 
 <p align="center">
   React and TypeScript web platforms, mobile apps and AI pipelines.<br />
-  16 shipped products, 10 of them live.
+  15 shipped products, 9 of them live.
 </p>
 
 ---
@@ -23,8 +23,8 @@ Short version of what changed:
 | Area | Before | After |
 | --- | --- | --- |
 | Hero | "Let's build something incredible" | Name, role and specialisation above the fold |
-| Project links | 1 of 14 cards had a live URL, hover-only | 16 of 16 cards linked, always visible |
-| Live URLs | 2 of 9 returned `404 DEPLOYMENT_NOT_FOUND` | 9 fetched-and-confirmed + 1 owner-confirmed |
+| Project links | 1 of 14 cards had a live URL, hover-only | 15 of 15 cards linked, always visible |
+| Live URLs | 2 of 9 returned `404 DEPLOYMENT_NOT_FOUND` | 9 fetched-and-confirmed, 0 unverified |
 | Thumbnails | SVG source saved with a `.png` extension | real WebP covers, 1600×1000, ~45 KB each |
 | Copy | invented descriptions (Petroelemites as "WebGL art", FixAm as "fashion", CivicVote as "Flutter") | every project re-checked against its own README |
 | Case studies | 13 shallow ones, all expanded | 5 deep ones, outcome-first accordion |

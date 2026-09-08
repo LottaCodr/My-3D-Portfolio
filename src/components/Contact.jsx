@@ -227,14 +227,10 @@ function Contact() {
             })}
           </ul>
 
-          <div className="space-y-3 border-t border-linesoft pt-7 text-sm text-muted">
+          <div className="border-t border-linesoft pt-7 text-sm text-muted">
             <p className="flex items-center gap-2.5">
               <Pin width={16} height={16} className="flex-none text-accent" />
               {profile.location} — remote-first, overlapping with GMT/BST and US East
-            </p>
-            <p className="flex items-center gap-2.5">
-              <Check width={16} height={16} className="flex-none text-accent" />
-              {profile.availability}
             </p>
           </div>
         </Reveal>

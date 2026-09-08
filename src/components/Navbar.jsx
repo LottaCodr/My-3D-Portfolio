@@ -15,6 +15,7 @@ export default function Navbar() {
 
   const toggleRef = useRef(null);
   const firstLinkRef = useRef(null);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -23,8 +24,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Body scroll-lock + Escape + focus management while the sheet is open.
-     WCAG 2.1.2 (no keyboard trap) and 2.4.3 (focus order). */
+  /* While the sheet is open it behaves as a modal dialog (WAI-ARIA dialog
+     pattern): body scroll-lock, focus moved in, Tab trapped inside, Escape
+     closes with focus returned to the trigger, background marked inert, and
+     a resize up to desktop widths closes it before `md:hidden` hides it and
+     strands the scroll-lock. WCAG 2.1.2, 2.4.3, 4.1.2. */
   useEffect(() => {
     if (!open) return;
     const { overflow } = document.body.style;
@@ -32,16 +36,65 @@ export default function Navbar() {
     // Move focus into the sheet once it has painted.
     requestAnimationFrame(() => firstLinkRef.current?.focus());
 
+    const main = document.getElementById("main");
+    const footer = document.querySelector("footer");
+    main?.toggleAttribute("inert", true);
+    footer?.toggleAttribute("inert", true);
+
     const onKey = (e) => {
       if (e.key === "Escape") {
         setOpen(false);
         toggleRef.current?.focus();
+        return;
+      }
+      // Focus trap: keep Tab cycling inside the dialog.
+      if (e.key === "Tab" && menuRef.current) {
+        const items = menuRef.current.querySelectorAll(
+          "a[href], button:not([disabled])",
+        );
+        if (items.length === 0) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
     document.addEventListener("keydown", onKey);
+
+    // `md:hidden` hides the sheet at >=768px — close it first so the
+    // scroll-lock and inert flags never leak into the desktop layout.
+    let mq = null;
+    let onViewport = null;
+    if (typeof window.matchMedia === "function") {
+      mq = window.matchMedia("(min-width: 768px)");
+      onViewport = (e) => {
+        if (e.matches) setOpen(false);
+      };
+      if (mq.matches) setOpen(false);
+      else if (typeof mq.addEventListener === "function") {
+        mq.addEventListener("change", onViewport);
+      } else if (typeof mq.addListener === "function") {
+        mq.addListener(onViewport);
+      }
+    }
+
     return () => {
       document.body.style.overflow = overflow;
+      main?.removeAttribute("inert");
+      footer?.removeAttribute("inert");
       document.removeEventListener("keydown", onKey);
+      if (mq && onViewport) {
+        if (typeof mq.removeEventListener === "function") {
+          mq.removeEventListener("change", onViewport);
+        } else if (typeof mq.removeListener === "function") {
+          mq.removeListener(onViewport);
+        }
+      }
     };
   }, [open]);
 
@@ -51,6 +104,11 @@ export default function Navbar() {
     const el = document.getElementById(id);
     if (!el) return;
     el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    // Move keyboard + screen-reader focus to the section navigated to. The
+    // anchor span carries tabindex="-1" so this is silent for mouse users and
+    // orienting for everyone else. scrollIntoView already scrolled, so don't
+    // scroll again.
+    el.focus({ preventScroll: true });
     // Keep the URL shareable without a hard jump.
     window.history.replaceState(null, "", `#${id}`);
   }, [reduce]);
@@ -66,11 +124,17 @@ export default function Navbar() {
         Skip to main content
       </a>
 
+      {/* While the sheet is open the header steps above it (z-70 over the
+          sheet's z-60) so the logo and the close control stay visible and
+          tappable; its own background drops out so the sheet reads as one
+          continuous surface. */}
       <header
-        className={`fixed inset-x-0 top-0 z-nav safe-top transition-[background-color,border-color,backdrop-filter] duration-300 ${
-          scrolled
-            ? "border-b border-linesoft bg-bg/80 backdrop-blur-xl"
-            : "border-b border-transparent bg-transparent"
+        className={`fixed inset-x-0 top-0 safe-top transition-[background-color,border-color,backdrop-filter] duration-300 ${
+          open
+            ? "z-[70] border-b border-transparent bg-transparent"
+            : scrolled
+              ? "z-nav border-b border-linesoft bg-bg/80 backdrop-blur-xl"
+              : "z-nav border-b border-transparent bg-transparent"
         }`}
       >
         <nav
@@ -125,6 +189,7 @@ export default function Navbar() {
               type="button"
               className="icon-btn md:hidden"
               aria-expanded={open}
+              aria-haspopup="dialog"
               aria-controls="mobile-menu"
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
@@ -141,11 +206,15 @@ export default function Navbar() {
         {open && (
           <motion.div
             id="mobile-menu"
+            ref={menuRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-overlay flex flex-col bg-bg/98 pt-nav backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-overlay flex flex-col overflow-y-auto bg-bg/98 pt-nav backdrop-blur-xl md:hidden"
           >
             <ul className="shell flex flex-1 flex-col justify-center gap-1">
               {navLinks.map((nav, i) => (

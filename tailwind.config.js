@@ -63,16 +63,10 @@ export default {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
-        'pulse-ring': {
-          '0%': { transform: 'scale(1)', opacity: '0.6' },
-          '70%': { transform: 'scale(2.2)', opacity: '0' },
-          '100%': { transform: 'scale(2.2)', opacity: '0' },
-        },
       },
       animation: {
         marquee: 'marquee 38s linear infinite',
         shimmer: 'shimmer 2.4s linear infinite',
-        'pulse-ring': 'pulse-ring 2.4s ease-out infinite',
       },
     },
   },

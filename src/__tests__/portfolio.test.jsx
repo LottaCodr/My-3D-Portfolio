@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, within, fireEvent } from "@testing-library/react";
+import { render, screen, within, fireEvent, act } from "@testing-library/react";
 
 import App from "../App";
 import { projects, caseStudies, stats, socials, profile } from "../constants";
@@ -29,23 +29,25 @@ const VERIFIED_LIVE = new Set([
   "https://echoloft-landing-page.vercel.app",
   "https://glimms-waitlist.vercel.app",
   "https://lwmp-alert-automation.vercel.app",
-  "https://hi-link-travel-app.vercel.app",
+  "https://petroelemites-ltd.vercel.app",
   "https://lotaport.vercel.app",
 ]);
 
 /* Owner-confirmed deployments that were NOT reachable when probed.
  *
- * petroelemites-beige.vercel.app returned 404 DEPLOYMENT_NOT_FOUND on
- * 2026-09-08. The repository owner was shown that result and explicitly chose
- * to ship this URL anyway, so it is tracked here — separately from the
- * fetched-and-confirmed set above — rather than being folded in and making
- * the distinction meaningless. Re-probe it before each deploy. */
-const OWNER_CONFIRMED = new Set(["https://petroelemites-beige.vercel.app"]);
+ * Empty right now: the one former entry (petroelemites-beige) was replaced by
+ * petroelemites-ltd.vercel.app, which was fetched and confirmed live on
+ * 2026-09-08, so it graduated to VERIFIED_LIVE. The set stays here so the
+ * distinction between \"someone loaded this page\" and \"the owner says this
+ * is the URL\" is still enforceable. Re-probe before each deploy. */
+const OWNER_CONFIRMED = new Set([]);
 
 const KNOWN_DEAD = [
   "top-six-smoky.vercel.app",
   // Superseded: care-pulse-olive.vercel.app 301s to nile-valley-emr.vercel.app
   "care-pulse-olive.vercel.app",
+  // Superseded: petroelemites-beige.vercel.app 404'd; replaced by petroelemites-ltd.vercel.app
+  "petroelemites-beige.vercel.app",
 ];
 
 beforeEach(() => {
@@ -86,7 +88,7 @@ describe("project data", () => {
       .filter((p) => p.live_url && OWNER_CONFIRMED.has(p.live_url))
       .map((p) => p.name);
     // If this grows, a link is going out without anyone having loaded it.
-    expect(shipped).toEqual(["Petroelemites Investment"]);
+    expect(shipped).toEqual([]);
   });
 
   it("ships no URL known to be dead", () => {
@@ -235,7 +237,7 @@ describe("rendered app", () => {
   it("renders every project with a clickable link", () => {
     render(<App />);
     const articles = screen.getAllByRole("article");
-    // 16 project cards; case studies are <article> too but live in another section
+    // 15 project cards; case studies are <article> too but live in another section
     expect(articles.length).toBeGreaterThanOrEqual(projects.length);
 
     const projectNames = projects.map((p) => p.name);
@@ -277,11 +279,11 @@ describe("work filters", () => {
     fireEvent.click(mobileBtn);
     expect(mobileBtn).toHaveAttribute("aria-pressed", "true");
 
-    expect(screen.getByText(/Showing 3 of 16 projects/i)).toBeInTheDocument();
+    expect(screen.getByText(/Showing 3 of 15 projects/i)).toBeInTheDocument();
 
     const allBtn = screen.getByRole("button", { name: /^All work/i });
     fireEvent.click(allBtn);
-    expect(screen.getByText(/Showing 16 of 16 projects/i)).toBeInTheDocument();
+    expect(screen.getByText(/Showing 15 of 15 projects/i)).toBeInTheDocument();
   });
 });
 
@@ -329,6 +331,80 @@ describe("mobile navigation", () => {
     // AnimatePresence keeps the node for the exit transition, so assert on the
     // state that matters rather than on immediate removal.
     expect(document.body.style.overflow).toBe("");
+  });
+
+  it("exposes the open menu as a modal dialog with an inert background", () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /open menu/i }));
+
+    const menu = screen.getByRole("dialog", { name: /menu/i });
+    expect(menu).toHaveAttribute("id", "mobile-menu");
+    expect(menu).toHaveAttribute("aria-modal", "true");
+    expect(document.getElementById("main")).toHaveAttribute("inert");
+  });
+
+  it("traps Tab focus inside the open menu", () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /open menu/i }));
+
+    const menu = screen.getByRole("dialog", { name: /menu/i });
+    const stops = within(menu).getAllByRole("link");
+    expect(stops.length).toBeGreaterThan(1);
+
+    // Tab on the last stop wraps to the first …
+    stops[stops.length - 1].focus();
+    fireEvent.keyDown(document, { key: "Tab" });
+    expect(document.activeElement).toBe(stops[0]);
+
+    // … and Shift+Tab on the first stop wraps to the last.
+    stops[0].focus();
+    fireEvent.keyDown(document, { key: "Tab", shiftKey: true });
+    expect(document.activeElement).toBe(stops[stops.length - 1]);
+  });
+
+  it("closes the menu when the viewport grows to desktop width", () => {
+    // Without this, `md:hidden` hides the sheet while the scroll-lock and
+    // inert flags leak into the desktop layout.
+    const listeners = [];
+    const spy = vi.spyOn(window, "matchMedia").mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: (_type, cb) => listeners.push([query, cb]),
+      removeEventListener: (_type, cb) => {
+        const i = listeners.findIndex(([q, fn]) => q === query && fn === cb);
+        if (i >= 0) listeners.splice(i, 1);
+      },
+      addListener: (cb) => listeners.push([query, cb]),
+      removeListener: (cb) => {
+        const i = listeners.findIndex(([q, fn]) => q === query && fn === cb);
+        if (i >= 0) listeners.splice(i, 1);
+      },
+      dispatchEvent: () => false,
+    }));
+    try {
+      render(<App />);
+      fireEvent.click(screen.getByRole("button", { name: /open menu/i }));
+      expect(document.getElementById("mobile-menu")).toBeInTheDocument();
+
+      // Simulate crossing the md breakpoint upward. Only the navbar's
+      // listener fires — other queries (e.g. the touch detection in Works)
+      // must not be disturbed.
+      act(() => {
+        for (const [query, cb] of [...listeners]) {
+          if (query === "(min-width: 768px)") cb({ matches: true });
+        }
+      });
+
+      expect(screen.getByRole("button", { name: /open menu/i })).toHaveAttribute(
+        "aria-expanded",
+        "false",
+      );
+      expect(document.body.style.overflow).toBe("");
+      expect(document.getElementById("main")).not.toHaveAttribute("inert");
+    } finally {
+      spy.mockRestore();
+    }
   });
 });
 

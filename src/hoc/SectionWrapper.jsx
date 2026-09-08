@@ -14,8 +14,11 @@ const SectionWrapper = (Component, idName) =>
         aria-labelledby={idName ? `${idName}-heading` : undefined}
         className="shell section relative"
       >
+        {/* tabindex="-1": a programmatic focus target only. Navbar moves focus
+            here after in-page navigation so keyboard and screen-reader users
+            land in context; it never enters the Tab order. */}
         {idName && (
-          <span className="hash-span" id={idName}>
+          <span className="hash-span" id={idName} tabIndex={-1}>
             &nbsp;
           </span>
         )}
