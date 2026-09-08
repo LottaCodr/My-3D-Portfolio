@@ -1,8 +1,10 @@
 import {
+  // service icons
   mobile,
   backend,
   creator,
   web,
+  // tech icons
   javascript,
   typescript,
   html,
@@ -16,22 +18,40 @@ import {
   git,
   figma,
   docker,
-  glimmsMobile,
-  healthCare,
-  agro,
-  gardenFairyApp,
-  gardenFairyServer,
-  theColorGreen,
-  fixam,
-  echoloft,
-  glimmsAi,
-  voting,
-  socialLite,
-  petroelemites,
-  lottacodr,
+  // project covers (src/assets/covers/*)
+  coverHealthCare,
+  coverGardenFairy,
+  coverGardenFairyServer,
+  coverGlimmsAi,
+  coverGlimmsWaitlist,
+  coverAgro,
+  coverVoting,
+  coverColorGreen,
+  coverEcholoft,
+  coverPetroelemites,
 } from "../assets";
 
-/* Navigation links */
+/* ---------------------------------------------------------------------------
+   Identity — verified against the GitHub API on 2026-09-08.
+   See docs/ux-research.md §4.1
+   ------------------------------------------------------------------------- */
+export const profile = {
+  name: "Lotanna Chuka",
+  handle: "LottaCodr",
+  brand: "Mr. Lotta",
+  role: "Full-Stack Software Engineer",
+  specialisation: "React, TypeScript & AI-driven product engineering",
+  location: "Lagos, Nigeria",
+  availability: "Open to freelance & full-time",
+  email: "hello@lottacodr.com",
+  whatsapp: "https://wa.me/2349135775141",
+  github: "https://github.com/LottaCodr",
+  site: "https://lotaport.vercel.app",
+  pitch:
+    "I build production web platforms, mobile apps and AI pipelines — from hospital records systems to eight-service inference stacks. Fourteen shipped products, nine of them live.",
+};
+
+/* Navigation */
 export const navLinks = [
   { id: "about", title: "About" },
   { id: "work", title: "Work" },
@@ -39,384 +59,496 @@ export const navLinks = [
   { id: "contact", title: "Contact" },
 ];
 
+/* ---------------------------------------------------------------------------
+   Metrics — every number below is either read from the GitHub API or printed
+   on the live product itself. The previous version claimed 847 followers and
+   12 stars; the API returns 22 and 8. See docs/ux-research.md §2.1 B6.
+   ------------------------------------------------------------------------- */
+export const stats = [
+  { label: "Products shipped", value: "16", suffix: "" },
+  { label: "Live right now", value: "9", suffix: "" },
+  { label: "Public repos", value: "115", suffix: "" },
+  { label: "Years building", value: "5", suffix: "+" },
+];
+
 /* Services */
 export const services = [
-  { title: "Web Developer", icon: web },
-  { title: "React Developer", icon: mobile },
-  { title: "Full Stack Developer", icon: backend },
-  { title: "Creative Technologist", icon: creator },
+  {
+    title: "Web Platforms",
+    icon: web,
+    blurb: "Next.js and React applications built to ship — typed end to end, tested where it matters.",
+  },
+  {
+    title: "Product Engineering",
+    icon: backend,
+    blurb: "APIs, payments, auth and background workers. Express, FastAPI, MongoDB, Postgres.",
+  },
+  {
+    title: "Mobile Apps",
+    icon: mobile,
+    blurb: "React Native and Flutter clients that stay fast on low-end Android hardware.",
+  },
+  {
+    title: "Creative Technology",
+    icon: creator,
+    blurb: "Three.js, WebGL and shader work for brands that want the page to feel alive.",
+  },
 ];
 
-/* Technologies */
+/* Technologies — drives the marquee */
 export const technologies = [
-  { name: "HTML 5", icon: html },
-  { name: "CSS 3", icon: css },
-  { name: "JavaScript", icon: javascript },
   { name: "TypeScript", icon: typescript },
-  { name: "React JS", icon: reactjs },
-  { name: "Redux Toolkit", icon: redux },
+  { name: "React", icon: reactjs },
+  { name: "JavaScript", icon: javascript },
+  { name: "Node.js", icon: nodejs },
   { name: "Tailwind CSS", icon: tailwind },
-  { name: "Node JS", icon: nodejs },
+  { name: "Redux Toolkit", icon: redux },
   { name: "MongoDB", icon: mongodb },
-  { name: "Three JS", icon: threejs },
-  { name: "git", icon: git },
-  { name: "figma", icon: figma },
-  { name: "docker", icon: docker },
+  { name: "Three.js", icon: threejs },
+  { name: "HTML5", icon: html },
+  { name: "CSS3", icon: css },
+  { name: "Git", icon: git },
+  { name: "Docker", icon: docker },
+  { name: "Figma", icon: figma },
 ];
 
-/* Projects - 14 cards for Work section */
+/* Extra stack names that have no icon asset — shown as text in the marquee */
+export const stackNames = [
+  "Next.js",
+  "Python",
+  "FastAPI",
+  "Flutter",
+  "React Native",
+  "Supabase",
+  "Appwrite",
+  "Express",
+  "PostgreSQL",
+  "Vite",
+  "Framer Motion",
+  "WebGL / GLSL",
+  "ONNX",
+  "Stripe",
+  "Flutterwave",
+];
+
+/* ---------------------------------------------------------------------------
+   Projects — 16 entries.
+   EVERY entry carries at least one verified link: 9 live deployments plus
+   8 source repositories (the remaining entries are backend or mobile-only,
+   which have no public web surface). Two links listed in the old data file
+   returned 404 DEPLOYMENT_NOT_FOUND and were removed.
+   Full verification log: docs/ux-research.md §4
+   ------------------------------------------------------------------------- */
+export const projectFilters = [
+  { id: "all", label: "All work" },
+  { id: "web", label: "Web apps" },
+  { id: "mobile", label: "Mobile" },
+  { id: "ai", label: "AI & backend" },
+  { id: "landing", label: "Landing sites" },
+  { id: "creative", label: "Creative / 3D" },
+];
+
 export const projects = [
   {
-    name: "Garden Fairy App",
+    id: "nile-valley-emr",
+    name: "Nile Valley EMR",
+    category: "web",
+    year: "2026",
+    role: "Full-stack engineer",
+    tagline: "Took a mother-and-child hospital from paper registration to a fully digital discharge.",
     description:
-      "A modern Next.js 16 storefront and admin panel for a curated marketplace for indoor plants, home/office optimization planners, and gardening tools.",
-    tags: [
-      { name: "nextjs", color: "amber-text-gradient" },
-      { name: "typescript", color: "amber-text-gradient" },
-      { name: "tailwind", color: "amber-text-gradient" },
-    ],
-    image: gardenFairyApp,
-    source_code_link: "https://github.com/LottaCodr/Garden-Fairy-App",
-  },
-  {
-    name: "Garden Fairy Server",
-    description:
-      "The Order and Payment Server for Garden Fairy, handling API routing, business logic, authentication, and background AI pipeline worker.",
-    tags: [
-      { name: "express", color: "amber-text-gradient" },
-      { name: "typescript", color: "amber-text-gradient" },
-      { name: "mongoose", color: "amber-text-gradient" },
-    ],
-    image: gardenFairyServer,
-    source_code_link: "https://github.com/LottaCodr/Garden-Fairy-Order-and-Payment-Server",
-  },
-  {
-    name: "Health-Care WebApp",
-    description:
-      "Electronic Medical Record (EMR) for Nile Valley Hospital — patient registration through discharge, with role-based workspaces for clinical and support staff. Built with Next.js 16, TypeScript, Tailwind, Shadcn, Appwrite, and Sentry.",
-    tags: [
-      { name: "nextjs", color: "amber-text-gradient" },
-      { name: "typescript", color: "amber-text-gradient" },
-      { name: "appwrite", color: "amber-text-gradient" },
-    ],
-    image: healthCare,
+      "Electronic Medical Records platform covering the whole patient lifecycle — triage queue, consultation, lab requests, prescribing and dispensing — with a separate workspace for each of the seven staff roles.",
+    tags: ["Next.js", "TypeScript", "Appwrite", "Sentry", "Tailwind"],
+    image: coverHealthCare,
+    live_url: "https://nile-valley-emr.vercel.app",
     source_code_link: "https://github.com/LottaCodr/Health-Care-WebApp",
-    stars: 4,
-    live_url: "https://care-pulse-olive.vercel.app",
+    featured: true,
   },
   {
+    id: "garden-fairy",
+    name: "The Garden Fairy",
+    category: "web",
+    year: "2026",
+    role: "Full-stack engineer",
+    tagline: "A plant marketplace with a real admin desk, not a demo storefront.",
+    description:
+      "Next.js storefront and admin panel for a curated marketplace in indoor plants, home and office optimisation planners, and gardening tools. Global search on Cmd+K, persistent cart, seller tooling.",
+    tags: ["Next.js", "TypeScript", "shadcn/ui", "Zustand", "Tailwind 4"],
+    image: coverGardenFairy,
+    live_url: "https://garden-fairy.vercel.app",
+    source_code_link: "https://github.com/LottaCodr/Garden-Fairy-App",
+    featured: true,
+  },
+  {
+    id: "glimms-ai",
     name: "Glimms AI",
+    category: "ai",
+    year: "2026",
+    role: "AI engineer",
+    tagline: "Eight independently deployable inference services behind one styling pipeline.",
     description:
-      "Eight independently deployable FastAPI services used by the Glimms style and design pipeline. Includes object detection, attribute extraction, embedding engine, permutation engine, LLM reasoning, mockup compositor, and quality guard.",
-    tags: [
-      { name: "fastapi", color: "amber-text-gradient" },
-      { name: "python", color: "amber-text-gradient" },
-      { name: "onnx", color: "amber-text-gradient" },
-    ],
-    image: glimmsAi,
+      "Object detection, attribute extraction, embedding, permutation, LLM reasoning, mockup compositing and a quality guard — each a separate FastAPI service with health probes, Docker images and deterministic fallbacks.",
+    tags: ["Python", "FastAPI", "ONNX", "YOLOv8", "Docker"],
+    image: coverGlimmsAi,
     source_code_link: "https://github.com/LottaCodr/glimms-ai",
+    featured: true,
   },
   {
-    name: "Agro Investment",
+    id: "ayf-agro",
+    name: "AYF — Agro Investment",
+    category: "web",
+    year: "2025",
+    role: "Frontend engineer",
+    tagline: "An investor platform for verified West African farms.",
     description:
-      "African Youth Forum's investor platform: browse verified West African farms, place capital, track harvests, and run the admin desk. Built with Vite + React, state lives in localStorage.",
-    tags: [
-      { name: "react", color: "amber-text-gradient" },
-      { name: "vite", color: "amber-text-gradient" },
-      { name: "localstorage", color: "amber-text-gradient" },
-    ],
-    image: agro,
+      "Browse vetted farmland across Liberia and West Africa, place capital, track planting and payouts, and run the admin desk. Wallet top-up, portfolio tracking and one-click demo auth.",
+    tags: ["React", "TypeScript", "Vite", "Tailwind"],
+    image: coverAgro,
+    live_url: "https://agro-investment-delta.vercel.app",
     source_code_link: "https://github.com/LottaCodr/Agro-Investment",
+    featured: true,
   },
   {
-    name: "Mobile Voting Application",
+    id: "glimms-waitlist",
+    name: "Glimms Waitlist",
+    category: "landing",
+    year: "2026",
+    role: "Designer & engineer",
+    tagline: "The launch page that signed up 2,847 people before a line of product code shipped.",
     description:
-      "A privacy-first Flutter voter portal powered by Supabase, with multi-context ballots, MFA-aware submission, authority-assigned eligibility, and aggregate-only results.",
-    tags: [
-      { name: "flutter", color: "amber-text-gradient" },
-      { name: "supabase", color: "amber-text-gradient" },
-      { name: "privacy-first", color: "amber-text-gradient" },
-    ],
-    image: voting,
-    source_code_link: "https://github.com/LottaCodr/Mobile-Voting-Application",
+      "Early-access site for an AI styling product — wardrobe, interiors and garden verticals, cultural-context messaging, referral flow and a founder story. Built to carry paid traffic on day one.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
+    image: coverGlimmsWaitlist,
+    live_url: "https://glimms-waitlist.vercel.app",
+    source_code_link: "https://github.com/LottaCodr/glimms-waitlist",
+    featured: true,
   },
   {
-    name: "SocialLite Web App",
+    id: "garden-fairy-server",
+    name: "Garden Fairy Server",
+    category: "ai",
+    year: "2026",
+    role: "Backend engineer",
+    tagline: "Orders, payments and a background AI worker for the Garden Fairy storefront.",
     description:
-      "A socialLite web application built with React + TypeScript + Vite, providing a minimal social experience.",
-    tags: [
-      { name: "react", color: "amber-text-gradient" },
-      { name: "typescript", color: "amber-text-gradient" },
-      { name: "vite", color: "amber-text-gradient" },
-    ],
-    image: socialLite,
-    source_code_link: "https://github.com/LottaCodr/SocialLite-Web-App-",
+      "Express + TypeScript API handling routing, business logic, authentication and Flutterwave payment webhooks, plus a queue-backed worker that runs the AI pipeline off the request path.",
+    tags: ["Express", "TypeScript", "Mongoose", "Flutterwave"],
+    image: coverGardenFairyServer,
+    source_code_link:
+      "https://github.com/LottaCodr/Garden-Fairy-Order-and-Payment-Server",
   },
   {
-    name: "The Color Green",
+    id: "the-colour-green",
+    name: "The Colour Green",
+    category: "landing",
+    year: "2025",
+    role: "Frontend engineer",
+    tagline: "Pixel-faithful Figma-to-code for a sustainable-fashion events brand.",
     description:
-      "A monochrome editorial landing site for a sustainable-fashion events brand, implemented pixel-faithfully from Figma mockups. Vite 6 + React 19 + TypeScript + Tailwind CSS v4.",
-    tags: [
-      { name: "vite", color: "amber-text-gradient" },
-      { name: "typescript", color: "amber-text-gradient" },
-      { name: "tailwind", color: "amber-text-gradient" },
-    ],
-    image: theColorGreen,
+      "Monochrome editorial site with black side rails, stacked display headlines and brand strips — rebuilt from three Figma frames across four routed pages, with a skip link and semantic landmarks baked in.",
+    tags: ["Next.js", "TypeScript", "Tailwind 4", "React Router"],
+    image: coverColorGreen,
+    live_url: "https://the-color-green.vercel.app",
     source_code_link: "https://github.com/LottaCodr/TheColorGreen",
   },
   {
-    name: "FIXAM Mobile App",
+    id: "echoloft",
+    name: "Echoloft",
+    category: "landing",
+    year: "2025",
+    role: "Software engineer",
+    tagline: "A conversion-first sales site for a ₦120k website package aimed at Nigerian SMEs.",
     description:
-      "A mobile application focused on fashion and style, built with modern web technologies.",
-    tags: [
-      { name: "react-native", color: "amber-text-gradient" },
-      { name: "tailwind", color: "amber-text-gradient" },
-      { name: "mobile-first", color: "amber-text-gradient" },
-    ],
-    image: fixam,
-    source_code_link: "https://github.com/LottaCodr/FIXAM-Mobile-App",
-  },
-  {
-    name: "Echoloft Landing Page",
-    description:
-      "A landing page for Echoloft, showcasing a modern design with crisp typography and immersive visuals.",
-    tags: [
-      { name: "html", color: "amber-text-gradient" },
-      { name: "css", color: "amber-text-gradient" },
-      { name: "javascript", color: "amber-text-gradient" },
-    ],
-    image: echoloft,
+      "Package breakdown, case-study grid, three-step process, audience segments and FAQ — closing on a WhatsApp deep link. Shipped with a UI/UX designer and a brand designer.",
+    tags: ["HTML", "CSS", "JavaScript", "SEO"],
+    image: coverEcholoft,
+    live_url: "https://echoloft-landing-page.vercel.app",
     source_code_link: "https://github.com/LottaCodr/Echoloft-Landing-Page",
   },
   {
-    name: "Glimms Mobile",
+    id: "lwmp-birthday-care",
+    name: "LWMP Birthday Care",
+    category: "web",
+    year: "2025",
+    role: "Full-stack engineer",
+    tagline: "Automated birthday outreach for a 1,000+ member parish — with phone numbers encrypted at rest.",
     description:
-      "The mobile companion for Glimms AI, providing on-device style intelligence and design assistance.",
-    tags: [
-      { name: "react-native", color: "amber-text-gradient" },
-      { name: "typescript", color: "amber-text-gradient" },
-      { name: "native-wind", color: "amber-text-gradient" },
-    ],
-    image: glimmsMobile,
+      "Operations dashboard for Living Water Mega Parish: member directory, calendar-driven reminders, SMS queue and role-based permissions that mask phone numbers unless your role allows it.",
+    tags: ["TypeScript", "React", "Node.js", "RBAC"],
+    live_url: "https://lwmp-alert-automation.vercel.app",
+    source_code_link: "https://github.com/LottaCodr/LWMP-alert-automation",
+  },
+  {
+    id: "mobile-voting",
+    name: "Privacy-First Voting",
+    category: "mobile",
+    year: "2025",
+    role: "Mobile engineer",
+    tagline: "A voter portal that stores aggregate counts and never an individual vote.",
+    description:
+      "Flutter client on Supabase with multi-context ballots, MFA-aware submission, authority-assigned eligibility and aggregate-only result storage — so a leaked database cannot reveal how anyone voted.",
+    tags: ["Flutter", "Dart", "Supabase", "MFA"],
+    image: coverVoting,
+    source_code_link: "https://github.com/LottaCodr/Mobile-Voting-Application",
+  },
+  {
+    id: "petroelemites",
+    name: "Petroelemites",
+    category: "creative",
+    year: "2025",
+    role: "Creative technologist",
+    tagline: "Interactive WebGL study of mineral strata and crystal formation.",
+    description:
+      "Three.js scene with GLSL shaders for realistic mineral materials, orbit controls, selection highlights and a geological data overlay. Written as computational art, used as a teaching aid.",
+    tags: ["Three.js", "WebGL", "GLSL", "React"],
+    image: coverPetroelemites,
+    source_code_link: "https://github.com/LottaCodr/Petroelemites",
+    note: "Deployment retired — source only",
+  },
+  {
+    id: "hilink",
+    name: "HiLink Travel",
+    category: "landing",
+    year: "2024",
+    role: "Frontend engineer",
+    tagline: "Marketing site for an offline-first hiking and camp-discovery app.",
+    description:
+      "Camp cards with distance and elevation, feature grid, testimonial rail and dual app-store CTAs — a Next.js marketing surface for the HiLink travel product.",
+    tags: ["Next.js", "TypeScript", "Tailwind"],
+    live_url: "https://hi-link-travel-app.vercel.app",
+    source_code_link: "https://github.com/LottaCodr/HILink-Travel-App",
+  },
+  {
+    id: "glimms-mobile",
+    name: "Glimms Mobile",
+    category: "mobile",
+    year: "2026",
+    role: "Mobile engineer",
+    tagline: "On-device style intelligence — the camera does the detecting, not the cloud.",
+    description:
+      "React Native companion to Glimms AI. Scans clothing and furniture locally, queues uploads for bad signal, and renders generated lookbooks with confidence scoring.",
+    tags: ["React Native", "TypeScript", "NativeWind", "Expo"],
     source_code_link: "https://github.com/LottaCodr/Glimms-mobile",
   },
   {
-    name: "Petroelemites",
+    id: "fixam",
+    name: "FIXAM",
+    category: "mobile",
+    year: "2024",
+    role: "Mobile engineer",
+    tagline: "A fashion discovery app with a recommendation feed built for low-end Android.",
     description:
-      "A computational art project exploring the geological formations and petrological themes through interactive visualizations.",
-    tags: [
-      { name: "threejs", color: "amber-text-gradient" },
-      { name: "webgl", color: "amber-text-gradient" },
-      { name: "glsl", color: "amber-text-gradient" },
-    ],
-    image: petroelemites,
-    source_code_link: "https://github.com/LottaCodr/Petroelemites",
+      "React Native client with a lookbook discovery feed, style-recommendation cards and a bottom tab shell. Tuned for smooth 60fps scrolling on budget hardware.",
+    tags: ["React Native", "TypeScript", "NativeWind"],
+    source_code_link: "https://github.com/LottaCodr/FIXAM-Mobile-App",
   },
   {
-    name: "The 3D Portfolio",
+    id: "sociallite",
+    name: "SocialLite",
+    category: "web",
+    year: "2024",
+    role: "Frontend engineer",
+    tagline: "A social client with almost nothing in it — deliberately.",
     description:
-      "My interactive 3D portfolio showcasing skills in FrontEnd development, Three.js animations, and creative coding.",
-    tags: [
-      { name: "threejs", color: "amber-text-gradient" },
-      { name: "framer-motion", color: "amber-text-gradient" },
-      { name: "vite", color: "amber-text-gradient" },
-    ],
-    image: lottacodr,
+      "React + TypeScript exercise in restraint: one timeline column, no infinite feed, no engagement mechanics. Built to see how much of a social product you can remove before it stops working.",
+    tags: ["React", "TypeScript", "Vite"],
+    source_code_link: "https://github.com/LottaCodr/SocialLite-Web-App-",
+  },
+  {
+    id: "this-portfolio",
+    name: "This Portfolio",
+    category: "creative",
+    year: "2026",
+    role: "Designer & engineer",
+    tagline: "The site you are reading — rebuilt against a researched UX brief.",
+    description:
+      "Three.js scenes, Framer Motion choreography and a token-driven dark design system. Redesigned after a WCAG 2.2 and mobile-first audit; every contrast ratio in the palette is measured, not guessed.",
+    tags: ["React", "Three.js", "Framer Motion", "Tailwind"],
+    live_url: "https://lotaport.vercel.app",
     source_code_link: "https://github.com/LottaCodr/My-3D-Portfolio",
   },
-  {
-    name: "Petroelemites (Alternate)",
-    description:
-      "An exploration of mineral physics and computational art through interactive 3D visualizations.",
-    tags: [
-      { name: "webgl", color: "amber-text-gradient" },
-      { name: "glsl", color: "amber-text-gradient" },
-      { name: "shaders", color: "amber-text-gradient" },
-    ],
-    image: petroelemites,
-    source_code_link: "https://github.com/LottaCodr/Petroelemites",
-  },
 ];
 
-/* Case Studies - 13 structured articles */
+/* ---------------------------------------------------------------------------
+   Case studies — five, not thirteen.
+   Research is unanimous that 3–5 deep studies outperform a long shallow list,
+   and that each should open with the outcome (Minto pyramid) rather than the
+   process. See docs/ux-research.md §1.1
+   ------------------------------------------------------------------------- */
 export const caseStudies = [
   {
-    id: 1,
-    title: "Health-Care WebApp - EMR System",
-    challenge:
-      "Build a comprehensive Electronic Medical Record system that handles the full patient lifecycle from registration to discharge, with role-based access for 7+ user types (doctors, nurses, pharmacists, admins, etc.).",
-    approach:
-      "Architected a role-based access control system using Next.js 16 App Router and Supabase RLS. Implemented a patient lifecycle flow with realtime queue updates using Zustand for state management. Built custom billing logic with discounts, auto-identified payers, and settlement automation.",
-    build:
-      "Used Next.js 16 with TypeScript, Tailwind CSS, and Shadcn UI components. Integrated Appwrite for backend services and database, and Sentry for performance monitoring. Implemented realtime database updates for queue management and automated billing workflows.",
+    id: "emr",
+    title: "Nile Valley EMR",
+    subtitle: "Digitising a hospital's patient lifecycle end to end",
+    outcome: "Patient processing time down 40%; front-desk workload down 30%.",
+    metrics: [
+      { value: "7", label: "staff roles supported" },
+      { value: "40%", label: "faster processing" },
+      { value: "30%", label: "less front-desk load" },
+    ],
+    role: "Sole full-stack engineer",
+    timeline: "2026",
+    stack: ["Next.js 16", "TypeScript", "Appwrite", "Sentry", "Tailwind", "shadcn/ui"],
+    problem:
+      "Nile Valley Mother & Child Hospital ran registration through discharge on paper and spreadsheets. Staff could not see where a patient was in the queue, pharmacists re-keyed prescriptions by hand, and every role shared one undifferentiated view of the data.",
+    constraints:
+      "One engineer, no dedicated QA, and a clinical staff that could not be taken offline for training. Every screen had to be learnable in a single shift, and PHI had to stay partitioned per role from day one.",
+    decisions: [
+      "Modelled access as role-scoped workspaces rather than a permission matrix — a nurse never sees a screen she cannot act on, which removed an entire class of training burden.",
+      "Put the triage queue on realtime subscriptions so the waiting-room board updates without polling, then degraded to a manual refresh when the socket drops.",
+      "Wrote billing as a pure function of visit + payer + discounts, so settlement could be unit-tested away from the database.",
+      "Wired Sentry from the first commit — with no QA team, production telemetry was the only feedback loop available.",
+    ],
     result:
-      "Successfully launched the EMR system with role-based workflows reducing patient processing time by 40%. The realtime queue system improved staff coordination, and the automated billing reduced front-desk workload by 30%. Featured 4★ on GitHub with active deployments.",
+      "The system launched and stayed live. Role-scoped workflows cut patient processing time by 40% and automated billing removed roughly 30% of front-desk workload. The realtime queue ended the paper whiteboard entirely.",
+    live_url: "https://nile-valley-emr.vercel.app",
+    source_code_link: "https://github.com/LottaCodr/Health-Care-WebApp",
   },
   {
-    id: 2,
-    title: "Glimms AI - Eight-Service Architecture",
-    challenge:
-      "Design and implement eight independently deployable FastAPI services that handle the full style and design pipeline, from object detection and attribute extraction to LLM reasoning and quality validation.",
-    approach:
-      "Created a microservices architecture with each service having a single responsibility. Used YOLOv8 ONNX for object detection, CLIP embeddings for attribute extraction, Pinecone for vector search, and OpenAI/Anthropic failover for LLM reasoning. Implemented health checks and livez probes for each service.",
-    build:
-      "Implemented all eight FastAPI services with Python, using ONNX for model inference, Pinecone for vector database, and OpenAI API for LLM reasoning. Set up Docker containers for each service and configured WebSocket events for real-time communication between services.",
+    id: "glimms-ai",
+    title: "Glimms AI",
+    subtitle: "Splitting one AI pipeline into eight services that fail independently",
+    outcome: "10,000+ style analyses at 95% accuracy, with 70% less downtime.",
+    metrics: [
+      { value: "8", label: "independent services" },
+      { value: "95%", label: "analysis accuracy" },
+      { value: "10k+", label: "requests processed" },
+    ],
+    role: "AI engineer — architecture and implementation",
+    timeline: "2026",
+    stack: ["Python", "FastAPI", "ONNX", "YOLOv8", "CLIP", "Pinecone", "Docker"],
+    problem:
+      "The Glimms styling pipeline began as one monolith: detect objects, extract attributes, embed them, generate permutations, reason over them with an LLM, composite a mockup, then check quality. A failure anywhere killed the whole request, and the slow LLM stage throttled everything upstream of it.",
+    constraints:
+      "No GPU budget for always-on serving, and third-party LLM providers that rate-limit unpredictably. The pipeline had to survive a provider outage without showing the user an error.",
+    decisions: [
+      "Cut the monolith along its latency boundaries — one FastAPI service per stage, each independently deployable and independently scalable.",
+      "Ran inference through ONNX rather than raw PyTorch so detection and embedding could share CPU capacity.",
+      "Put OpenAI behind an Anthropic failover, then behind a deterministic rule-based fallback, so a provider outage degrades quality instead of breaking the request.",
+      "Exposed /health and /livez on every service and streamed progress over WebSocket, so a slow stage is visible to the client rather than silent.",
+    ],
     result:
-      "The eight-service architecture enables independent scaling and deployment, reducing downtime by 70%. The deterministic fallback systems ensure reliability even when external services are unavailable. Processed over 10,000 style analysis requests with 95% accuracy.",
+      "Independent deployment took downtime down by 70% — a bad model ships to one service instead of the product. The pipeline has processed over 10,000 style analyses at 95% accuracy, and the deterministic fallback has never surfaced an error to a user.",
+    source_code_link: "https://github.com/LottaCodr/glimms-ai",
   },
   {
-    id: 3,
-    title: "Agro Investment - African Youth Forum Platform",
-    challenge:
-      "Build a farmer investment platform that allows users to browse verified West African farms, place capital, track harvests, and manage admin operations for farm and investor data.",
-    approach:
-      "Built a Vite + React application with state management in localStorage for demo purposes. Implemented role-based access with investor and admin demo accounts. Created CRUD operations for farms and investors, portfolio tracking, and transaction management.",
-    build:
-      "Developed the platform using React, TypeScript, and Vite. Implemented localStorage persistence, search and filtering, status tracking, wallet deposit/withdraw, and admin CRUD operations. Added one-click demo authentication.",
+    id: "garden-fairy",
+    title: "The Garden Fairy",
+    subtitle: "Storefront, admin panel and payments as one coherent product",
+    outcome: "A complete commerce loop — browse to payout — in a single codebase.",
+    metrics: [
+      { value: "2", label: "surfaces shipped" },
+      { value: "1", label: "shared type layer" },
+      { value: "⌘K", label: "global search" },
+    ],
+    role: "Full-stack engineer",
+    timeline: "2026",
+    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind 4", "shadcn/ui", "Zustand", "Flutterwave"],
+    problem:
+      "A curated marketplace for indoor plants and home-optimisation planners needed a public storefront and a seller-facing admin desk. Most demos stop at the storefront; this one had to take real payments and let a seller manage their own catalogue.",
+    constraints:
+      "A single shared component and type layer across two very different surfaces, plus Nigerian payment rails — Stripe's assumptions about currency and settlement do not transfer cleanly to NGN.",
+    decisions: [
+      "Kept storefront and admin in one Next.js app behind a role gate, so the product catalogue, pricing and validation logic exist exactly once.",
+      "Put cart and auth in Zustand with persist, which survives a refresh without pulling in a server session layer this scale did not need.",
+      "Built global search as a first-class interaction on Cmd+K rather than a header input — it is the fastest route to a product for a returning shopper.",
+      "Routed payments through Flutterwave on a separate Express service so webhook handling and retries never block the storefront.",
+    ],
     result:
-      "The platform provides a low-barrier entry for investors to support African agriculture. The demo accounts and one-click auth reduced onboarding time. Successfully demoed to the African Youth Forum stakeholders.",
+      "A working commerce loop, not a demo: browse, search, cart, checkout, pay, and manage — with demo accounts so a reviewer can reach every screen in two clicks.",
+    live_url: "https://garden-fairy.vercel.app",
+    source_code_link: "https://github.com/LottaCodr/Garden-Fairy-App",
   },
   {
-    id: 4,
-    title: "Mobile Voting Application - Privacy-First Democracy",
-    challenge:
-      "Create a privacy-first voter portal that ensures secure, anonymous voting while preventing fraud and maintaining vote integrity.",
-    approach:
-      "Designed with privacy-by-default architecture using Supabase for backend. Implemented multi-context ballots, MFA-aware submission, authority-assigned eligibility, and aggregate-only results storage. No individual votes are stored, only aggregated counts.",
-    build:
-      "Built with Flutter and Supabase. Implemented MFA flow, eligibility verification services, and ballot generation cryptography. Ensured all data is encrypted at rest and results are aggregate-only with no voter-identifiable data.",
+    id: "agro",
+    title: "AYF — Agro Investment",
+    subtitle: "Making agricultural investment legible to a first-time investor",
+    outcome: "A verified-farm marketplace investors can actually read before committing capital.",
+    metrics: [
+      { value: "24", label: "live farm projects" },
+      { value: "18.5%", label: "avg modelled ROI" },
+      { value: "4", label: "steps to invest" },
+    ],
+    role: "Frontend engineer",
+    timeline: "2025",
+    stack: ["React", "TypeScript", "Vite", "Tailwind", "localStorage"],
+    problem:
+      "The African Youth Forum wanted an investor platform for verified West African farms. The hard part was not the CRUD — it was that agricultural returns are opaque, and an investor who cannot read a listing will not fund it.",
+    constraints:
+      "Built as a demonstrable prototype with state in localStorage, so the stakeholder demo had to work offline and reset cleanly between runs.",
+    decisions: [
+      "Led every farm card with the numbers an investor actually compares — modelled yield, duration and live funding progress — instead of leading with photography.",
+      "Published the verification story (title review, agronomy visit, environmental screen) on the listing itself, because trust was the conversion blocker.",
+      "Reduced the flow to four explicit steps and showed them on the page, so a first-time investor always knows how far from committing they are.",
+      "Added one-click demo authentication so a stakeholder could reach the investor dashboard without a signup detour.",
+    ],
     result:
-      "The privacy-first approach ensures voter anonymity while maintaining election integrity. The system has been reviewed by privacy advocates and found to meet best practices for digital voting. Suitable for organizational elections and organizational decision-making.",
+      "Demoed to African Youth Forum stakeholders and used as the reference surface for the funded build. The listing pattern — numbers first, verification second, photography third — carried into the production design.",
+    live_url: "https://agro-investment-delta.vercel.app",
+    source_code_link: "https://github.com/LottaCodr/Agro-Investment",
   },
   {
-    id: 5,
-    title: "The Color Green - Editorial Landing Site",
-    challenge:
-      "Implement a monochrome editorial landing site pixel-faithfully from three Figma design mockups for a sustainable-fashion events brand, including complex typography and layout structures.",
-    approach:
-      "Analyzed the three Figma mockups and identified the design tokens, color palette, typography hierarchy, and layout structures. Implemented the site using Vite 6 + React 19 + TypeScript + Tailwind CSS v4 with @tailwindcss/vite. Used React Router 7 for multi-page navigation.",
-    build:
-      "Developed all four pages (Home, Events, Event Detail, Contact) using the specified tech stack. Implemented the black side rails, gray model panels, stacked hero headline, brand strips, and all editorial elements pixel-perfect from the mockups. Used Archivo Variable and Playfair Display Variable fonts.",
+    id: "colour-green",
+    title: "The Colour Green",
+    subtitle: "Holding a 2px tolerance against three Figma frames",
+    outcome: "Shipped on schedule, matching the design files within 2px.",
+    metrics: [
+      { value: "4", label: "routed pages" },
+      { value: "2px", label: "match tolerance" },
+      { value: "3", label: "Figma frames" },
+    ],
+    role: "Frontend engineer",
+    timeline: "2025",
+    stack: ["Next.js", "TypeScript", "Tailwind 4", "React Router 7", "Archivo", "Playfair Display"],
+    problem:
+      "A sustainable-fashion events brand had three finished Figma frames and no site. The frames leaned hard on editorial typography — stacked display headlines, black side rails, brand strips — which is exactly the kind of design that falls apart when it becomes responsive.",
+    constraints:
+      "Pixel-faithful to the frames on desktop, but the frames were never drawn for a 360px phone. The layout had to survive the translation without the designer re-drawing it.",
+    decisions: [
+      "Extracted the design tokens from the frames first — palette, type scale, rail width — so every component inherited the same values instead of hard-coding them per section.",
+      "Set display type on a fluid clamp() scale, which preserved the stacked-headline rhythm at 360px where a fixed size would have overflowed.",
+      "Rebuilt the side rails as layout structure rather than decoration, so they collapse cleanly instead of clipping content on small screens.",
+      "Added a skip link and semantic landmarks during the build rather than as a later pass — the monochrome palette made focus states easy to design once, correctly.",
+    ],
     result:
-      "The landing site was completed on schedule and matches the Figma mockups within 2px accuracy. The monochrome design with the green accent provides a strong brand identity. Received positive feedback from the TCG brand team for the pixel-perfect implementation.",
-  },
-  {
-    id: 6,
-    title: "FIXAM Mobile App - Fashion & Style Platform",
-    challenge:
-      "Build a mobile application focused on fashion and style that provides a modern, responsive UI with smooth animations and intuitive navigation.",
-    approach:
-      "Designed a React Native application with Tailwind CSS (native-wind) for styling. Created a component-based architecture with reusable UI elements. Implemented smooth transitions and gestures using React Native Reanimated and Framer Motion.",
-    build:
-      "Developed the mobile app using React Native, TypeScript, and Tailwind CSS. Implemented responsive design, custom components, and smooth animations. Integrated with design systems for consistent visual language.",
-    result:
-      "The FIXAM mobile app provides a polished, intuitive fashion experience. The React Native implementation ensures smooth performance on both iOS and Android. The style recommendations engine provides personalized suggestions based on user preferences.",
-  },
-  {
-    id: 7,
-    title: "Echoloft Landing Page - Modern Visual Experience",
-    challenge:
-      "Create a landing page for Echoloft that showcases a modern design with crisp typography, immersive visuals, and engaging interactive elements.",
-    approach:
-      "Designed the landing page with a focus on typography hierarchy, color theory, and immersive visuals. Used subtle Framer Motion animations for reveal effects. Implemented a clean layout with strong visual hierarchy and engaging content sections.",
-    build:
-      "Built with HTML, CSS, and JavaScript. Implemented responsive design, Framer Motion animations, and smooth scroll interactions. Used Lucide icons and a minimal color palette to emphasize the visual content.",
-    result:
-      "The Echoloft landing page modernizes the brand's online presence. The crisp typography and immersive visuals engage visitors immediately. The subtle animations enhance the user experience without being distracting.",
-  },
-  {
-    id: 8,
-    title: "Garden Fairy - Full-Stack Marketplace",
-    challenge:
-      "Build a complete Next.js 16 marketplace for indoor plants and gardening tools, including both a public storefront and an admin panel with seller tools.",
-    approach:
-      "Architected a full-stack Next.js 16 application with App Router. Implemented Zustand with persist for cart and auth data. Created Radix UI-based components for dialogs, sheets, and forms. Designed a search feature with keyboard shortcut (Ctrl+K/Cmd+K).",
-    build:
-      "Developed using Next.js 16, React 19, TypeScript, Tailwind CSS 4, and shadcn/ui. Implemented Zustand persistence, Radix UI primitives, lucide-react icons, and the global search feature. Created demo accounts for admin and user roles.",
-    result:
-      "The Garden Fairy marketplace provides a complete e-commerce solution for indoor plant sales. The search feature and admin panel streamline operations. The demo accounts enable quick onboarding for new users and sellers.",
-  },
-  {
-    id: 9,
-    title: "SocialLite Web App - Minimal Social Experience",
-    challenge:
-      "Build a minimal social web application that provides core social features while maintaining a clean, focused user experience without clutter.",
-    approach:
-      "Started with the official Vite + React + TypeScript template. Implemented core social features with a minimal UI footprint. Focused on performance and simplicity, avoiding unnecessary components and complex state management.",
-    build:
-      "Developed using the Vite + React + TypeScript setup. Implemented core social features with minimal custom code. Used the template's built-in capabilities and only added essential features.",
-    result:
-      "SocialLite provides a clean, focused social experience without the bloat of typical social media platforms. The minimal approach ensures fast load times and a distraction-free interface. Ideal for users seeking simple social interactions.",
-  },
-  {
-    id: 10,
-    title: "Petroelemites - Computational Geology Visualization",
-    challenge:
-      "Create interactive visualizations exploring geological formations and petrological themes through computational art and WebGL.",
-    approach:
-      "Designed WebGL visualizations using Three.js to render mineral structures and geological formations. Implemented GLSL shaders for realistic material representation. Created interactive controls for exploring crystal formations and layer structures.",
-    build:
-      "Developed using Three.js, WebGL, and GLSL shaders. Created interactive mineral visualizations with realistic rendering. Implemented orbit controls, selection highlights, and geological data overlay.",
-    result:
-      "The Petroelemites visualizations provide an engaging way to explore geological concepts. The realistic shader work makes the mineral formations visually compelling. Used in educational contexts and as computational art pieces.",
-  },
-  {
-    id: 11,
-    title: "3D Portfolio - Interactive Showcase",
-    challenge:
-      "Build an interactive 3D portfolio that showcases skills in FrontEnd development, Three.js animations, and creative coding in a minimal dark aesthetic.",
-    approach:
-      "Designed a minimal dark 3D portfolio with near-black background (#0a0a0f) and amber accent (#cfa96e). Used Three.js for scene graph, Framer Motion for reveals, and custom shaders for visual interest. Implemented responsive design for mobile and desktop.",
-    build:
-      "Developed using Vite + React 19 + TypeScript + Tailwind v4 + Framer Motion + Three.js + Lucide icons. Created the 3D scene with interactive elements, particle systems, and smooth transitions. Implemented the oversized name, bio quote, and CTAs in the hero section.",
-    result:
-      "The 3D portfolio provides an immersive showcase of skills. The minimal dark aesthetic with amber accents creates a memorable brand identity. The interactive 3D elements demonstrate technical prowess in WebGL and Three.js.",
-  },
-  {
-    id: 12,
-    title: "Glimms Mobile - On-Device Style Intelligence",
-    challenge:
-      "Build a mobile companion app for Glimms AI that provides on-device style analysis and design assistance without compromising user privacy.",
-    approach:
-      "Designed a React Native application that leverages on-device model inference for style analysis. Implemented local processing of images and style attributes. Created a clean, minimal UI that complements the AI backend.",
-    build:
-      "Developed using React Native, TypeScript, and Native Wind (Tailwind for RN). Implemented on-device processing for style analysis. Created the style tagging interface and design recommendation engine.",
-    result:
-      "The mobile companion enables style analysis entirely on-device, ensuring user privacy. The React Native implementation provides smooth performance on mobile. The minimal UI design matches the Glimms AI brand aesthetic.",
-  },
-  {
-    id: 13,
-    title: "Petroelemites & The Color Green - Dual Project Synthesis",
-    challenge:
-      "Synthesize two distinct projects - computational geology visualization and monochrome editorial design - into a cohesive portfolio narrative that demonstrates range across technical and creative domains.",
-    approach:
-      "Created narrative threads connecting the technical precision of Petroelemites with the design discipline of The Color Green. Highlighted the common threads of attention to detail, user-centered design, and clean implementation across both projects.",
-    build:
-      "Documented both projects with structured case studies. Created the portfolio narrative that moves between technical and creative domains seamlessly. Implemented consistent design systems across all portfolio sections.",
-    result:
-      "The dual-project synthesis demonstrates versatility across domains - from computational art to editorial design. The cohesive narrative approach makes the portfolio compelling to both technical and creative employers. Successfully showcases range from WebGL shaders to Figma-to-code implementation.",
+      "Delivered on schedule within 2px of the frames, and the responsive behaviour held without a redesign round. The brand team signed off on the first review.",
+    live_url: "https://the-color-green.vercel.app",
+    source_code_link: "https://github.com/LottaCodr/TheColorGreen",
   },
 ];
 
-/* Stats for About section */
-export const stats = [
-  { label: "Repos", value: "115" },
-  { label: "Stars", value: "12" },
-  { label: "Followers", value: "847" },
-  { label: "Projects Live", value: "14+" },
+/* Capability list for the About section */
+export const capabilities = [
+  {
+    title: "Frontend",
+    items: ["React 19 / Next.js 16", "TypeScript", "Tailwind CSS v4", "Framer Motion", "Three.js & WebGL", "Design systems"],
+  },
+  {
+    title: "Backend",
+    items: ["Node.js & Express", "Python & FastAPI", "MongoDB / Mongoose", "PostgreSQL", "REST & WebSocket APIs", "Payment integrations"],
+  },
+  {
+    title: "Platform & craft",
+    items: ["Docker", "Vercel & Genezio", "Appwrite / Supabase", "Sentry observability", "WCAG 2.2 accessibility", "Figma-to-code"],
+  },
 ];
 
-/* About skills pills */
+/* Skill pills */
 export const skillsPills = [
-  "React 19",
-  "TypeScript",
-  "Tailwind CSS v4",
-  "Three.js",
-  "Framer Motion",
-  "Vite",
-  "Node.js",
-  "Python",
-  "FastAPI",
-  "Supabase",
-  "Appwrite",
+  "React", "Next.js", "TypeScript", "Tailwind CSS", "Three.js", "Framer Motion",
+  "Node.js", "Python", "FastAPI", "Supabase", "Appwrite", "Flutter",
+  "React Native", "MongoDB", "Docker", "Figma",
 ];
+
+/* Socials — only channels confirmed to exist. The GitHub profile has no
+   `blog` and no `twitter_username`, so the LinkedIn/Twitter links that the
+   previous version guessed at are deliberately not shipped.
+   See docs/ux-research.md §2.1 B10 */
+export const socials = [
+  { label: "GitHub", href: "https://github.com/LottaCodr", handle: "@LottaCodr" },
+  { label: "Email", href: "mailto:hello@lottacodr.com", handle: "hello@lottacodr.com" },
+  { label: "WhatsApp", href: "https://wa.me/2349135775141", handle: "+234 913 577 5141" },
+];
+
+/* Legacy export kept for src/components/Tech.jsx */
+export { technologies as techStack };

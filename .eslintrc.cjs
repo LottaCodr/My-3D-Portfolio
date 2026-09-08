@@ -35,5 +35,22 @@ module.exports = {
         'react/no-unknown-property': 'off',
       },
     },
+    {
+      // Vitest suites run in Node with globals injected by vitest.config.js
+      // (`globals: true`), so `process`, `describe`, `expect` etc. are all in
+      // scope even though the base config only declares a browser env.
+      files: ['src/__tests__/**/*.{js,jsx}'],
+      env: { node: true },
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        vi: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+      },
+    },
   ],
 }

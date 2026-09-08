@@ -1,73 +1,117 @@
-import { motion } from "framer-motion";
 import { SectionWrapper } from "../hoc";
-import { skillsPills, stats } from "../constants";
-import { styles } from "../styles";
+import Reveal from "./ui/Reveal";
+import SectionHeading from "./ui/SectionHeading";
+import { capabilities, profile, services, skillsPills } from "../constants";
+import { Check, Spark } from "./ui/Icons";
 
-const About = () => {
+function About() {
   return (
-    <section className="relative py-24 md:py-32">
-      <motion.div variants={{ textVariant: { hidden: { y: -50, opacity: 0 }, show: { y: 0, opacity: 1, transition: { type: "spring", duration: 1.25 } } } }}>
-        <p className={styles.sectionSubText}>Introduction</p>
-        <h2 className={styles.sectionHeadText}>Overview.</h2>
-      </motion.div>
+    <>
+      <SectionHeading
+        eyebrow="Introduction"
+        title="I ship software that has to survive contact with real users."
+        lede="Five years of building for hospitals, farmers, fashion brands and church communities. The through-line is the same each time: a system that a non-technical person can use on their first attempt, running on infrastructure that does not fall over when the third-party API has a bad day."
+      />
 
-      <motion.p
-        variants={{ fadeIn: { hidden: { x: 100, opacity: 0 }, show: { x: 0, opacity: 1, transition: { type: "spring", delay: 0.1, duration: 1 } } }}}
-        className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px] mb-16"
-      >
-        I am an experienced software developer with a passion for creating efficient,
-        scalable, and user-friendly applications. Over the years, I have honed my
-        skills in various programming languages and frameworks, allowing me to tackle
-        a wide range of development challenges. My journey has taken me through
-        health-care systems, AI pipelines, investment platforms, and creative
-        technologies, each project adding new dimensions to my approach to
-        problem-solving and code craftsmanship.
-      </motion.p>
-
-      <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4">
-        {stats.map((stat, index) => (
-          <motion.div
-            key={stat.label}
-            variants={{ fadeInUp: { hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1, transition: { type: "spring", delay: index * 0.1, duration: 0.8 } } }}}
-            className="flex flex-col items-start text-left"
-          >
-            <div
-              className="w-12 h-12 rounded-xl bg-[rgba(207,169,110,0.1)] flex items-center justify-center mb-3"
+      <div className="mt-14 grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+        <Reveal className="space-y-6 text-[1.0625rem] leading-[1.75] text-muted">
+          <p>
+            I work full-stack, but I start at the interface. Most of my projects
+            began with someone who could not complete a task — a nurse who could
+            not see the queue, an investor who could not read a farm listing, a
+            parish administrator re-keying phone numbers by hand — and ended with
+            that task taking a quarter of the time.
+          </p>
+          <p>
+            That bias shapes the engineering. I type everything end to end because
+            a runtime surprise in a clinical workflow is not an inconvenience. I
+            write deterministic fallbacks into AI pipelines because a provider
+            outage should degrade quality, not break a request. And I treat
+            accessibility as a build step rather than a cleanup pass, because
+            retrofitting focus states onto a monochrome design is harder than
+            designing them once.
+          </p>
+          <p>
+            Currently based in {profile.location}, working with teams remotely and
+            building{" "}
+            <a
+              href="https://glimms-waitlist.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
             >
-              <svg
-                className="w-6 h-6 text-[#cfa96e]"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M12 2v4l2 12-2 12-4-4 2-12 4 4 2 12" />
-              </svg>
+              Glimms
+            </a>{" "}
+            — an AI styling product that generates outfits, room layouts and garden
+            plans from what people already own.
+          </p>
+
+          <ul className="flex flex-wrap gap-2 pt-2">
+            {skillsPills.map((skill) => (
+              <li key={skill} className="chip">
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+
+        <Reveal delay={0.1} className="space-y-8">
+          {capabilities.map((group) => (
+            <div key={group.title}>
+              <h3 className="mono flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-accent">
+                <Spark width={14} height={14} />
+                {group.title}
+              </h3>
+              <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                {group.items.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-muted">
+                    <Check
+                      width={16}
+                      height={16}
+                      className="mt-0.5 flex-none text-accent"
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <p className="text-2xl font-bold text-[#cfa96e]">{stat.value}</p>
-            <p className="text-secondary text-sm mt-1">{stat.label}</p>
-          </motion.div>
-        ))}
+          ))}
+        </Reveal>
       </div>
 
-      <div className="mt-20 grid grid-cols-2 gap-6 md:grid-cols-4">
-        {skillsPills.map((skill, index) => (
-          <motion.span
-            key={skill}
-            variants={{
-              scaleIn: {
-                hidden: { scale: 0, opacity: 0 },
-                show: { scale: 1, opacity: 1, transition: { type: "spring", delay: index * 0.05, duration: 0.5 } },
-              },
-            }}
-            className="inline-flex items-center rounded-full bg-[rgba(207,169,110,0.1)] px-4 py-2 text-sm text-[#cfa96e] font-medium mx-1 mb-1"
-          >
-            {skill}
-          </motion.span>
-        ))}
+      {/* Services */}
+      <div className="mt-20">
+        <h3 className="mono text-xs uppercase tracking-[0.16em] text-faint">
+          How I can help
+        </h3>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {services.map((service, i) => (
+            <Reveal
+              as="li"
+              key={service.title}
+              delay={i * 0.06}
+              className="card group p-6 transition-colors duration-300 hover:border-accent/40"
+            >
+              <img
+                src={service.icon}
+                alt=""
+                aria-hidden="true"
+                width={36}
+                height={36}
+                className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-110"
+              />
+              <h4 className="mt-5 text-base font-semibold text-fg">
+                {service.title}
+              </h4>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                {service.blurb}
+              </p>
+            </Reveal>
+          ))}
+        </ul>
       </div>
-    </section>
+    </>
   );
-};
+}
 
-export default SectionWrapper(About, 'about');
+export default SectionWrapper(About, "about");

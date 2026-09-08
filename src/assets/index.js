@@ -3,9 +3,6 @@ import backend from "./backend.png";
 import creator from "./creator.png";
 import mobile from "./mobile.png";
 import web from "./web.png";
-import github from "./github.png";
-import menu from "./menu.svg";
-import close from "./close.svg";
 
 import css from "./tech/css.png";
 import docker from "./tech/docker.png";
@@ -21,29 +18,27 @@ import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
 
-import meta from "./company/meta.png";
-import shopify from "./company/shopify.png";
-import starbucks from "./company/starbucks.png";
-import tesla from "./company/tesla.png";
+/* ---------------------------------------------------------------------------
+   Project covers.
 
-import carrent from "./carrent.png";
-import jobit from "./jobit.png";
-import tripguide from "./tripguide.png";
+   The old files in src/assets/*.png were hand-written SVG source saved with a
+   .png extension (400x300, Arial label, 335-650 bytes) — see
+   docs/ux-research.md §2.1 B1. They only rendered because browsers sniff
+   content type, and they break under X-Content-Type-Options: nosniff.
 
-/* New project assets */
-import glimmsMobile from "./glimms-mobile.png";
-import glimmsAi from "./glimms-ai.png";
-import healthCare from "./health-care.png";
-import agro from "./agro.png";
-import gardenFairyApp from "./garden-fairy-app.png";
-import gardenFairyServer from "./garden-fairy-server.png";
-import theColorGreen from "./the-color-green.png";
-import fixam from "./fixam-mobile.png";
-import echoloft from "./echoloft-landing.png";
-import voting from "./voting.png";
-import socialLite from "./social-lite.png";
-import petroelemites from "./petroelemites.png";
-import lottacodr from "./lottacodr.png";
+   These are real raster images at 16:10, matching the aspect-ratio the
+   ProjectCard reserves so the grid never shifts on load.
+   ------------------------------------------------------------------------- */
+import coverHealthCare from "./covers/health-care.webp";
+import coverGardenFairy from "./covers/garden-fairy.webp";
+import coverGardenFairyServer from "./covers/garden-fairy-server.webp";
+import coverGlimmsAi from "./covers/glimms-ai.webp";
+import coverGlimmsWaitlist from "./covers/glimms-waitlist.webp";
+import coverAgro from "./covers/agro.webp";
+import coverVoting from "./covers/voting.webp";
+import coverColorGreen from "./covers/the-color-green.webp";
+import coverEcholoft from "./covers/echoloft.webp";
+import coverPetroelemites from "./covers/petroelemites.webp";
 
 export {
   logo,
@@ -51,9 +46,6 @@ export {
   creator,
   mobile,
   web,
-  github,
-  menu,
-  close,
   css,
   docker,
   figma,
@@ -67,25 +59,15 @@ export {
   tailwind,
   typescript,
   threejs,
-  meta,
-  shopify,
-  starbucks,
-  tesla,
-  carrent,
-  jobit,
-  tripguide,
-  /* New project assets */
-  glimmsMobile,
-  glimmsAi,
-  healthCare,
-  agro,
-  gardenFairyApp,
-  gardenFairyServer,
-  theColorGreen,
-  fixam,
-  echoloft,
-  voting,
-  socialLite,
-  petroelemites,
-  lottacodr,
+  /* Project covers */
+  coverHealthCare,
+  coverGardenFairy,
+  coverGardenFairyServer,
+  coverGlimmsAi,
+  coverGlimmsWaitlist,
+  coverAgro,
+  coverVoting,
+  coverColorGreen,
+  coverEcholoft,
+  coverPetroelemites,
 };

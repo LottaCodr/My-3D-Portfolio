@@ -1,21 +1,27 @@
-import { motion } from 'framer-motion'
-
-import { styles } from '../styles'
-import { staggerContainer } from '../utils/motion'
-
-const SectionWrapper = (Component, idName) => 
-function HOC() {
+/**
+ * Wraps a section in the shared shell + vertical rhythm and renders the
+ * scroll-target anchor.
+ *
+ * The old version applied a `staggerContainer` variant that its children never
+ * consumed, and mixed `styles.padding` with per-section `py-24` so spacing was
+ * applied twice. Children now opt into animation explicitly via <Reveal />,
+ * and spacing lives in exactly one place.
+ */
+const SectionWrapper = (Component, idName) =>
+  function WrappedSection() {
     return (
-        <motion.section
-        variants={staggerContainer()}
-        initial="hidden"
-        whileInView='show'
-        viewport={{ once: false, amount: 0.15 }}
-        className={`${styles.padding} max-w-7xl m-auto relative z-0`}>
-            <span className='hash-span' id={idName}> &nbsp;</span>
-            <Component/>   
-        </motion.section>
-    )
-}
+      <section
+        aria-labelledby={idName ? `${idName}-heading` : undefined}
+        className="shell section relative"
+      >
+        {idName && (
+          <span className="hash-span" id={idName}>
+            &nbsp;
+          </span>
+        )}
+        <Component />
+      </section>
+    );
+  };
 
-export default SectionWrapper
+export default SectionWrapper;
