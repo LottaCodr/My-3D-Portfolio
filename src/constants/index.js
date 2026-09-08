@@ -66,7 +66,7 @@ export const navLinks = [
    ------------------------------------------------------------------------- */
 export const stats = [
   { label: "Products shipped", value: "16", suffix: "" },
-  { label: "Live right now", value: "9", suffix: "" },
+  { label: "Live right now", value: "10", suffix: "" },
   { label: "Public repos", value: "115", suffix: "" },
   { label: "Years building", value: "5", suffix: "+" },
 ];
@@ -302,12 +302,12 @@ export const projects = [
       "Single-page marketing site for Petroelemites Investment Company Limited — trust and compliance section with CAC details, interest-expression form wired to Formspree, GA4 conversion tracking on submit, plus privacy and terms routes.",
     tags: ["React 19", "TypeScript", "Vite", "Tailwind 4", "Framer Motion"],
     image: coverPetroelemites,
-    // TODO(live_url): the repo's `homepage` field is
-    // https://petroelemites-beige.vercel.app, which returns
-    // 404 DEPLOYMENT_NOT_FOUND as of 2026-09-08. Awaiting the current URL
-    // before shipping it — see docs/ux-research.md §4.
+    // Owner-confirmed deployment URL (2026-09-08). Note: it returned
+    // 404 DEPLOYMENT_NOT_FOUND when last probed, so it is tracked in
+    // OWNER_CONFIRMED rather than VERIFIED_LIVE in the test suite.
+    // See docs/ux-research.md §4.
+    live_url: "https://petroelemites-beige.vercel.app",
     source_code_link: "https://github.com/LottaCodr/Petroelemites",
-    note: "Live URL pending",
   },
   {
     id: "hilink",

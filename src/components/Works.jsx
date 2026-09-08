@@ -189,7 +189,7 @@ function Works() {
       <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading
           eyebrow="Selected work"
-          title="Sixteen products. Nine of them live right now."
+          title="Sixteen products. Ten of them live right now."
           lede="Every card below links somewhere real — a deployment you can click through, or the repository if the product has no public web surface. No dead links: two URLs in the previous version of this page returned 404 and were removed."
         />
       </div>

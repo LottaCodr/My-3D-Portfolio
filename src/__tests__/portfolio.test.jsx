@@ -33,8 +33,16 @@ const VERIFIED_LIVE = new Set([
   "https://lotaport.vercel.app",
 ]);
 
+/* Owner-confirmed deployments that were NOT reachable when probed.
+ *
+ * petroelemites-beige.vercel.app returned 404 DEPLOYMENT_NOT_FOUND on
+ * 2026-09-08. The repository owner was shown that result and explicitly chose
+ * to ship this URL anyway, so it is tracked here — separately from the
+ * fetched-and-confirmed set above — rather than being folded in and making
+ * the distinction meaningless. Re-probe it before each deploy. */
+const OWNER_CONFIRMED = new Set(["https://petroelemites-beige.vercel.app"]);
+
 const KNOWN_DEAD = [
-  "petroelemites-beige.vercel.app",
   "top-six-smoky.vercel.app",
   // Superseded: care-pulse-olive.vercel.app 301s to nile-valley-emr.vercel.app
   "care-pulse-olive.vercel.app",
@@ -63,14 +71,22 @@ describe("project data", () => {
     }
   });
 
-  it("only ships live URLs that were verified as reachable", () => {
+  it("only ships live URLs that are verified reachable or owner-confirmed", () => {
     for (const p of projects) {
       if (!p.live_url) continue;
       expect(
-        VERIFIED_LIVE.has(p.live_url),
+        VERIFIED_LIVE.has(p.live_url) || OWNER_CONFIRMED.has(p.live_url),
         `${p.name} ships unverified live_url ${p.live_url}`,
       ).toBe(true);
     }
+  });
+
+  it("keeps the owner-confirmed (not fetched) set to exactly the known entries", () => {
+    const shipped = projects
+      .filter((p) => p.live_url && OWNER_CONFIRMED.has(p.live_url))
+      .map((p) => p.name);
+    // If this grows, a link is going out without anyone having loaded it.
+    expect(shipped).toEqual(["Petroelemites Investment"]);
   });
 
   it("ships no URL known to be dead", () => {

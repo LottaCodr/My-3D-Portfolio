@@ -117,7 +117,7 @@ border token → `#33333f`. Gold and off-white were already compliant and are ke
 Hero (name + role + proof + single primary CTA)
   └─ Availability pill · 4 real metrics · "View work" / "Get in touch"
 Tech marquee            ← replaces the unmounted Tech.jsx 3D balls
-Selected Work           ← filterable grid, 17 projects, 100% linked
+Selected Work           ← filterable grid, 16 projects, 100% linked
 Case Studies            ← 5 deep studies, Minto-pyramid accordion
 About                   ← real bio + real numbers + capability list
 Contact                 ← validated form + direct channels
@@ -170,11 +170,44 @@ route, so verification used page fetches; GitHub metadata used `gh api`.
 | LWMP Birthday Care | `lwmp-alert-automation.vercel.app` | ✅ live — "Living Water \| Birthday Care" |
 | HiLink Travel | `hi-link-travel-app.vercel.app` | ✅ live |
 | This portfolio | `lotaport.vercel.app` | ✅ live |
-| Petroelemites | `petroelemites-beige.vercel.app` | ❌ **404 DEPLOYMENT_NOT_FOUND** → GitHub only |
+| Petroelemites Investment | `petroelemites-beige.vercel.app` | ⚠️ **404 DEPLOYMENT_NOT_FOUND** — owner-confirmed, shipped anyway (see §4.2) |
 | topsite | `top-six-smoky.vercel.app` | ❌ **404 DEPLOYMENT_NOT_FOUND** → excluded |
-| Garden Fairy Server, Glimms AI, Glimms Mobile, FIXAM, SocialLite, Mobile Voting | — | backend/mobile → GitHub only |
+| Garden Fairy Server, Glimms AI, Glimms Mobile, FixAm, CivicVote, SocialLite | — | backend / unpublished mobile → GitHub only, confirmed by owner |
 
-**Result: 17 of 17 projects ship with at least one working link (9 live + 8 source), 0 dead links.**
+**Result: 16 of 16 projects ship with at least one working link — 10 live deployments
+(9 fetched-and-confirmed + 1 owner-confirmed) plus 16 source repositories.**
+
+### 4.2 Owner-confirmed exception
+
+`petroelemites-beige.vercel.app` returned `404 DEPLOYMENT_NOT_FOUND` on 2026-09-08
+(re-probed three times, alongside `petroelemites.vercel.app` — also 404 — and
+`petroelemites.com`, which serves only an Apache "It works!" page). The repository
+owner was shown that result and chose to ship the URL regardless, on the basis that
+it is the intended deployment target.
+
+It is therefore recorded in the test suite as `OWNER_CONFIRMED`, deliberately kept
+**separate** from `VERIFIED_LIVE` so the distinction between "someone loaded this
+page" and "the owner says this is the URL" stays visible. Re-probe before each deploy.
+
+### 4.3 Copy corrections found during link verification
+
+Chasing the URLs surfaced that several descriptions in the old data file were
+invented, and had survived the redesign. Each was corrected against the project's
+own README and GitHub language breakdown:
+
+| Project | Was shipped as | Actually is |
+| --- | --- | --- |
+| Petroelemites | "Interactive WebGL study of mineral strata", tagged Three.js/WebGL/GLSL | Corporate landing page for **Petroelemites Investment Company Limited**, a registered Nigerian oil & gas investment company. React 19 + Vite + Tailwind 4 + Formspree + GA4. **No Three.js.** Moved Creative → Landing. |
+| FixAm | "fashion discovery app with a recommendation feed" | "Lagos-first home services: book verified artisans, pay with Flutterwave, track the job." Expo + Supabase. |
+| CivicVote | "Flutter client on Supabase" | **Expo / React Native** + Supabase, with substantial accessibility work. Not Flutter. |
+| Glimms Mobile | tagged NativeWind | Expo Router + Zustand + TanStack Query, custom `ThemeProvider` |
+| Garden Fairy Server | "background AI worker" | Express 5 + Mongoose: carts, atomic checkout with stock reservation, Flutterwave, delivery rates, reviews, admin surface. **No AI worker.** |
+| The Colour Green | "Next.js" | **Vite 6** + React 19 + React Router 7 — `package.json` has no `next` dependency |
+| Echoloft | tagged HTML/CSS/JS | TypeScript + React (per GitHub languages) |
+| SocialLite | elaborate product narrative | Repo is a bare Vite template; narrative removed |
+
+Lesson recorded here so it does not repeat: **the repo's own README is the source
+of truth for what a project is.** The previous portfolio copy was not.
 
 ### 4.1 Verified identity & metrics (GitHub API)
 
