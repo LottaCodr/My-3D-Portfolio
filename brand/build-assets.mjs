@@ -7,6 +7,13 @@
  *
  * The SVG masters (logo.svg, og-image.svg) are the source of truth and are
  * hand-editable; the PNGs and the manifest below are generated output.
+ *
+ * public/favicon.ico is NOT written here (resvg has no ICO encoder). After
+ * re-running this script, regenerate it from the 512px icon:
+ *   convert public/icons/icon-512.png -resize 16x16 /tmp/f16.png
+ *   convert public/icons/icon-512.png -resize 32x32 /tmp/f32.png
+ *   convert public/icons/icon-512.png -resize 48x48 /tmp/f48.png
+ *   convert /tmp/f16.png /tmp/f32.png /tmp/f48.png public/favicon.ico
  */
 import { Resvg } from '@resvg/resvg-js'
 import fs from 'fs'

@@ -1,7 +1,6 @@
 import { Suspense, lazy } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { profile, stats } from "../constants";
-import { AvailabilityPill } from "./ui/Badge";
 import { ArrowDown, ArrowRight, Pin } from "./ui/Icons";
 
 /* The starfield costs ~250 KB of Three.js. Lazy-mount it after first paint so
@@ -44,10 +43,6 @@ export default function Hero() {
       <div aria-hidden="true" className="noise-overlay absolute inset-0" />
 
       <div className="shell relative py-16 sm:py-20">
-        <motion.div {...rise(0.05)}>
-          <AvailabilityPill text={profile.availability} />
-        </motion.div>
-
         {/* The 5-second test: name, then role, then proof. */}
         <motion.h1
           id="hero-title"

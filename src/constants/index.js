@@ -1,9 +1,4 @@
 import {
-  // service icons
-  mobile,
-  backend,
-  creator,
-  web,
   // tech icons
   javascript,
   typescript,
@@ -41,14 +36,13 @@ export const profile = {
   brand: "Mr. Lotta",
   role: "Full-Stack Software Engineer",
   specialisation: "React, TypeScript & AI-driven product engineering",
-  location: "Lagos, Nigeria",
-  availability: "Open to freelance & full-time",
-  email: "hello@lottacodr.com",
+  location: "Abuja, Nigeria",
+  email: "lottanna47@gmail.com",
   whatsapp: "https://wa.me/2349135775141",
   github: "https://github.com/LottaCodr",
   site: "https://lotaport.vercel.app",
   pitch:
-    "I build production web platforms, mobile apps and AI pipelines — from hospital records systems to eight-service inference stacks. Fourteen shipped products, nine of them live.",
+    "I turn ideas into products that survive real users — web, mobile & AI. 15 shipped, 9 live.",
 };
 
 /* Navigation */
@@ -65,34 +59,10 @@ export const navLinks = [
    12 stars; the API returns 22 and 8. See docs/ux-research.md §2.1 B6.
    ------------------------------------------------------------------------- */
 export const stats = [
-  { label: "Products shipped", value: "16", suffix: "" },
-  { label: "Live right now", value: "10", suffix: "" },
+  { label: "Products shipped", value: "15", suffix: "" },
+  { label: "Live right now", value: "9", suffix: "" },
   { label: "Public repos", value: "115", suffix: "" },
   { label: "Years building", value: "5", suffix: "+" },
-];
-
-/* Services */
-export const services = [
-  {
-    title: "Web Platforms",
-    icon: web,
-    blurb: "Next.js and React applications built to ship — typed end to end, tested where it matters.",
-  },
-  {
-    title: "Product Engineering",
-    icon: backend,
-    blurb: "APIs, payments, auth and background workers. Express, FastAPI, MongoDB, Postgres.",
-  },
-  {
-    title: "Mobile Apps",
-    icon: mobile,
-    blurb: "React Native and Flutter clients that stay fast on low-end Android hardware.",
-  },
-  {
-    title: "Creative Technology",
-    icon: creator,
-    blurb: "Three.js, WebGL and shader work for brands that want the page to feel alive.",
-  },
 ];
 
 /* Technologies — drives the marquee */
@@ -132,11 +102,11 @@ export const stackNames = [
 ];
 
 /* ---------------------------------------------------------------------------
-   Projects — 16 entries.
-   EVERY entry carries at least one verified link: 9 live deployments plus
-   8 source repositories (the remaining entries are backend or mobile-only,
-   which have no public web surface). Two links listed in the old data file
-   returned 404 DEPLOYMENT_NOT_FOUND and were removed.
+   Projects — 15 entries.
+   EVERY entry carries at least one verified link: 9 live deployments, and
+   the remaining 6 entries are backend, mobile-only or early experiments with
+   public source repositories. Links that returned 404 DEPLOYMENT_NOT_FOUND
+   during verification were removed, never shipped.
    Full verification log: docs/ux-research.md §4
    ------------------------------------------------------------------------- */
 export const projectFilters = [
@@ -302,25 +272,11 @@ export const projects = [
       "Single-page marketing site for Petroelemites Investment Company Limited — trust and compliance section with CAC details, interest-expression form wired to Formspree, GA4 conversion tracking on submit, plus privacy and terms routes.",
     tags: ["React 19", "TypeScript", "Vite", "Tailwind 4", "Framer Motion"],
     image: coverPetroelemites,
-    // Owner-confirmed deployment URL (2026-09-08). Note: it returned
-    // 404 DEPLOYMENT_NOT_FOUND when last probed, so it is tracked in
-    // OWNER_CONFIRMED rather than VERIFIED_LIVE in the test suite.
+    // Verified live 2026-09-08. Replaces petroelemites-beige.vercel.app,
+    // which returned 404 DEPLOYMENT_NOT_FOUND and is now in KNOWN_DEAD.
     // See docs/ux-research.md §4.
-    live_url: "https://petroelemites-beige.vercel.app",
+    live_url: "https://petroelemites-ltd.vercel.app",
     source_code_link: "https://github.com/LottaCodr/Petroelemites",
-  },
-  {
-    id: "hilink",
-    name: "HiLink Travel",
-    category: "landing",
-    year: "2024",
-    role: "Frontend engineer",
-    tagline: "Marketing site for an offline-first hiking and camp-discovery app.",
-    description:
-      "Camp cards with distance and elevation, feature grid, testimonial rail and dual app-store CTAs — a Next.js marketing surface for the HiLink travel product.",
-    tags: ["Next.js", "TypeScript", "Tailwind"],
-    live_url: "https://hi-link-travel-app.vercel.app",
-    source_code_link: "https://github.com/LottaCodr/HILink-Travel-App",
   },
   {
     id: "glimms-mobile",
@@ -550,7 +506,7 @@ export const skillsPills = [
    See docs/ux-research.md §2.1 B10 */
 export const socials = [
   { label: "GitHub", href: "https://github.com/LottaCodr", handle: "@LottaCodr" },
-  { label: "Email", href: "mailto:hello@lottacodr.com", handle: "hello@lottacodr.com" },
+  { label: "Email", href: "mailto:lottanna47@gmail.com", handle: "lottanna47@gmail.com" },
   { label: "WhatsApp", href: "https://wa.me/2349135775141", handle: "+234 913 577 5141" },
 ];
 

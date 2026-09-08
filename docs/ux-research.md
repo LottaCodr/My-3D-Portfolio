@@ -117,7 +117,7 @@ border token → `#33333f`. Gold and off-white were already compliant and are ke
 Hero (name + role + proof + single primary CTA)
   └─ Availability pill · 4 real metrics · "View work" / "Get in touch"
 Tech marquee            ← replaces the unmounted Tech.jsx 3D balls
-Selected Work           ← filterable grid, 16 projects, 100% linked
+Selected Work           ← filterable grid, 15 projects, 100% linked
 Case Studies            ← 5 deep studies, Minto-pyramid accordion
 About                   ← real bio + real numbers + capability list
 Contact                 ← validated form + direct channels
@@ -138,7 +138,7 @@ Footer
 * No `w-screen` anywhere; `overflow-x: clip` on `html, body`.
 * `Tilt` disabled on touch/coarse pointers (`matchMedia('(hover: none)')`).
 * Live/Code buttons **always visible** (never hover-gated) and ≥ 44 px tall.
-* Full-screen mobile nav sheet: `position: fixed; inset: 0`, body scroll-lock, `Esc` to close, focus return, `env(safe-area-inset-*)` padding.
+* Full-screen mobile nav sheet as a modal dialog (`role="dialog"`, `aria-modal`, focus trap, inert background): header steps above it so the close control stays tappable, `Esc` closes with focus return, focus moves to the navigated section, resize to desktop auto-closes, `env(safe-area-inset-*)` padding.
 * `viewport-fit=cover` + safe-area padding on the sticky header.
 * `aspect-ratio: 16/10` on every cover → zero CLS; `loading="lazy"` + `decoding="async"`.
 * Form inputs at 16 px to stop iOS zoom.
@@ -168,26 +168,25 @@ route, so verification used page fetches; GitHub metadata used `gh api`.
 | Echoloft | `echoloft-landing-page.vercel.app` | ✅ live — "Affordable Websites for Nigerian Businesses" |
 | Glimms Waitlist | `glimms-waitlist.vercel.app` | ✅ live — "AI that styles what you already own" |
 | LWMP Birthday Care | `lwmp-alert-automation.vercel.app` | ✅ live — "Living Water \| Birthday Care" |
-| HiLink Travel | `hi-link-travel-app.vercel.app` | ✅ live |
 | This portfolio | `lotaport.vercel.app` | ✅ live |
-| Petroelemites Investment | `petroelemites-beige.vercel.app` | ⚠️ **404 DEPLOYMENT_NOT_FOUND** — owner-confirmed, shipped anyway (see §4.2) |
+| Petroelemites Investment | `petroelemites-ltd.vercel.app` | ✅ live — "Petroelemites Investment Company Limited \| Oil & Gas Investment in Nigeria" (see §4.2) |
 | topsite | `top-six-smoky.vercel.app` | ❌ **404 DEPLOYMENT_NOT_FOUND** → excluded |
 | Garden Fairy Server, Glimms AI, Glimms Mobile, FixAm, CivicVote, SocialLite | — | backend / unpublished mobile → GitHub only, confirmed by owner |
 
-**Result: 16 of 16 projects ship with at least one working link — 10 live deployments
-(9 fetched-and-confirmed + 1 owner-confirmed) plus 16 source repositories.**
+**Result: 15 of 15 projects ship with at least one working link — 9 live deployments
+(all fetched-and-confirmed) plus 15 source repositories.** HiLink Travel was
+removed from the grid at the owner's request; it was live, not dead.
 
-### 4.2 Owner-confirmed exception
+### 4.2 Owner-confirmed exception — resolved
 
 `petroelemites-beige.vercel.app` returned `404 DEPLOYMENT_NOT_FOUND` on 2026-09-08
 (re-probed three times, alongside `petroelemites.vercel.app` — also 404 — and
-`petroelemites.com`, which serves only an Apache "It works!" page). The repository
-owner was shown that result and chose to ship the URL regardless, on the basis that
-it is the intended deployment target.
-
-It is therefore recorded in the test suite as `OWNER_CONFIRMED`, deliberately kept
-**separate** from `VERIFIED_LIVE` so the distinction between "someone loaded this
-page" and "the owner says this is the URL" stays visible. Re-probe before each deploy.
+`petroelemites.com`, which serves only an Apache "It works!" page). It was briefly
+shipped as an `OWNER_CONFIRMED` exception, then superseded the same day when the
+owner supplied the replacement deployment `petroelemites-ltd.vercel.app`, which was
+fetched and confirmed live — so it graduated to `VERIFIED_LIVE` and the exception
+set is empty again. The dead `beige` host is kept in `KNOWN_DEAD` so it can never
+be reintroduced silently. Re-probe before each deploy.
 
 ### 4.3 Copy corrections found during link verification
 
