@@ -1,50 +1,103 @@
-import { motion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { logo } from "../assets";
+import { navLinks, profile, socials } from "../constants";
+import { ArrowDown } from "./ui/Icons";
 
-const Footer = () => {
+export default function Footer() {
+  const reduce = useReducedMotion();
+  const year = new Date().getFullYear();
+
+  const go = (e, id) => {
+    e.preventDefault();
+    document.getElementById(id)?.scrollIntoView({
+      behavior: reduce ? "auto" : "smooth",
+      block: "start",
+    });
+  };
+
   return (
-    <footer className="py-12 border-t border-[rgba(255,255,255,0.1)] bg-[rgba(10,10,15,0.8)] backdrop-blur">
-      <motion.div
-        variants={{ fadeIn: { hidden: { opacity: 0 }, show: { opacity: 1, transition: { type: "spring", duration: 1 } } }}}
-        className="max-w-7xl mx-auto px-6 text-center"
-      >
-        <div className="flex items-center justify-center gap-2.5 mb-5">
-          <img src={logo} alt="Mr. Lotta logo" className="w-8 h-8 object-contain" />
-          <p className="text-white text-[18px] font-bold">
-            Mr. <span className="text-[#cfa96e]">Lotta</span>
+    <footer className="border-t border-linesoft bg-raise/40">
+      <div className="shell py-14">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr]">
+          <div>
+            <div className="flex items-center gap-2.5">
+              <img src={logo} alt="" aria-hidden="true" className="h-8 w-8" />
+              <span className="text-[17px] font-bold tracking-tight text-fg">
+                Mr.&nbsp;<span className="text-accent">Lotta</span>
+              </span>
+            </div>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
+              {profile.role} building web platforms, mobile apps and AI pipelines
+              from {profile.location}.
+            </p>
+            <a
+              href={`mailto:${profile.email}`}
+              className="mt-5 inline-flex min-h-[44px] items-center text-sm text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
+            >
+              {profile.email}
+            </a>
+          </div>
+
+          <nav aria-label="Footer">
+            <h2 className="mono text-[11px] uppercase tracking-[0.16em] text-faint">
+              Navigate
+            </h2>
+            <ul className="mt-4 space-y-1">
+              {navLinks.map((nav) => (
+                <li key={nav.id}>
+                  <a
+                    href={`#${nav.id}`}
+                    onClick={(e) => go(e, nav.id)}
+                    className="inline-flex min-h-[44px] items-center text-sm text-muted transition-colors hover:text-accent"
+                  >
+                    {nav.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <h2 className="mono text-[11px] uppercase tracking-[0.16em] text-faint">
+              Elsewhere
+            </h2>
+            <ul className="mt-4 space-y-1">
+              {socials.map((s) => {
+                const external = !s.href.startsWith("mailto:");
+                return (
+                  <li key={s.label}>
+                    <a
+                      href={s.href}
+                      {...(external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="inline-flex min-h-[44px] items-center text-sm text-muted transition-colors hover:text-accent"
+                    >
+                      {s.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-4 border-t border-linesoft pt-7 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-faint">
+            © {year} {profile.name}. Built with React, Three.js and Tailwind.
           </p>
+          <button
+            type="button"
+            onClick={() =>
+              window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" })
+            }
+            className="inline-flex min-h-[44px] items-center gap-2 self-start text-sm text-muted transition-colors hover:text-accent sm:self-auto"
+          >
+            <ArrowDown width={16} height={16} className="rotate-180" />
+            Back to top
+          </button>
         </div>
-
-        <p className="text-secondary text-sm mb-4">
-          Built with passion for code and creativity. 2026.
-        </p>
-        <p className="text-xs text-secondary">
-          Portfolio showcasing projects from LottaCodr&apos;s GitHub repository.
-        </p>
-
-        <div className="mt-8 flex justify-center gap-6">
-          <a
-            href="https://github.com/LottaCodr"
-            className="text-secondary hover:text-[#cfa96e] transition-colors"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/lottacodr"
-            className="text-secondary hover:text-[#cfa96e] transition-colors"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="https://twitter.com/lottacodr"
-            className="text-secondary hover:text-[#cfa96e] transition-colors"
-          >
-            Twitter
-          </a>
-        </div>
-      </motion.div>
+      </div>
     </footer>
   );
-};
-
-export default Footer;
+}

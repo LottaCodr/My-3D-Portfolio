@@ -1,25 +1,38 @@
-export const paddingX = "px-6 py-8";
+/* Shared class strings. Keep the design system in one place —
+   see docs/ux-research.md §3.2 ("one component set, reused everywhere"). */
 
-/* Section wrapper padding, referenced by src/hoc/SectionWrapper.jsx. */
-export const padding = "sm:px-16 px-6 sm:py-16 py-10";
+export const shell = "shell";
+export const section = "shell section";
 
-export const sectionSubText = "text-secondary text-[17px]";
-export const sectionHeadText = "text-2xl font-bold text-white";
+export const sectionSubText = "eyebrow";
+export const sectionHeadText = "mt-3 text-fg";
+export const sectionLede = "lede mt-5";
 
-export const heroHeadText = "text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight text-white";
-export const heroSubText = "text-lg sm:text-xl mb-8 max-w-2xl line-clamp-3";
+export const heroHeadText = "text-fg";
+export const heroSubText = "lede";
 
-export const cardShadow = "shadow-xl transition-shadow";
+export const cardBase = "card";
 
+/* Retained for backwards compatibility with src/hoc/SectionWrapper.jsx */
+export const paddingX = "shell";
+export const padding = "shell section";
+
+export const cardShadow = "";
 export const noiseOverlay = "noise-overlay";
 
 export const styles = {
+  shell,
+  section,
   paddingX,
   padding,
   sectionSubText,
   sectionHeadText,
+  sectionLede,
   heroHeadText,
   heroSubText,
+  cardBase,
   cardShadow,
   noiseOverlay,
 };
+
+export default styles;

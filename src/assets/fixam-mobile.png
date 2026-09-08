@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
-  <rect width="400" height="300" fill="#1a1a2e" />
-  <rect x="50" y="100" width="300" height="100" fill="#cfa96e" rx="10" />
-  <text x="200" y="160" fill="#0a0a0f" font-family="Arial" font-size="25" text-anchor="middle">
-    FIXAM
-  </text>
-</svg>
