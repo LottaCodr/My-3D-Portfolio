@@ -1,11 +1,10 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { noiseOverlay } from "../styles";
+import { styles, noiseOverlay } from "../styles";
 
 const Hero = () => {
   return (
     <section
-      className="relative w-screen h-[100vh] min-h-[700px] flex items-center justify-center position-relative"
+      className="relative w-screen h-[100vh] min-h-[700px] flex items-center justify-center"
     >
       <div
         className={`${styles.paddingX} absolute inset-0 top-[80px] max-w-7xl mx-auto flex flex-col items-start gap-5`}
@@ -21,7 +20,7 @@ const Hero = () => {
         <h1
           className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight text-white mb-4"
         >
-          Let's build something incredible
+          Let&apos;s build something incredible
         </h1>
         <p
           className="text-[#cfa96e] text-lg sm:text-xl mb-8 max-w-2xl line-clamp-3"
@@ -67,7 +66,7 @@ const Hero = () => {
 
       {/* Noise texture overlay */}
       <div
-        className="noise-overlay absolute inset-0 pointer-events-none z-10"
+        className={`${noiseOverlay} absolute inset-0 pointer-events-none z-10`}
       />
 
       {/* Floating abstract shape */}

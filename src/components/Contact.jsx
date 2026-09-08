@@ -1,7 +1,5 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "../hoc";
-import { styles } from "../styles";
 
 const Contact = () => {
   return (
@@ -20,8 +18,8 @@ const Contact = () => {
 
       <div className="max-w-3xl mx-auto text-center">
         <p className="mt-6 text-secondary text-lg leading-relaxed">
-          Ready to collaborate on your next project? Let's talk about how we can
-          bring your vision to life. I'm always open to discussing new ideas,
+          Ready to collaborate on your next project? Let&apos;s talk about how we can
+          bring your vision to life. I&apos;m always open to discussing new ideas,
           interesting projects, or just saying hello.
         </p>
 
