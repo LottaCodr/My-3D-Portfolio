@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "../hoc";
 import { skillsPills, stats } from "../constants";
@@ -26,10 +25,10 @@ const About = () => {
       </motion.p>
 
       <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4">
-        {stats.map((stat) => (
+        {stats.map((stat, index) => (
           <motion.div
             key={stat.label}
-            variants={{ fadeInUp: { hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1, transition: { type: "spring", delay: stat.value * 0.1, duration: 0.8 } } }}}
+            variants={{ fadeInUp: { hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1, transition: { type: "spring", delay: index * 0.1, duration: 0.8 } } }}}
             className="flex flex-col items-start text-left"
           >
             <div

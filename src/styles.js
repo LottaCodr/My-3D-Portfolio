@@ -1,5 +1,8 @@
 export const paddingX = "px-6 py-8";
 
+/* Section wrapper padding, referenced by src/hoc/SectionWrapper.jsx. */
+export const padding = "sm:px-16 px-6 sm:py-16 py-10";
+
 export const sectionSubText = "text-secondary text-[17px]";
 export const sectionHeadText = "text-2xl font-bold text-white";
 
@@ -12,6 +15,7 @@ export const noiseOverlay = "noise-overlay";
 
 export const styles = {
   paddingX,
+  padding,
   sectionSubText,
   sectionHeadText,
   heroHeadText,

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Mr. Lotta — portfolio social preview">
+  <defs>
+    <!-- Echoes the radial gold glow used by the site's hero section. -->
+    <radialGradient id="glowTR" cx="78%" cy="18%" r="55%">
+      <stop offset="0%" stop-color="#cfa96e" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#cfa96e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowBL" cx="16%" cy="88%" r="50%">
+      <stop offset="0%" stop-color="#cfa96e" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#cfa96e" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Brand mark, defined once and reused at the centred size. -->
+    <g id="mark">
+      <rect width="64" height="64" rx="15" fill="#cfa96e"/>
+      <path d="M19 16h10v20h16v10H19z" fill="#0a0a0f"/>
+      <rect x="37" y="16" width="8" height="8" fill="#0a0a0f"/>
+    </g>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0a0a0f"/>
+  <rect width="1200" height="630" fill="url(#glowTR)"/>
+  <rect width="1200" height="630" fill="url(#glowBL)"/>
+
+  <!-- Hairline frame, matching the site's subtle white/5 borders. -->
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="2"/>
+
+  <!-- Mark, centred. 64 * 2.6 = 166.4 wide. (1200-166.4)/2 = 516.8 -->
+  <g transform="translate(516.8 132) scale(2.6)"><use href="#mark"/></g>
+
+  <!-- Wordmark -->
+  <text x="600" y="410" text-anchor="middle" font-family="Inter" font-size="76" font-weight="700" letter-spacing="1">
+    <tspan fill="#e8e6e3">Mr. </tspan><tspan fill="#cfa96e">Lotta</tspan>
+  </text>
+
+  <!-- Tagline -->
+  <text x="600" y="462" text-anchor="middle" font-family="Inter" font-size="27" font-weight="400" fill="#71717a">
+    Software Developer · Web, Mobile &amp; Creative Tech
+  </text>
+</svg>

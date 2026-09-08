@@ -1,3 +1,6 @@
+/* @import rules must precede all other rules, so the font import comes first. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,9 +30,6 @@
   background: linear-gradient(180deg, var(--card) 0%, var(--bg) 100%);
 }
 
-/* Inter font import */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 /* Body styles */
 body {
   font-family: 'Inter', sans-serif;
@@ -41,6 +41,41 @@ body {
 /* JetBrains Mono for code/monospace */
 .mono {
   font-family: 'JetBrains Mono', monospace;
+}
+
+/* Dark gradient panel used by the mobile navigation dropdown */
+.black-gradient {
+  background: #0a0a0f;
+  background: linear-gradient(180deg, rgba(20, 20, 26, 0.98) 0%, rgba(10, 10, 15, 0.98) 100%);
+}
+
+/* Anchors the section ids rendered by src/hoc/SectionWrapper.jsx so that
+   `href="#about"` style links scroll to the section instead of its top edge. */
+.hash-span {
+  display: block;
+  position: relative;
+  margin-top: -100px;
+  padding-top: 100px;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Hover backdrop revealed over a project card image */
+.card-img_hover {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.group:hover .card-img_hover {
+  opacity: 1;
+}
+
+/* Progress label rendered by src/components/Loader.jsx */
+.canvas-load {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 /* Reduce motion preference */

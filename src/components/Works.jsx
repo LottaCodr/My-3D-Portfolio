@@ -1,4 +1,3 @@
-import React from "react";
 import { Tilt } from "react-tilt";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
@@ -15,7 +14,6 @@ const ProjectCard = ({
   tags,
   image,
   source_code_link,
-  stars,
   live_url,
 }) => {
   return (
