@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
  *
  * Framer Motion's `useReducedMotion()` is wired in here so *every* reveal in
  * the app collapses to a plain fade for users who asked their OS to reduce
- * motion — the CSS media query alone cannot reach inline transform animations.
+ * motion, the CSS media query alone cannot reach inline transform animations.
  * See docs/ux-research.md §1.2 and §3.4.
  */
 export default function Reveal({

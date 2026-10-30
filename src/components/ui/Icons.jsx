@@ -1,4 +1,4 @@
-/* One icon set for the whole site — 1.5px stroke, currentColor, aria-hidden.
+/* One icon set for the whole site: 1.5px stroke, currentColor, aria-hidden.
    Research: "stick to one icon style throughout" (docs/ux-research.md §1.1).
    Every path here is hand-verified; the previous version shipped malformed
    path data in Contact.jsx and Works.jsx. */
@@ -117,5 +117,46 @@ export const Plus = (p) => (
   <svg {...base} {...p}>
     <path d="M12 5v14" />
     <path d="M5 12h14" />
+  </svg>
+);
+
+export const Search = (p) => (
+  <svg {...base} {...p}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-3.5-3.5" />
+  </svg>
+);
+
+export const Copy = (p) => (
+  <svg {...base} {...p}>
+    <rect x="9" y="9" width="12" height="12" rx="2" />
+    <path d="M15 5.5A2.5 2.5 0 0 0 12.5 3h-7A2.5 2.5 0 0 0 3 5.5v7A2.5 2.5 0 0 0 5.5 15" />
+  </svg>
+);
+
+export const ArrowUp = (p) => (
+  <svg {...base} {...p}>
+    <path d="M12 19V5" />
+    <path d="m6 11 6-6 6 6" />
+  </svg>
+);
+
+export const ChevronDown = (p) => (
+  <svg {...base} {...p}>
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+);
+
+export const Clock = (p) => (
+  <svg {...base} {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3 2" />
+  </svg>
+);
+
+export const Code = (p) => (
+  <svg {...base} {...p}>
+    <path d="m8 7-5 5 5 5" />
+    <path d="m16 7 5 5-5 5" />
   </svg>
 );

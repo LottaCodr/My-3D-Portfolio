@@ -4,7 +4,7 @@ import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 import { usePrefersReducedMotion, useIsTouch } from "../../hooks/useMediaQuery";
 
-/* Particle count scales down on touch devices — 5,000 points is a needless
+/* Particle count scales down on touch devices: 5,000 points is a needless
    battery drain on a phone that will scroll past it in a second. */
 const count = (isTouch) => (isTouch ? 1400 : 3200);
 
@@ -40,7 +40,7 @@ function Stars(props) {
   );
 }
 
-/** Ambient starfield. Decorative only — never blocks interaction. */
+/** Ambient starfield. Decorative only, never blocks interaction. */
 export default function StarsCanvas() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">

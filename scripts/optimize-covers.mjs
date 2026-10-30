@@ -4,7 +4,7 @@
  *   node scripts/optimize-covers.mjs
  *
  * Drop new PNGs into src/assets/covers/ and re-run: each is resized to
- * 1600x1000 (16:10 — the same ratio ProjectCard reserves with `aspect-ratio`,
+ * 1600x1000 (16:10, the same ratio ProjectCard reserves with `aspect-ratio`,
  * so the grid never shifts on load), re-encoded to WebP, and the PNG is
  * removed so only the shipped asset stays in the tree.
  *

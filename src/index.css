@@ -1,4 +1,4 @@
-/* Fonts first — @import must precede all other rules. */
+/* Fonts first: @import must precede all other rules. */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap');
 
 @tailwind base;
@@ -8,31 +8,50 @@
 /* ============================================================
    DESIGN TOKENS
    Single source of truth. Mirrored in tailwind.config.js.
-   Contrast verified against WCAG 2.2 — see docs/ux-research.md §2.2
+   Contrast verified against WCAG 2.2: see docs/ux-research-v2.md §4
    ============================================================ */
 :root {
   /* Surfaces */
   --bg:        #0a0a0f;
+  --bg-deep:   #07070b;
   --bg-raise:  #101017;
   --card:      #14141a;
   --card-hi:   #1a1a23;
 
-  /* Text — all AAA/AA verified on --bg and --card */
-  --fg:        #e8e6e3;   /* 15.86:1 on bg  — AAA */
-  --muted:     #a1a1aa;   /*  7.71:1 on bg  — AAA (was #71717a @ 4.09:1 = FAIL) */
-  --faint:     #85858f;   /*  5.02:1 on bg  — AA  */
+  /* Text: every pair below is AA or AAA on --bg and --card */
+  --fg:        #e8e6e3;   /* 15.86:1 on bg, AAA */
+  --muted:     #a1a1aa;   /*  7.71:1 on bg, AAA */
+  --faint:     #85858f;   /*  5.02:1 on bg, AA  */
 
   /* Brand */
-  --accent:       #cfa96e; /* 8.99:1 on bg — AAA */
-  --accent-soft:  #f0d9b5; /* 14.39:1 on bg — AAA */
+  --accent:       #cfa96e; /* 8.99:1 on bg, AAA */
+  --accent-soft:  #f0d9b5; /* 14.39:1 on bg, AAA */
   --accent-deep:  #a78755;
-  --on-accent:    #0a0a0f; /* 8.99:1 on accent — AAA */
+  --on-accent:    #0a0a0f; /* 8.99:1 on accent, AAA */
 
-  /* Lines — lifted to >=3:1 where they define a component boundary */
-  --border:      #33333f;
-  --border-soft: #23232e;
+  /* Status */
+  --success: #7fd99a;
+  --danger:  #f0a1a1;
 
-  /* Type — fluid, no breakpoint cliffs (clamp) */
+  /* Lines.
+     --border-control is reserved for the boundary of an interactive control
+     (input, secondary button, toggle) where WCAG 1.4.11 requires 3:1 against
+     the adjacent surface: 3.76:1 on bg, 3.49:1 on card, 3.29:1 on card-hi.
+     --border and --border-soft are decorative hairlines and card grouping,
+     never the only thing identifying a control. */
+  --border-control: #6b6b78;
+  --border:         #33333f;
+  --border-soft:    #23232e;
+
+  /* Translucent surfaces for layering. Kept low-alpha so text contrast
+     stays a property of the solid surface underneath. */
+  --surface:       rgba(255, 255, 255, 0.035);
+  --surface-hover: rgba(255, 255, 255, 0.065);
+
+  /* Focus ring: the accent already clears 3:1 against every surface. */
+  --ring: var(--accent);
+
+  /* Type: fluid, no breakpoint cliffs (clamp) */
   --text-display: clamp(2.75rem, 1.4rem + 6.2vw, 5.25rem);
   --text-h2:      clamp(2rem, 1.5rem + 2.2vw, 3.25rem);
   --text-h3:      clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
@@ -40,11 +59,15 @@
   --text-sm:      0.875rem;
   --text-xs:      0.75rem;
 
-  /* Rhythm — 4pt scale */
-  --space-section: clamp(4rem, 3rem + 5vw, 8rem);
+  /* Rhythm: 4pt scale */
+  --space-section: clamp(4.5rem, 3rem + 5vw, 8.5rem);
   --space-block:   clamp(1.5rem, 1.2rem + 1.2vw, 2.5rem);
 
-  /* Radii */
+  /* Radii.
+     Pills are deliberately scarce: tags at 6px, interactive controls at
+     10px, cards at 20px. --r-full is kept for dots and progress lines. */
+  --r-tag: 6px;
+  --r-control: 10px;
   --r-sm: 8px;
   --r-md: 14px;
   --r-lg: 20px;
@@ -54,9 +77,10 @@
   /* Elevation */
   --shadow-card: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
   --shadow-lift: 0 2px 4px rgba(0,0,0,.4), 0 24px 48px -16px rgba(0,0,0,.75);
+  --shadow-glow: 0 0 0 1px rgba(207,169,110,.22), 0 18px 50px -20px rgba(207,169,110,.35);
 
   /* Layout */
-  --nav-h: 68px;
+  --nav-h: 72px;
   --maxw: 76rem;
   /* Gutter: 16px on phones (clear of the iOS/Android edge-gesture zones),
      growing to 40px on wide screens. */
@@ -70,13 +94,13 @@
     /* Stops iOS inflating text on rotation */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* WCAG 2.4.11 — the sticky header must never obscure a focused element */
+    /* WCAG 2.4.11: the sticky header must never obscure a focused element */
     scroll-padding-top: calc(var(--nav-h) + 24px);
     scroll-behavior: smooth;
   }
 
   html, body {
-    /* WCAG 1.4.10 Reflow — no horizontal scroll at any width 320px → 1920px */
+    /* WCAG 1.4.10 Reflow: no horizontal scroll at any width 320px to 1920px */
     overflow-x: clip;
     max-width: 100%;
   }
@@ -96,11 +120,11 @@
   h1, h2, h3, h4 { line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
   p { text-wrap: pretty; }
 
-  /* WCAG 2.4.7 — never globally remove the focus ring. */
+  /* WCAG 2.4.7: never globally remove the focus ring. */
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--ring);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 6px;
   }
 
   ::selection { background: rgba(207,169,110,.28); color: var(--fg); }
@@ -109,6 +133,9 @@
   h1 { font-size: var(--text-display); font-weight: 800; }
   h2 { font-size: var(--text-h2); font-weight: 700; }
   h3 { font-size: var(--text-h3); font-weight: 600; }
+
+  /* Radix primitives hide their own outline in favour of the shared ring. */
+  [data-radix-focus-guard] { outline: none; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -132,7 +159,7 @@
 
   .section { padding-block: var(--space-section); }
 
-  /* Full-bleed inside the shell — cancels the gutter with the same token the
+  /* Full-bleed inside the shell: cancels the gutter with the same token the
      shell sets, so it never needs `100vw`. (100vw includes the scrollbar
      width and was the source of the old horizontal-scroll bug.) */
   .bleed {
@@ -167,7 +194,71 @@
     color: transparent;
   }
 
-  /* --- Buttons: one component, min 44px tap target ----------------- */
+  /* --- Surfaces ---------------------------------------------------- */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  .glass {
+    background: rgba(20, 20, 26, 0.72);
+    border: 1px solid var(--border-soft);
+    backdrop-filter: blur(18px) saturate(1.1);
+    -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  }
+
+  /* A one-pixel gradient rule used between sections. */
+  .rule-gradient {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border) 18%, var(--border) 82%, transparent);
+  }
+
+  .hairline { border-color: var(--border-soft); }
+
+  .chip {
+    display: inline-flex; align-items: center;
+    padding: .25rem .625rem;
+    border-radius: var(--r-tag);
+    border: 1px solid var(--border-soft);
+    background: var(--surface);
+    font-size: var(--text-xs);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* Keyboard hint, as used in the navbar command trigger. */
+  .kbd {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 1.5rem; height: 1.5rem;
+    padding-inline: .35rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    line-height: 1;
+    color: var(--muted);
+  }
+
+  /* Availability indicator: a static dot plus an optional ring pulse. */
+  .live-dot {
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 8px; height: 8px; flex: none;
+    border-radius: var(--r-full);
+    background: var(--success);
+  }
+  .live-dot::after {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    background: var(--success);
+    animation: pulse-ring 2.4s cubic-bezier(.22,1,.36,1) infinite;
+  }
+
+  /* --- Legacy button classes (kept so older markup keeps working) --- */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -175,7 +266,7 @@
     gap: .5rem;
     min-height: 44px;
     padding: .6875rem 1.25rem;
-    border-radius: var(--r-full);
+    border-radius: var(--r-control);
     font-size: var(--text-sm);
     font-weight: 600;
     line-height: 1.2;
@@ -197,34 +288,13 @@
   .icon-btn {
     display: inline-flex; align-items: center; justify-content: center;
     width: 44px; height: 44px; flex: none;
-    border-radius: var(--r-full);
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,.04);
+    border-radius: var(--r-control);
+    border: 1px solid var(--border-control);
+    background: var(--surface);
     color: var(--fg);
     transition: background-color .2s ease, border-color .2s ease, color .2s ease;
   }
   .icon-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(207,169,110,.12); }
-
-  /* --- Surfaces ---------------------------------------------------- */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--r-lg);
-    box-shadow: var(--shadow-card);
-  }
-
-  .hairline { border-color: var(--border-soft); }
-
-  .chip {
-    display: inline-flex; align-items: center;
-    padding: .25rem .625rem;
-    border-radius: var(--r-full);
-    border: 1px solid var(--border-soft);
-    background: rgba(255,255,255,.03);
-    font-size: var(--text-xs);
-    color: var(--muted);
-    white-space: nowrap;
-  }
 
   /* --- WCAG 2.4.1 Bypass Blocks ------------------------------------ */
   .skip-link {
@@ -270,4 +340,30 @@
 
   .text-balance { text-wrap: balance; }
   .tnum { font-variant-numeric: tabular-nums; }
+
+  /* Edge dissolve for marquees, filter rows and wide scrollers. */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+
+  /* Faint blueprint grid used behind the hero and section dividers. */
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  /* Radial mask so the grid dissolves instead of stopping at an edge. */
+  .mask-radial {
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 78%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 78%);
+  }
 }

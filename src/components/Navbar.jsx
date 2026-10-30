@@ -3,11 +3,14 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { navLinks, profile } from "../constants";
 import { logo } from "../assets";
 import { useScrollSpy } from "../hooks/useScrollSpy";
-import { Close, Menu } from "./ui/Icons";
+import { scrollToSection, scrollToTop } from "../lib/navigate";
+import { cn } from "../lib/utils";
+import { Button } from "./ui/button";
+import { ArrowUpRight, Close, Menu, Search } from "./ui/Icons";
 
 const SECTION_IDS = navLinks.map((l) => l.id);
 
-export default function Navbar() {
+export default function Navbar({ onOpenCommand }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const activeId = useScrollSpy(SECTION_IDS);
@@ -28,12 +31,13 @@ export default function Navbar() {
      pattern): body scroll-lock, focus moved in, Tab trapped inside, Escape
      closes with focus returned to the trigger, background marked inert, and
      a resize up to desktop widths closes it before `md:hidden` hides it and
-     strands the scroll-lock. WCAG 2.1.2, 2.4.3, 4.1.2. */
+     strands the scroll-lock. WCAG 2.1.2, 2.4.3, 4.1.2.
+     The sheet deliberately contains links only, so the trap has one
+     unambiguous first and last stop. */
   useEffect(() => {
     if (!open) return;
     const { overflow } = document.body.style;
     document.body.style.overflow = "hidden";
-    // Move focus into the sheet once it has painted.
     requestAnimationFrame(() => firstLinkRef.current?.focus());
 
     const main = document.getElementById("main");
@@ -47,7 +51,6 @@ export default function Navbar() {
         toggleRef.current?.focus();
         return;
       }
-      // Focus trap: keep Tab cycling inside the dialog.
       if (e.key === "Tab" && menuRef.current) {
         const items = menuRef.current.querySelectorAll(
           "a[href], button:not([disabled])",
@@ -66,8 +69,6 @@ export default function Navbar() {
     };
     document.addEventListener("keydown", onKey);
 
-    // `md:hidden` hides the sheet at >=768px — close it first so the
-    // scroll-lock and inert flags never leak into the desktop layout.
     let mq = null;
     let onViewport = null;
     if (typeof window.matchMedia === "function") {
@@ -98,25 +99,20 @@ export default function Navbar() {
     };
   }, [open]);
 
-  const go = useCallback((e, id) => {
-    e.preventDefault();
-    setOpen(false);
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-    // Move keyboard + screen-reader focus to the section navigated to. The
-    // anchor span carries tabindex="-1" so this is silent for mouse users and
-    // orienting for everyone else. scrollIntoView already scrolled, so don't
-    // scroll again.
-    el.focus({ preventScroll: true });
-    // Keep the URL shareable without a hard jump.
-    window.history.replaceState(null, "", `#${id}`);
-  }, [reduce]);
+  const go = useCallback(
+    (e, id) => {
+      e.preventDefault();
+      setOpen(false);
+      scrollToSection(id, { behavior: reduce ? "auto" : "smooth" });
+    },
+    [reduce],
+  );
 
   const linkClass = (id) =>
-    `relative inline-flex min-h-[44px] items-center px-1 text-[15px] font-medium transition-colors duration-200 ${
-      activeId === id ? "text-fg" : "text-muted hover:text-fg"
-    }`;
+    cn(
+      "relative inline-flex min-h-[44px] items-center px-1 text-sm font-medium transition-colors duration-200",
+      activeId === id ? "text-fg" : "text-muted hover:text-fg",
+    );
 
   return (
     <>
@@ -129,35 +125,36 @@ export default function Navbar() {
           tappable; its own background drops out so the sheet reads as one
           continuous surface. */}
       <header
-        className={`fixed inset-x-0 top-0 safe-top transition-[background-color,border-color,backdrop-filter] duration-300 ${
+        className={cn(
+          "safe-top fixed inset-x-0 top-0 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
+          open ? "z-[70]" : "z-nav",
           open
-            ? "z-[70] border-b border-transparent bg-transparent"
+            ? "border-transparent bg-transparent"
             : scrolled
-              ? "z-nav border-b border-linesoft bg-bg/80 backdrop-blur-xl"
-              : "z-nav border-b border-transparent bg-transparent"
-        }`}
+              ? "border-linesoft bg-bg/80 backdrop-blur-xl"
+              : "border-transparent bg-transparent",
+        )}
       >
         <nav
           aria-label="Primary"
-          className="shell flex h-nav items-center justify-between gap-4"
+          className="shell flex h-nav items-center justify-between gap-3"
         >
           <a
             href="#top"
             onClick={(e) => {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
-              window.history.replaceState(null, "", " ");
+              scrollToTop({ behavior: reduce ? "auto" : "smooth" });
             }}
-            className="flex min-h-[44px] items-center gap-2.5 rounded-lg"
+            className="flex min-h-[44px] items-center gap-2.5 rounded-control pr-2"
           >
-            <img src={logo} alt="" aria-hidden="true" className="h-8 w-8" />
-            <span className="text-[17px] font-bold tracking-tight text-fg">
-              Mr.&nbsp;<span className="text-accent">Lotta</span>
+            <img src={logo} alt="" aria-hidden="true" className="h-7 w-7" />
+            <span className="text-[16px] font-bold tracking-tight text-fg">
+              Mr.{" "}<span className="text-accent">Lotta</span>
             </span>
           </a>
 
           {/* Desktop */}
-          <ul className="hidden items-center gap-8 md:flex">
+          <ul className="hidden items-center gap-7 md:flex">
             {navLinks.map((nav) => (
               <li key={nav.id}>
                 <a
@@ -169,21 +166,37 @@ export default function Navbar() {
                   {nav.title}
                   <span
                     aria-hidden="true"
-                    className={`absolute inset-x-0 -bottom-0.5 h-[2px] rounded-full bg-accent transition-transform duration-300 ${
-                      activeId === nav.id ? "scale-x-100" : "scale-x-0"
-                    }`}
+                    className={cn(
+                      "absolute inset-x-0 -bottom-0.5 h-[2px] bg-accent transition-transform duration-300",
+                      activeId === nav.id ? "scale-x-100" : "scale-x-0",
+                    )}
                   />
                 </a>
               </li>
             ))}
           </ul>
 
-          <div className="flex items-center gap-2">
-            <a href="#contact" onClick={(e) => go(e, "contact")} className="btn btn--primary hidden sm:inline-flex">
-              Hire me
-            </a>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={onOpenCommand}
+              aria-label="Search this site"
+              aria-keyshortcuts="Meta+k Control+k"
+              className="inline-flex h-11 w-11 items-center justify-center gap-2 rounded-control border border-transparent text-[13px] font-medium text-muted transition-colors hover:border-control hover:bg-white/[0.04] hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent lg:w-auto lg:px-3"
+            >
+              <Search width={15} height={15} />
+              <span className="hidden lg:inline">Search</span>
+              <kbd className="kbd hidden lg:inline-flex">⌘K</kbd>
+            </button>
 
-            {/* Mobile toggle — a real <button>, 44px, with state exposed to AT */}
+            <Button asChild size="sm" className="hidden sm:inline-flex">
+              <a href="#contact" onClick={(e) => go(e, "contact")}>
+                Hire me
+                <ArrowUpRight width={14} height={14} />
+              </a>
+            </Button>
+
+            {/* Mobile toggle: a real <button>, 44px, with state exposed to AT */}
             <button
               ref={toggleRef}
               type="button"
@@ -200,7 +213,7 @@ export default function Navbar() {
         </nav>
       </header>
 
-      {/* Mobile sheet — full-screen rather than a floating popover, so links are
+      {/* Mobile sheet: full-screen rather than a floating popover, so links are
           thumb-reachable and never clipped by the viewport. */}
       <AnimatePresence>
         {open && (
@@ -214,35 +227,53 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-overlay flex flex-col overflow-y-auto bg-bg/98 pt-nav backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-overlay flex flex-col overflow-y-auto bg-bg/[0.985] pt-[calc(var(--nav-h)+env(safe-area-inset-top))] backdrop-blur-xl md:hidden"
           >
-            <ul className="shell flex flex-1 flex-col justify-center gap-1">
-              {navLinks.map((nav, i) => (
-                <li key={nav.id} className="border-b border-linesoft last:border-0">
-                  <a
-                    ref={i === 0 ? firstLinkRef : undefined}
-                    href={`#${nav.id}`}
-                    onClick={(e) => go(e, nav.id)}
-                    aria-current={activeId === nav.id ? "true" : undefined}
-                    className="flex min-h-[64px] items-center justify-between text-2xl font-semibold text-fg"
+            <div className="shell flex flex-1 flex-col justify-center py-8">
+              <p className="eyebrow mb-6">Navigate</p>
+              <ul>
+                {navLinks.map((nav, i) => (
+                  <li
+                    key={nav.id}
+                    className="border-b border-linesoft last:border-b-0"
                   >
-                    {nav.title}
-                    <span className="mono text-xs text-faint">
-                      0{i + 1}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+                    <a
+                      ref={i === 0 ? firstLinkRef : undefined}
+                      href={`#${nav.id}`}
+                      onClick={(e) => go(e, nav.id)}
+                      aria-current={activeId === nav.id ? "true" : undefined}
+                      className="flex min-h-[68px] items-center justify-between gap-4 text-[1.65rem] font-semibold text-fg"
+                    >
+                      <span>{nav.title}</span>
+                      <span className="flex items-center gap-3 text-faint">
+                        <span className="mono text-[11px] tabular-nums">
+                          0{i + 1}
+                        </span>
+                        <ArrowUpRight width={18} height={18} />
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
 
-            <div className="shell safe-bottom pb-8">
-              <a
-                href={`mailto:${profile.email}`}
-                className="btn btn--primary btn--block btn--lg"
-              >
-                {profile.email}
-              </a>
-              <p className="mono mt-4 text-center text-xs text-faint">
+              <div className="mt-10">
+                <p className="eyebrow">Get in touch</p>
+                <a
+                  href={`mailto:${profile.email}`}
+                  onClick={() => setOpen(false)}
+                  className="mt-3 flex min-h-[44px] items-center text-lg font-medium text-accent underline decoration-accent/40 underline-offset-4"
+                >
+                  {profile.email}
+                </a>
+                <p className="mt-4 inline-flex items-center gap-2 text-sm text-muted">
+                  <span className="live-dot" aria-hidden="true" />
+                  Available for new work
+                </p>
+              </div>
+            </div>
+
+            <div className="shell safe-bottom pb-6">
+              <p className="mono text-[11px] uppercase tracking-[0.16em] text-faint">
                 {profile.location}
               </p>
             </div>

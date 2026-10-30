@@ -1,34 +1,33 @@
 import { useReducedMotion } from "framer-motion";
 import { logo } from "../assets";
 import { navLinks, profile, socials } from "../constants";
-import { ArrowDown } from "./ui/Icons";
+import { scrollToSection, scrollToTop } from "../lib/navigate";
+import { Button } from "./ui/button";
+import { ArrowUp } from "./ui/Icons";
 
 export default function Footer() {
   const reduce = useReducedMotion();
   const year = new Date().getFullYear();
 
-  const go = (e, id) => {
-    e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({
-      behavior: reduce ? "auto" : "smooth",
-      block: "start",
-    });
+  const go = (event, id) => {
+    event.preventDefault();
+    scrollToSection(id, { behavior: reduce ? "auto" : "smooth" });
   };
 
   return (
-    <footer className="border-t border-linesoft bg-raise/40">
-      <div className="shell py-14">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr]">
+    <footer className="border-t border-linesoft bg-raise/30">
+      <div className="shell py-14 sm:py-16">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr] lg:gap-14">
           <div>
             <div className="flex items-center gap-2.5">
               <img src={logo} alt="" aria-hidden="true" className="h-8 w-8" />
               <span className="text-[17px] font-bold tracking-tight text-fg">
-                Mr.&nbsp;<span className="text-accent">Lotta</span>
+                Mr.{" "}<span className="text-accent">Lotta</span>
               </span>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
-              {profile.role} building web platforms, mobile apps and AI pipelines
-              from {profile.location}.
+              Full-stack software engineer building web platforms, mobile apps
+              and AI pipelines from {profile.location}.
             </p>
             <a
               href={`mailto:${profile.email}`}
@@ -36,18 +35,22 @@ export default function Footer() {
             >
               {profile.email}
             </a>
+            <p className="mt-4 inline-flex items-center gap-2 text-xs text-faint">
+              <span className="live-dot" aria-hidden="true" />
+              Available for new work
+            </p>
           </div>
 
           <nav aria-label="Footer">
-            <h2 className="mono text-[11px] uppercase tracking-[0.16em] text-faint">
+            <h2 className="mono text-[10px] uppercase tracking-[0.16em] text-faint">
               Navigate
             </h2>
-            <ul className="mt-4 space-y-1">
+            <ul className="mt-3 space-y-0.5">
               {navLinks.map((nav) => (
                 <li key={nav.id}>
                   <a
                     href={`#${nav.id}`}
-                    onClick={(e) => go(e, nav.id)}
+                    onClick={(event) => go(event, nav.id)}
                     className="inline-flex min-h-[44px] items-center text-sm text-muted transition-colors hover:text-accent"
                   >
                     {nav.title}
@@ -58,22 +61,22 @@ export default function Footer() {
           </nav>
 
           <div>
-            <h2 className="mono text-[11px] uppercase tracking-[0.16em] text-faint">
+            <h2 className="mono text-[10px] uppercase tracking-[0.16em] text-faint">
               Elsewhere
             </h2>
-            <ul className="mt-4 space-y-1">
-              {socials.map((s) => {
-                const external = !s.href.startsWith("mailto:");
+            <ul className="mt-3 space-y-0.5">
+              {socials.map((social) => {
+                const external = !social.href.startsWith("mailto:");
                 return (
-                  <li key={s.label}>
+                  <li key={social.label}>
                     <a
-                      href={s.href}
+                      href={social.href}
                       {...(external
                         ? { target: "_blank", rel: "noopener noreferrer" }
                         : {})}
                       className="inline-flex min-h-[44px] items-center text-sm text-muted transition-colors hover:text-accent"
                     >
-                      {s.label}
+                      {social.label}
                     </a>
                   </li>
                 );
@@ -84,18 +87,18 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-linesoft pt-7 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-faint">
-            © {year} {profile.name}. Built with React, Three.js and Tailwind.
+            © {year} {profile.name}. Built with React, Radix UI, Tailwind CSS
+            and Three.js.
           </p>
-          <button
-            type="button"
-            onClick={() =>
-              window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" })
-            }
-            className="inline-flex min-h-[44px] items-center gap-2 self-start text-sm text-muted transition-colors hover:text-accent sm:self-auto"
+          <Button
+            variant="ghost"
+            size="sm"
+            className="-ml-2 self-start sm:self-auto"
+            onClick={() => scrollToTop({ behavior: reduce ? "auto" : "smooth" })}
           >
-            <ArrowDown width={16} height={16} className="rotate-180" />
+            <ArrowUp width={16} height={16} />
             Back to top
-          </button>
+          </Button>
         </div>
       </div>
     </footer>

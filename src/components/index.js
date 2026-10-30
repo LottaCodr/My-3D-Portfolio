@@ -7,6 +7,7 @@ import CaseStudies from "./CaseStudies";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import ScrollProgress from "./ScrollProgress";
+import CommandPalette from "./CommandPalette";
 import { StarsCanvas } from "./canvas";
 
 export {
@@ -19,5 +20,6 @@ export {
   Contact,
   Footer,
   ScrollProgress,
+  CommandPalette,
   StarsCanvas,
 };

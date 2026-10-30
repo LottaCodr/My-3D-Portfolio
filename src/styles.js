@@ -1,4 +1,4 @@
-/* Shared class strings. Keep the design system in one place —
+/* Shared class strings. Keep the design system in one place.
    see docs/ux-research.md §3.2 ("one component set, reused everywhere"). */
 
 export const shell = "shell";
