@@ -55,16 +55,22 @@ export default function CommandPalette({ open, onOpenChange }) {
 
   const close = () => onOpenChange(false);
 
-  /* The action runs a tick after the dialog starts closing: Radix restores
-     focus to the trigger on close, so scrolling and focusing the destination
-     first would lose that focus a moment later. */
-  const run = (action) => () => {
+  /* Deferred actions run a tick after the dialog starts closing. That matters
+     for in-page navigation: Radix restores focus to the trigger on close, so
+     scrolling and focusing the destination first would lose that focus a
+     moment later. External links and mailto stay synchronous so the browser
+     still sees them inside the original user gesture and does not treat the
+     new tab as a popup. */
+  const run = (action, { defer = false } = {}) => () => {
     close();
-    window.setTimeout(action, 0);
+    if (defer) window.setTimeout(action, 0);
+    else action();
   };
 
   const go = (id) =>
-    run(() => scrollToSection(id, { behavior: reduce ? "auto" : "smooth" }));
+    run(() => scrollToSection(id, { behavior: reduce ? "auto" : "smooth" }), {
+      defer: true,
+    });
 
   const openExternal = (href) => () => {
     window.open(href, "_blank", "noopener,noreferrer");
@@ -101,10 +107,13 @@ export default function CommandPalette({ open, onOpenChange }) {
           ))}
           <CommandItem
             value="Back to top home hero"
-            onSelect={run(() => {
-              window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
-              window.history.replaceState(null, "", " ");
-            })}
+            onSelect={run(
+              () => {
+                window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+                window.history.replaceState(null, "", " ");
+              },
+              { defer: true },
+            )}
           >
             <ArrowUp width={16} height={16} />
             <span className="text-fg">Back to top</span>

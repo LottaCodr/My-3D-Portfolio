@@ -34,6 +34,7 @@ Short version of the second pass:
 | Contact | Hand-rolled inputs | Label, input and textarea primitives, unchanged inline validation, copy-email with tooltip |
 | Control boundaries | 1.59:1 border | `--border-control` at 3.29:1 or better on every surface |
 | Em dashes | Present in copy, docs and assets | Zero, repo-wide |
+| Deploy payload | 19 MB of unused 3D models in `public/` | Removed, `dist/` is 2.2 MB |
 
 ## Stack
 

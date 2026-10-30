@@ -279,6 +279,10 @@ the mobile sheet and restored to its trigger on close.
   canvas mounts.
 * **Vendor chunks are split by change frequency** (`react`, `motion`, `ui`, `three`) so a
   portfolio copy edit does not invalidate the framework chunk in visitors' caches.
+* **Dead assets removed.** `public/` carried 19 MB of unreferenced Sketchfab models
+  (`planet/`, `desktop_pc/`) left over from the original template. They were copied into
+  every deployment and downloaded by nobody. Removing them takes `dist/` from 21 MB to
+  2.2 MB. They remain in git history at commit `bef0727` if the 3D work resumes.
 * **Hover effects are additive.** No information or action depends on hover.
 
 ---
@@ -304,7 +308,8 @@ the mobile sheet and restored to its trigger on close.
 | `npm run lint` | Clean, `--max-warnings 0` |
 | `npm run build` | Clean, no chunk-size warning, vendors split into `react` / `motion` / `ui` / lazy `three` |
 | `w-screen` / `100vw` scan | Zero occurrences in source, enforced by a test |
-| Em dash scan | Zero occurrences in source, docs, copy and generated brand assets |
+| Em dash scan | Zero occurrences anywhere in the repository, including the removed binary assets |
+| Deploy payload | `dist/` is 2.2 MB, down from 21 MB of mostly unused 3D models |
 
 ---
 
