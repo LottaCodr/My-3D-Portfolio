@@ -126,95 +126,91 @@ export default function Navbar({ onOpenCommand }) {
           continuous surface. */}
       <header
         className={cn(
-          "fixed inset-x-0 top-0 safe-top transition-[z-index] duration-200",
+          "safe-top fixed inset-x-0 top-0 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
           open ? "z-[70]" : "z-nav",
+          open
+            ? "border-transparent bg-transparent"
+            : scrolled
+              ? "border-linesoft bg-bg/80 backdrop-blur-xl"
+              : "border-transparent bg-transparent",
         )}
       >
-        <div className="shell">
-          <nav
-            aria-label="Primary"
-            className={cn(
-              "mt-2.5 flex h-14 items-center justify-between gap-3 rounded-full border px-2.5 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300",
-              open
-                ? "border-transparent bg-transparent"
-                : scrolled
-                  ? "border-linesoft/80 bg-bg/75 shadow-card backdrop-blur-xl"
-                  : "border-transparent bg-transparent",
-            )}
+        <nav
+          aria-label="Primary"
+          className="shell flex h-nav items-center justify-between gap-3"
+        >
+          <a
+            href="#top"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToTop({ behavior: reduce ? "auto" : "smooth" });
+            }}
+            className="flex min-h-[44px] items-center gap-2.5 rounded-control pr-2"
           >
-            <a
-              href="#top"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToTop({ behavior: reduce ? "auto" : "smooth" });
-              }}
-              className="flex min-h-[44px] items-center gap-2.5 rounded-full pl-1 pr-2"
-            >
-              <img src={logo} alt="" aria-hidden="true" className="h-7 w-7" />
-              <span className="text-[16px] font-bold tracking-tight text-fg">
-                Mr.{" "}<span className="text-accent">Lotta</span>
-              </span>
-            </a>
+            <img src={logo} alt="" aria-hidden="true" className="h-7 w-7" />
+            <span className="text-[16px] font-bold tracking-tight text-fg">
+              Mr.{" "}<span className="text-accent">Lotta</span>
+            </span>
+          </a>
 
-            {/* Desktop */}
-            <ul className="hidden items-center gap-7 md:flex">
-              {navLinks.map((nav) => (
-                <li key={nav.id}>
-                  <a
-                    href={`#${nav.id}`}
-                    onClick={(e) => go(e, nav.id)}
-                    className={linkClass(nav.id)}
-                    aria-current={activeId === nav.id ? "true" : undefined}
-                  >
-                    {nav.title}
-                    <span
-                      aria-hidden="true"
-                      className={cn(
-                        "absolute inset-x-0 -bottom-0.5 h-[2px] rounded-full bg-accent transition-transform duration-300",
-                        activeId === nav.id ? "scale-x-100" : "scale-x-0",
-                      )}
-                    />
-                  </a>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={onOpenCommand}
-                aria-label="Search this site"
-                aria-keyshortcuts="Meta+k Control+k"
-                className="inline-flex h-11 w-11 items-center justify-center gap-2 rounded-full border border-transparent text-[13px] font-medium text-muted transition-colors hover:border-control hover:bg-white/[0.04] hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent lg:w-auto lg:px-3"
-              >
-                <Search width={15} height={15} />
-                <span className="hidden lg:inline">Search</span>
-                <kbd className="kbd hidden lg:inline-flex">⌘K</kbd>
-              </button>
-
-              <Button asChild size="sm" className="hidden sm:inline-flex">
-                <a href="#contact" onClick={(e) => go(e, "contact")}>
-                  Hire me
-                  <ArrowUpRight width={14} height={14} />
+          {/* Desktop */}
+          <ul className="hidden items-center gap-7 md:flex">
+            {navLinks.map((nav) => (
+              <li key={nav.id}>
+                <a
+                  href={`#${nav.id}`}
+                  onClick={(e) => go(e, nav.id)}
+                  className={linkClass(nav.id)}
+                  aria-current={activeId === nav.id ? "true" : undefined}
+                >
+                  {nav.title}
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "absolute inset-x-0 -bottom-0.5 h-[2px] bg-accent transition-transform duration-300",
+                      activeId === nav.id ? "scale-x-100" : "scale-x-0",
+                    )}
+                  />
                 </a>
-              </Button>
+              </li>
+            ))}
+          </ul>
 
-              {/* Mobile toggle: a real <button>, 44px, with state exposed to AT */}
-              <button
-                ref={toggleRef}
-                type="button"
-                className="icon-btn md:hidden"
-                aria-expanded={open}
-                aria-haspopup="dialog"
-                aria-controls="mobile-menu"
-                aria-label={open ? "Close menu" : "Open menu"}
-                onClick={() => setOpen((v) => !v)}
-              >
-                {open ? <Close /> : <Menu />}
-              </button>
-            </div>
-          </nav>
-        </div>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={onOpenCommand}
+              aria-label="Search this site"
+              aria-keyshortcuts="Meta+k Control+k"
+              className="inline-flex h-11 w-11 items-center justify-center gap-2 rounded-control border border-transparent text-[13px] font-medium text-muted transition-colors hover:border-control hover:bg-white/[0.04] hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent lg:w-auto lg:px-3"
+            >
+              <Search width={15} height={15} />
+              <span className="hidden lg:inline">Search</span>
+              <kbd className="kbd hidden lg:inline-flex">⌘K</kbd>
+            </button>
+
+            <Button asChild size="sm" className="hidden sm:inline-flex">
+              <a href="#contact" onClick={(e) => go(e, "contact")}>
+                Hire me
+                <ArrowUpRight width={14} height={14} />
+              </a>
+            </Button>
+
+            {/* Mobile toggle: a real <button>, 44px, with state exposed to AT */}
+            <button
+              ref={toggleRef}
+              type="button"
+              className="icon-btn md:hidden"
+              aria-expanded={open}
+              aria-haspopup="dialog"
+              aria-controls="mobile-menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <Close /> : <Menu />}
+            </button>
+          </div>
+        </nav>
       </header>
 
       {/* Mobile sheet: full-screen rather than a floating popover, so links are

@@ -36,7 +36,7 @@ const AccordionTrigger = forwardRef(function AccordionTrigger(
       <AccordionPrimitive.Trigger
         ref={ref}
         className={cn(
-          "group flex flex-1 items-start gap-4 rounded-md text-left",
+          "group flex flex-1 items-start gap-4 rounded-control text-left",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-bg",
           className,
         )}
@@ -46,7 +46,7 @@ const AccordionTrigger = forwardRef(function AccordionTrigger(
         {indicator ?? (
           <span
             aria-hidden="true"
-            className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-full border border-control text-muted transition-colors duration-200 group-hover:border-accent/50 group-hover:text-accent group-data-[state=open]:border-accent group-data-[state=open]:bg-accent group-data-[state=open]:text-[color:var(--on-accent)]"
+            className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-control border border-control text-muted transition-colors duration-200 group-hover:border-accent/50 group-hover:text-accent group-data-[state=open]:border-accent group-data-[state=open]:bg-accent group-data-[state=open]:text-[color:var(--on-accent)]"
           >
             <ChevronDown
               width={16}

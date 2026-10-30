@@ -75,7 +75,7 @@ function CopyEmailButton() {
             type="button"
             onClick={() => copy(profile.email)}
             aria-label={`Copy email address, ${profile.email}`}
-            className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-full border border-control text-muted transition-colors hover:border-accent/60 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-control border border-control text-muted transition-colors hover:border-accent/60 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             {copied ? (
               <Check width={17} height={17} className="text-success" />
@@ -250,7 +250,7 @@ function Contact({ headingId }) {
                       : {})}
                     className="group flex min-h-[44px] items-center gap-4 rounded-lg border border-control bg-card p-4 transition-colors duration-200 hover:border-accent/40 hover:bg-accent/[0.04]"
                   >
-                    <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full border border-line text-accent">
+                    <span className="flex h-10 w-10 flex-none items-center justify-center rounded-control border border-line text-accent">
                       <Icon width={18} height={18} />
                     </span>
                     <span className="min-w-0 flex-1">

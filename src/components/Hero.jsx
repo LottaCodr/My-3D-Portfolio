@@ -142,7 +142,7 @@ export default function Hero() {
               className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm"
               {...rise(0.06)}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-success/25 bg-success/[0.08] px-3 py-1.5 text-xs font-medium text-success">
+              <span className="inline-flex items-center gap-2 text-xs font-medium text-success">
                 <span className="live-dot" aria-hidden="true" />
                 Available for new work
               </span>
@@ -209,7 +209,7 @@ export default function Hero() {
                     type="button"
                     onClick={() => copy(profile.email)}
                     aria-label={`Copy email address, ${profile.email}`}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-control text-faint transition-colors hover:border-accent/60 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-control border border-control text-faint transition-colors hover:border-accent/60 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     {copied ? (
                       <Check width={15} height={15} className="text-success" />

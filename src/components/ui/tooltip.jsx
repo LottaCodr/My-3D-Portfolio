@@ -21,7 +21,7 @@ const TooltipContent = forwardRef(function TooltipContent(
         ref={ref}
         sideOffset={sideOffset}
         className={cn(
-          "z-dialog max-w-[16rem] rounded-md border border-line bg-cardhi px-2.5 py-1.5",
+          "z-dialog max-w-[16rem] rounded-tag border border-line bg-cardhi px-2.5 py-1.5",
           "text-xs font-medium leading-snug text-fg shadow-lift",
           "data-[state=delayed-open]:animate-overlay-in data-[state=instant-open]:animate-overlay-in",
           className,

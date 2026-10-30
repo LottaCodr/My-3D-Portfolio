@@ -7,7 +7,7 @@ import { cn } from "../../lib/utils";
  * stack tags and categories all share one shape, one border and one text size.
  */
 export const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border font-medium leading-none",
+  "inline-flex items-center gap-1.5 whitespace-nowrap rounded-tag border font-medium leading-none",
   {
     variants: {
       variant: {

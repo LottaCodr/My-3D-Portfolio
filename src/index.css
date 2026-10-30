@@ -63,7 +63,11 @@
   --space-section: clamp(4.5rem, 3rem + 5vw, 8.5rem);
   --space-block:   clamp(1.5rem, 1.2rem + 1.2vw, 2.5rem);
 
-  /* Radii */
+  /* Radii.
+     Pills are deliberately scarce: tags at 6px, interactive controls at
+     10px, cards at 20px. --r-full is kept for dots and progress lines. */
+  --r-tag: 6px;
+  --r-control: 10px;
   --r-sm: 8px;
   --r-md: 14px;
   --r-lg: 20px;
@@ -216,7 +220,7 @@
   .chip {
     display: inline-flex; align-items: center;
     padding: .25rem .625rem;
-    border-radius: var(--r-full);
+    border-radius: var(--r-tag);
     border: 1px solid var(--border-soft);
     background: var(--surface);
     font-size: var(--text-xs);
@@ -229,7 +233,7 @@
     display: inline-flex; align-items: center; justify-content: center;
     min-width: 1.5rem; height: 1.5rem;
     padding-inline: .35rem;
-    border-radius: 6px;
+    border-radius: 4px;
     border: 1px solid var(--border);
     background: var(--surface);
     font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -262,7 +266,7 @@
     gap: .5rem;
     min-height: 44px;
     padding: .6875rem 1.25rem;
-    border-radius: var(--r-full);
+    border-radius: var(--r-control);
     font-size: var(--text-sm);
     font-weight: 600;
     line-height: 1.2;
@@ -284,7 +288,7 @@
   .icon-btn {
     display: inline-flex; align-items: center; justify-content: center;
     width: 44px; height: 44px; flex: none;
-    border-radius: var(--r-full);
+    border-radius: var(--r-control);
     border: 1px solid var(--border-control);
     background: var(--surface);
     color: var(--fg);

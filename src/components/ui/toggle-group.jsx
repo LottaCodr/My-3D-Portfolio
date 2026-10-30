@@ -29,7 +29,7 @@ const ToggleGroupItem = forwardRef(function ToggleGroupItem(
     <ToggleGroupPrimitive.Item
       ref={ref}
       className={cn(
-        "inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-full border border-control px-4",
+        "inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-control border border-control px-4",
         "bg-white/[0.02] text-sm font-medium text-muted transition-colors duration-200",
         "hover:border-accent/50 hover:text-fg",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",

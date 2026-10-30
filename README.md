@@ -33,6 +33,7 @@ Short version of the second pass:
 | Case studies | Custom accordion | Radix Accordion inside one card, full WAI-ARIA keyboard model |
 | Contact | Hand-rolled inputs | Label, input and textarea primitives, unchanged inline validation, copy-email with tooltip |
 | Control boundaries | 1.59:1 border | `--border-control` at 3.29:1 or better on every surface |
+| Shape | Pill buttons, pill chips, capsule navbar | 6px tags, 10px controls, 20px cards, full-width navbar |
 | Em dashes | Present in copy, docs and assets | Zero, repo-wide |
 | Deploy payload | 19 MB of unused 3D models in `public/` | Removed, `dist/` is 2.2 MB |
 
@@ -82,6 +83,10 @@ control, where WCAG 1.4.11 requires at least 3:1 against the adjacent surface.
 Type is fluid (`clamp()`), so one rule scales from 360px to 1920px with no breakpoint
 cliffs. Spacing is a 4pt scale. Motion uses one easing curve,
 `cubic-bezier(.22, 1, .36, 1)`, and collapses to a fade under `prefers-reduced-motion`.
+
+Shape follows one scale: 6px for tags and badges, 10px for interactive controls, 14 to 20px
+for cards and panels. Full pills are reserved for status dots and progress lines, so the
+only pill-like elements left in the interface are the ones that are literally round.
 
 ### Component architecture
 

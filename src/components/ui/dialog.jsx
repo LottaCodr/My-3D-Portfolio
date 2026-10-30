@@ -51,7 +51,7 @@ const DialogContent = forwardRef(function DialogContent(
         {children}
         {showClose && (
           <DialogPrimitive.Close
-            className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full text-muted transition-colors hover:bg-white/[0.06] hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-control text-muted transition-colors hover:bg-white/[0.06] hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <Close width={18} height={18} />
             <span className="sr-only">Close</span>

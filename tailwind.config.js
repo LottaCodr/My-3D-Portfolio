@@ -43,7 +43,12 @@ export default {
         shell: '76rem',
         prose: '62ch',
       },
+      /* Shape language: tags are barely rounded, controls are soft
+         rectangles, cards are generously rounded. Full pills are reserved for
+         dots and progress lines, not for buttons or labels. */
       borderRadius: {
+        tag: '6px',
+        control: '10px',
         sm: '8px',
         md: '14px',
         lg: '20px',

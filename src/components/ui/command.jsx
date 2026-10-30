@@ -100,7 +100,7 @@ const CommandItem = forwardRef(function CommandItem({ className, ...props }, ref
     <CommandPrimitive.Item
       ref={ref}
       className={cn(
-        "group relative flex cursor-pointer select-none items-center gap-3 rounded-md px-3 py-2.5",
+        "group relative flex cursor-pointer select-none items-center gap-3 rounded-control px-3 py-2.5",
         "text-sm text-muted outline-none transition-colors duration-150",
         "data-[selected=true]:bg-white/[0.06] data-[selected=true]:text-fg",
         "data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50",

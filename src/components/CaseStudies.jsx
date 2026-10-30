@@ -29,7 +29,7 @@ function CaseStudyItem({ study, index }) {
         indicator={
           <span
             aria-hidden="true"
-            className="mt-1 flex h-9 w-9 flex-none items-center justify-center rounded-full border border-control text-muted transition-all duration-300 group-data-[state=open]:rotate-45 group-data-[state=open]:border-accent group-data-[state=open]:bg-accent group-data-[state=open]:text-[color:var(--on-accent)]"
+            className="mt-1 flex h-9 w-9 flex-none items-center justify-center rounded-control border border-control text-muted transition-all duration-300 group-data-[state=open]:rotate-45 group-data-[state=open]:border-accent group-data-[state=open]:bg-accent group-data-[state=open]:text-[color:var(--on-accent)]"
           >
             <Plus width={16} height={16} />
           </span>

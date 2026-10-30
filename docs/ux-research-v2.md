@@ -144,7 +144,28 @@ that closes the sheet before `md:hidden` can strand the scroll lock. Swapping in
 Dialog here would have replaced tested behaviour with untested behaviour for no user-facing
 gain. Radix is used where it adds a keyboard model this project did not already implement.
 
-### 3.2 File layout
+### 3.2 Shape language: pills are a deliberate rarity
+
+The community kits reviewed lean on fully rounded controls, which is why pill-shaped
+buttons now read as the default of a generic component library rather than as a decision.
+The portfolio templates that hold up are more editorial: rectangular tags, squared
+controls, generous card radii, and a single full-width piece of chrome. The shape scale
+below replaces the previous "everything is a pill" approach.
+
+| Surface | Radius | Rationale |
+| --- | --- | --- |
+| Tag / badge | 6px | Reads as a label, not a button, so status chips stop competing with actions |
+| Button, input, toggle, icon button, accordion indicator | 10px | Soft rectangle: unmistakably pressable without the capsule silhouette |
+| Tooltip, keyboard hint | 4 to 6px | Small surfaces look wrong with large radii |
+| Card, panel | 14 to 20px | The one place generous curvature is earned |
+| Dots and progress lines | 999px | A dot has to be round; nothing else does |
+
+Two consequences worth calling out. The floating capsule navbar is now a full-width bar
+with a hairline border and blur on scroll, which is calmer over a full-bleed hero. The hero
+availability marker is plain text with a status dot instead of a bordered pill, so the
+primary call to action is the only button-shaped object in the fold.
+
+### 3.3 File layout
 
 ```
 src/
