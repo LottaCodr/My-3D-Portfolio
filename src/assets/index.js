@@ -22,7 +22,7 @@ import threejs from "./tech/threejs.svg";
    Project covers.
 
    The old files in src/assets/*.png were hand-written SVG source saved with a
-   .png extension (400x300, Arial label, 335-650 bytes) — see
+   .png extension (400x300, Arial label, 335-650 bytes), see
    docs/ux-research.md §2.1 B1. They only rendered because browsers sniff
    content type, and they break under X-Content-Type-Options: nosniff.
 

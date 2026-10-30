@@ -267,6 +267,42 @@ describe("rendered app", () => {
 });
 
 /* ===========================================================================
+ * 2b. Document structure
+ * ======================================================================== */
+describe("document structure", () => {
+  it("gives every labelled section a resolvable heading id", () => {
+    const { container } = render(<App />);
+    const sections = [
+      ...container.querySelectorAll("section[aria-labelledby]"),
+    ];
+    expect(sections.length).toBeGreaterThanOrEqual(4);
+
+    for (const section of sections) {
+      const id = section.getAttribute("aria-labelledby");
+      expect(id, "section has an empty aria-labelledby").toBeTruthy();
+      expect(
+        document.getElementById(id),
+        `no element carries the heading id ${id}`,
+      ).toBeTruthy();
+    }
+  });
+
+  it("ships no duplicate element ids", () => {
+    const { container } = render(<App />);
+    const ids = [...container.querySelectorAll("[id]")].map((el) => el.id);
+    const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
+    expect(duplicates).toEqual([]);
+  });
+
+  it("puts the name and the role in the single h1", () => {
+    const { container } = render(<App />);
+    const h1 = container.querySelector("h1");
+    expect(h1.textContent).toContain(profile.name);
+    expect(h1.textContent).toContain(profile.role);
+  });
+});
+
+/* ===========================================================================
  * 3. Interaction
  * ======================================================================== */
 describe("work filters", () => {
@@ -388,7 +424,7 @@ describe("mobile navigation", () => {
       expect(document.getElementById("mobile-menu")).toBeInTheDocument();
 
       // Simulate crossing the md breakpoint upward. Only the navbar's
-      // listener fires — other queries (e.g. the touch detection in Works)
+      // listener fires, and other queries (e.g. the touch detection in Works)
       // must not be disturbed.
       act(() => {
         for (const [query, cb] of [...listeners]) {

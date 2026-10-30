@@ -2,16 +2,21 @@
  * Wraps a section in the shared shell + vertical rhythm and renders the
  * scroll-target anchor.
  *
- * The old version applied a `staggerContainer` variant that its children never
- * consumed, and mixed `styles.padding` with per-section `py-24` so spacing was
- * applied twice. Children now opt into animation explicitly via <Reveal />,
- * and spacing lives in exactly one place.
+ * The wrapped component receives `sectionId` and `headingId` so it can label
+ * its own heading. The previous version set `aria-labelledby="${id}-heading"`
+ * without any element carrying that id, which left every section landmark
+ * unnamed.
+ *
+ * Children opt into animation explicitly via <Reveal />, and spacing lives in
+ * exactly one place.
  */
-const SectionWrapper = (Component, idName) =>
-  function WrappedSection() {
+const SectionWrapper = (Component, idName) => {
+  function WrappedSection(props) {
+    const headingId = idName ? `${idName}-heading` : undefined;
+
     return (
       <section
-        aria-labelledby={idName ? `${idName}-heading` : undefined}
+        aria-labelledby={headingId}
         className="shell section relative"
       >
         {/* tabindex="-1": a programmatic focus target only. Navbar moves focus
@@ -22,9 +27,14 @@ const SectionWrapper = (Component, idName) =>
             &nbsp;
           </span>
         )}
-        <Component />
+        <Component sectionId={idName} headingId={headingId} {...props} />
       </section>
     );
-  };
+  }
+
+  WrappedSection.displayName = `SectionWrapper(${Component.displayName || Component.name || "Component"})`;
+
+  return WrappedSection;
+};
 
 export default SectionWrapper;

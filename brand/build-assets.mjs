@@ -75,7 +75,7 @@ write('public/og-image.png', render(read('brand/og-image.svg'), 1200, true))
 
 /* ---- 4. web app manifest ---- */
 const manifest = {
-  name: 'Mr. Lotta — Portfolio',
+  name: 'Mr. Lotta Portfolio',
   short_name: 'Mr. Lotta',
   description:
     'Portfolio of Mr. Lotta: robust web platforms, engaging mobile apps, and dynamic brand identities.',

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 /**
  * Subscribe to a CSS media query. SSR-safe: returns `fallback` on first paint.
  *
- * Used to switch off hover-only and pointer-driven effects on touch devices —
+ * Used to switch off hover-only and pointer-driven effects on touch devices:
  * `Tilt`, cursor parallax, hover reveals. See docs/ux-research.md §1.2
  * ("Avoid hover-dependent features that cannot function on touchscreens").
  */
