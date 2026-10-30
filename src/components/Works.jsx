@@ -66,6 +66,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project, index }, ref) {
     category,
     note,
     featured,
+    extra_links,
   } = project;
 
   return (
@@ -165,6 +166,25 @@ const ProjectCard = forwardRef(function ProjectCard({ project, index }, ref) {
             ))}
           </ul>
 
+          {/* Multi-repo projects (a UI pass and its follow-up) advertise the
+              companion repository rather than hiding it in prose. */}
+          {extra_links?.length ? (
+            <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+              {extra_links.map((link) => (
+                <li key={link.url}>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[12px] text-muted underline decoration-linesoft underline-offset-4 transition-colors hover:text-accent focus-visible:text-accent"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+
           {/* Links are ALWAYS rendered, never hover-gated: hover does not exist
               on touch. See docs/ux-research-v2.md §5 */}
           <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-linesoft pt-5">
@@ -237,7 +257,7 @@ function Works({ headingId }) {
           index="02"
           eyebrow="Selected work"
           headingId={headingId}
-          title="Fifteen products. Nine of them live right now."
+          title="Twenty products. Nine of them live right now."
           lede="Every card below links somewhere real: a deployment you can click through, or the repository if the product has no public web surface."
         />
       </div>

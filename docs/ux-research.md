@@ -117,7 +117,7 @@ border token → `#33333f`. Gold and off-white were already compliant and are ke
 Hero (name + role + proof + single primary CTA)
   └─ Availability pill · 4 real metrics · "View work" / "Get in touch"
 Tech marquee            ← replaces the unmounted Tech.jsx 3D balls
-Selected Work           ← filterable grid, 15 projects, 100% linked
+Selected Work           ← filterable grid, 20 projects, 100% linked
 Case Studies            ← 5 deep studies, Minto-pyramid accordion
 About                   ← real bio + real numbers + capability list
 Contact                 ← validated form + direct channels
@@ -173,8 +173,8 @@ route, so verification used page fetches; GitHub metadata used `gh api`.
 | topsite | `top-six-smoky.vercel.app` | ❌ **404 DEPLOYMENT_NOT_FOUND** → excluded |
 | Garden Fairy Server, Glimms AI, Glimms Mobile, FixAm, CivicVote, SocialLite | n/a | backend / unpublished mobile → GitHub only, confirmed by owner |
 
-**Result: 15 of 15 projects ship with at least one working link: 9 live deployments
-(all fetched-and-confirmed) plus 15 source repositories.** HiLink Travel was
+**Result: 20 of 20 projects ship with at least one working link: 9 live deployments
+(all fetched-and-confirmed) plus 20 source repositories.** HiLink Travel was
 removed from the grid at the owner's request; it was live, not dead.
 
 ### 4.2 Owner-confirmed exception: resolved

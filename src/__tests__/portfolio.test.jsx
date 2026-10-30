@@ -114,6 +114,15 @@ describe("project data", () => {
     }
   });
 
+  it("publishes companion repositories as labelled, public GitHub links", () => {
+    const links = projects.flatMap((project) => project.extra_links ?? []);
+    expect(links.length).toBeGreaterThan(0);
+    for (const link of links) {
+      expect(link.label?.length ?? 0, "companion link needs a label").toBeGreaterThan(3);
+      expect(link.url).toMatch(/^https:\/\/github\.com\/LottaCodr\//);
+    }
+  });
+
   it("every project belongs to a filterable category", () => {
     const categories = new Set(["web", "mobile", "ai", "landing", "creative"]);
     for (const p of projects) {
@@ -237,7 +246,7 @@ describe("rendered app", () => {
   it("renders every project with a clickable link", () => {
     render(<App />);
     const articles = screen.getAllByRole("article");
-    // 15 project cards; case studies are <article> too but live in another section
+    // 20 project cards; case studies are <article> too but live in another section
     expect(articles.length).toBeGreaterThanOrEqual(projects.length);
 
     const projectNames = projects.map((p) => p.name);
@@ -255,6 +264,30 @@ describe("rendered app", () => {
         `${heading.textContent} has no http link`,
       ).toBe(true);
     }
+  });
+
+  it("renders the Flutter apps as source-only cards with companion links", () => {
+    render(<App />);
+    const apps = ["The Trainer", "Driver App", "Medic Dashboard", "Traveller", "Chat App"];
+
+    for (const name of apps) {
+      const heading = screen.getByRole("heading", { level: 3, name });
+      const card = heading.closest("article");
+      expect(card, `${name} has no card`).toBeTruthy();
+      expect(
+        within(card).getAllByText(/source only/i).length,
+        `${name} should not claim a live deployment`,
+      ).toBeGreaterThan(0);
+      expect(
+        within(card)
+          .getAllByRole("link")
+          .some((a) => /github\.com\/LottaCodr\//.test(a.getAttribute("href") ?? "")),
+        `${name} has no repository link`,
+      ).toBe(true);
+    }
+
+    expect(screen.getByRole("link", { name: /ui-only build/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /home screen first/i })).toBeInTheDocument();
   });
 
   it("gives the GitHub icon links accessible names", () => {
@@ -315,11 +348,11 @@ describe("work filters", () => {
     fireEvent.click(mobileBtn);
     expect(mobileBtn).toHaveAttribute("aria-pressed", "true");
 
-    expect(screen.getByText(/Showing 3 of 15 projects/i)).toBeInTheDocument();
+    expect(screen.getByText(/Showing 8 of 20 projects/i)).toBeInTheDocument();
 
     const allBtn = screen.getByRole("button", { name: /^All work/i });
     fireEvent.click(allBtn);
-    expect(screen.getByText(/Showing 15 of 15 projects/i)).toBeInTheDocument();
+    expect(screen.getByText(/Showing 20 of 20 projects/i)).toBeInTheDocument();
   });
 });
 
