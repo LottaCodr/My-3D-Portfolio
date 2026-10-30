@@ -6,7 +6,7 @@
 
 <p align="center">
   React and TypeScript web platforms, mobile apps and AI pipelines.<br />
-  15 shipped products, 9 of them live.
+  20 shipped products, 9 of them live.
 </p>
 
 ---
@@ -56,7 +56,7 @@ npm run dev        # local dev server, bound to 0.0.0.0
 npm run build      # production build, output in dist/
 npm run preview    # serve the production build
 npm run lint       # eslint, zero warnings allowed
-npm test           # 39 tests: data integrity, a11y, structure, interaction, command palette
+npm test           # 41 tests: data integrity, a11y, structure, interaction, command palette
 ```
 
 ## Design system
@@ -143,6 +143,17 @@ node scripts/optimize-covers.mjs
 
 It resizes to 1600x1000, re-encodes to WebP at around 45 KB, and removes the PNG. Projects
 with no cover render a deterministic monogram tile instead of a placeholder image.
+
+The five Flutter apps have no screenshots in their repositories, so their covers are
+generated line art rather than photographs of a screen that does not exist:
+
+```bash
+npm i --no-save sharp
+node scripts/make-mobile-covers.mjs
+```
+
+The script writes the SVG masters to `scripts/covers-src/` and the 1600x1000 WebP covers to
+`src/assets/covers/`. Edit the motif functions there and re-run to change the art.
 
 ### Link policy
 

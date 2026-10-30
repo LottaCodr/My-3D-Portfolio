@@ -240,9 +240,41 @@ outlined away.
 | Finding | Before | Now |
 | --- | --- | --- |
 | Filters are a control, so they need control semantics | Native buttons with `aria-pressed` | Radix ToggleGroup, still `aria-pressed`, now with roving state and one source of truth |
-| Result count should be visible, not only announced | Screen-reader-only count | Visible "Showing 15 of 15" plus the existing live region |
+| Result count should be visible, not only announced | Screen-reader-only count | Visible "Showing 20 of 20" plus the existing live region |
 | Cards scan as a set | Mixed internal spacing | shadcn `Card` with reserved 16:10 cover, year and live badges, featured badge, index, tag badges, always-visible actions |
 | Hover is not an interaction on touch | Tilt already disabled on coarse pointers | Unchanged, and the tilt wrapper now preserves the card ref for layout animation |
+
+#### Mobile entries imported from GitHub, 2026-10-30
+
+The owner's Flutter work was pulled from the GitHub API rather than typed from memory. Twelve
+Dart repositories exist; five distinct products were added, and the rest are two halves of the
+same build or small single-screen drills that would dilute the grid.
+
+| Card | Repository | Why it earns a card |
+| --- | --- | --- |
+| The Trainer | `FITNESS-APP` | 55 Dart files: onboarding, Firebase auth and storage, GetX state, Chewie video, progress charts, paywall, localisation |
+| Driver App | `DAY-29...UBER-CLONE-` and `DAY-28...Driver-App-` | Full driver-side ride-hailing flow, UI first then the auth and verification layer, linked through `extra_links` |
+| Medic Dashboard | `DAY-18...STATISTICS-SCREEN-` and `DAY-17...HOME-PAGE-` | Dense phone-sized data UI with fl_chart analytics, second repo linked as the home-screen stage |
+| Traveller | `DAY-14---TRAVEL-APP` | Destination and hotel carousels with typed models, not a static mockup |
+| Chat App | `DAY-15---CHAT-APP` | Unread-versus-read list pattern that later products reused |
+
+Three decisions worth recording:
+
+- **Source-only badges, not fake store links.** None of the five has an App Store or Play
+  listing, so none gets a Live button. The card shows the same "Source only" badge the web
+  entries use, and the Code button is always visible.
+- **Companion repositories are linked, not buried.** Two builds span two repos each. Rather
+  than paraphrase that in prose, the card carries an `extra_links` row with a labelled anchor
+  per companion repo, validated by a test.
+- **Generated covers, not invented screenshots.** No repository ships a screenshot, and a
+  manufactured device mockup would imply evidence that does not exist. The covers are
+  deterministic SVG line art rendered to 1600x1000 WebP by `scripts/make-mobile-covers.mjs`,
+  using the site's own background and accent tokens. The SVG masters stay in
+  `scripts/covers-src/` so the art is reviewable, and the motifs describe each app: progress
+  rings, a route line, a pulse trace, a globe, speech bubbles.
+
+The grid now carries 20 entries, 8 of them mobile, and the copy that quotes totals moved with
+it: the Work heading, the hero pitch and the shipped-products metric all read 20.
 
 ### 5.4 Case studies
 
@@ -325,7 +357,7 @@ the mobile sheet and restored to its trigger on close.
 
 | Check | Result |
 | --- | --- |
-| `npm test` | 39 tests pass: data integrity, rendered accessibility, mobile dialog behaviour, contact validation, filter interaction, accordion state, command palette open/filter/copy/close |
+| `npm test` | 41 tests pass: data integrity, rendered accessibility, mobile dialog behaviour, contact validation, filter interaction, accordion state, command palette open/filter/copy/close |
 | `npm run lint` | Clean, `--max-warnings 0` |
 | `npm run build` | Clean, no chunk-size warning, vendors split into `react` / `motion` / `ui` / lazy `three` |
 | `w-screen` / `100vw` scan | Zero occurrences in source, enforced by a test |

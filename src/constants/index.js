@@ -24,6 +24,11 @@ import {
   coverColorGreen,
   coverEcholoft,
   coverPetroelemites,
+  coverFlutterTrainer,
+  coverFlutterDriver,
+  coverFlutterMedic,
+  coverFlutterTraveller,
+  coverFlutterChat,
 } from "../assets";
 
 /* ---------------------------------------------------------------------------
@@ -42,7 +47,7 @@ export const profile = {
   github: "https://github.com/LottaCodr",
   site: "https://lotaport.vercel.app",
   pitch:
-    "I turn ideas into products that survive real users: web, mobile and AI. 15 shipped, 9 live.",
+    "I turn ideas into products that survive real users: web, mobile and AI. 20 shipped, 9 live.",
 };
 
 /* Navigation */
@@ -59,7 +64,7 @@ export const navLinks = [
    12 stars; the API returns 22 and 8. See docs/ux-research.md §2.1 B6.
    ------------------------------------------------------------------------- */
 export const stats = [
-  { label: "Products shipped", value: "15", suffix: "" },
+  { label: "Products shipped", value: "20", suffix: "" },
   { label: "Live right now", value: "9", suffix: "" },
   { label: "Public repos", value: "115", suffix: "" },
   { label: "Years building", value: "5", suffix: "+" },
@@ -102,11 +107,16 @@ export const stackNames = [
 ];
 
 /* ---------------------------------------------------------------------------
-   Projects: 15 entries.
+   Projects: 20 entries.
    EVERY entry carries at least one verified link: 9 live deployments, and
    the remaining 6 entries are backend, mobile-only or early experiments with
    public source repositories. Links that returned 404 DEPLOYMENT_NOT_FOUND
    during verification were removed, never shipped.
+
+   The five 2023 entries are the Flutter apps, imported from the owner's
+   GitHub on 2026-10-30. They are source-only by nature (no app store listing,
+   no web build), so each one shows a "Source only" badge instead of a Live
+   button, and two of them link a companion repository through extra_links.
    Full verification log: docs/ux-research.md §4
    ------------------------------------------------------------------------- */
 export const projectFilters = [
@@ -301,6 +311,85 @@ export const projects = [
       "Expo client for booking vetted local artisans, with Flutterwave checkout, job tracking and OTP auth. Ships in a keyless mock mode so it can be demoed before any Supabase project exists.",
     tags: ["Expo", "React Native", "TypeScript", "Supabase", "Flutterwave"],
     source_code_link: "https://github.com/LottaCodr/FIXAM-Mobile-App",
+  },
+  {
+    id: "the-trainer",
+    name: "The Trainer",
+    category: "mobile",
+    year: "2023",
+    role: "Flutter developer",
+    tagline: "Onboarding, programmes and video sessions in one Flutter training app.",
+    description:
+      "Flutter fitness client with a three-screen onboarding flow, Firebase auth and storage, a personalised plan builder, workout video playback through Chewie, progress charts, an activity heatmap and subscription screens, all with light and dark themes and localisation.",
+    tags: ["Flutter", "Dart", "Firebase", "GetX", "fl_chart"],
+    image: coverFlutterTrainer,
+    source_code_link: "https://github.com/LottaCodr/FITNESS-APP",
+  },
+  {
+    id: "driver-app",
+    name: "Driver App",
+    category: "mobile",
+    year: "2023",
+    role: "Flutter developer",
+    tagline: "The driver side of a ride-hailing app, from sign-up to earnings.",
+    description:
+      "Flutter driver client for an Uber-style build: car and document capture at registration, Firebase-backed sign-in checks, then a tabbed workspace covering the active job, earnings, ratings and profile. Built as a UI pass first, with the auth and verification layer landed in a second repository.",
+    tags: ["Flutter", "Dart", "Firebase Auth"],
+    image: coverFlutterDriver,
+    source_code_link:
+      "https://github.com/LottaCodr/DAY-29---DRIVER-AUTHENICATION-VERIFICATION-WITH-FIREBASE-UBER-CLONE-",
+    extra_links: [
+      {
+        label: "UI-only build",
+        url: "https://github.com/LottaCodr/DAY-28---UBER-APP-CLONE-Driver-App-",
+      },
+    ],
+  },
+  {
+    id: "medic-dashboard",
+    name: "Medic Dashboard",
+    category: "mobile",
+    year: "2023",
+    role: "Flutter developer",
+    tagline: "A medical dashboard with case cards and a charted statistics screen.",
+    description:
+      "Flutter medical-assistance dashboard: greeting header, case cards, country selector and a statistics screen with fl_chart bars over a shared stats grid. Built in two stages, home screen first, then the analytics view.",
+    tags: ["Flutter", "Dart", "fl_chart"],
+    image: coverFlutterMedic,
+    source_code_link:
+      "https://github.com/LottaCodr/DAY-18---MEDIC-DASHBOARD-STATISTICS-SCREEN-",
+    extra_links: [
+      {
+        label: "Home screen first",
+        url: "https://github.com/LottaCodr/DAY-17---MEDICAL-DASHBOARD-HOME-PAGE-",
+      },
+    ],
+  },
+  {
+    id: "traveller",
+    name: "Traveller",
+    category: "mobile",
+    year: "2023",
+    role: "Flutter developer",
+    tagline: "Destination and hotel carousels for a Nigeria-first travel browser.",
+    description:
+      "Flutter travel app with paged destination and hotel carousels, a detail screen per destination, and typed models for activities, hotels and places, loaded with Abuja and Lagos imagery.",
+    tags: ["Flutter", "Dart"],
+    image: coverFlutterTraveller,
+    source_code_link: "https://github.com/LottaCodr/DAY-14---TRAVEL-APP",
+  },
+  {
+    id: "chat-app",
+    name: "Chat App",
+    category: "mobile",
+    year: "2023",
+    role: "Flutter developer",
+    tagline: "A messaging home screen that separates unread from read at a glance.",
+    description:
+      "Flutter chat client with recent conversations and unread counts, favourite contacts, a category selector, and typed message and user models. A UI-first build, kept as the reference for the list and layout patterns that later products reused.",
+    tags: ["Flutter", "Dart"],
+    image: coverFlutterChat,
+    source_code_link: "https://github.com/LottaCodr/DAY-15---CHAT-APP",
   },
   {
     id: "sociallite",
