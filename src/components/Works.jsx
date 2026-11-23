@@ -7,7 +7,7 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
-import { projects, projectFilters } from "../constants";
+import { projects, projectFilters, projectCounts, publicRepoCount } from "../constants";
 import { useIsTouch } from "../hooks/useMediaQuery";
 import { ArrowUpRight, Github, Globe } from "./ui/Icons";
 
@@ -59,6 +59,8 @@ const ProjectCard = forwardRef(function ProjectCard({ project, index }, ref) {
     description,
     tags,
     image,
+    image_alt,
+    image_caption,
     live_url,
     source_code_link,
     year,
@@ -91,7 +93,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project, index }, ref) {
           {image ? (
             <img
               src={image}
-              alt={`${name} product cover`}
+              alt={image_alt ?? `${name} product cover`}
               width={1600}
               height={1000}
               loading="lazy"
@@ -135,6 +137,12 @@ const ProjectCard = forwardRef(function ProjectCard({ project, index }, ref) {
             </div>
           )}
         </div>
+
+        {image && image_caption && (
+          <p className="border-b border-linesoft bg-cardhi px-5 py-2 text-[11px] leading-relaxed text-muted sm:px-6">
+            {image_caption}
+          </p>
+        )}
 
         <div className="flex flex-1 flex-col p-5 sm:p-6">
           <div className="flex items-start justify-between gap-3">
@@ -257,7 +265,7 @@ function Works({ headingId }) {
           index="02"
           eyebrow="Selected work"
           headingId={headingId}
-          title="Twenty products. Nine of them live right now."
+          title={`${projectCounts.total} projects. ${projectCounts.live} live websites.`}
           lede="Every card below links somewhere real: a deployment you can click through, or the repository if the product has no public web surface."
         />
       </div>
@@ -324,7 +332,7 @@ function Works({ headingId }) {
           rel="noopener noreferrer"
           className="text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
         >
-          115 public repositories on GitHub
+          {publicRepoCount} public repositories on GitHub
         </a>
       </p>
     </>

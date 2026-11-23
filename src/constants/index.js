@@ -14,6 +14,9 @@ import {
   figma,
   docker,
   // project covers (src/assets/covers/*)
+  coverApexEnergy,
+  coverBaleDrop,
+  coverTopOnePercent,
   coverHealthCare,
   coverGardenFairy,
   coverGardenFairyServer,
@@ -47,7 +50,7 @@ export const profile = {
   github: "https://github.com/LottaCodr",
   site: "https://lotaport.vercel.app",
   pitch:
-    "I turn ideas into products that survive real users: web, mobile and AI. 20 shipped, 9 live.",
+    "I turn ideas into products that survive real users: web, mobile and AI.",
 };
 
 /* Navigation */
@@ -56,18 +59,6 @@ export const navLinks = [
   { id: "work", title: "Work" },
   { id: "case-studies", title: "Case Studies" },
   { id: "contact", title: "Contact" },
-];
-
-/* ---------------------------------------------------------------------------
-   Metrics: every number below is either read from the GitHub API or printed
-   on the live product itself. The previous version claimed 847 followers and
-   12 stars; the API returns 22 and 8. See docs/ux-research.md §2.1 B6.
-   ------------------------------------------------------------------------- */
-export const stats = [
-  { label: "Products shipped", value: "20", suffix: "" },
-  { label: "Live right now", value: "9", suffix: "" },
-  { label: "Public repos", value: "115", suffix: "" },
-  { label: "Years building", value: "5", suffix: "+" },
 ];
 
 /* Technologies: drives the marquee */
@@ -107,17 +98,14 @@ export const stackNames = [
 ];
 
 /* ---------------------------------------------------------------------------
-   Projects: 20 entries.
-   EVERY entry carries at least one verified link: 9 live deployments, and
-   the remaining 6 entries are backend, mobile-only or early experiments with
-   public source repositories. Links that returned 404 DEPLOYMENT_NOT_FOUND
-   during verification were removed, never shipped.
+   Projects: newest additions first, followed by the existing selected work.
+   Every entry carries a public source repository. A live_url is included only
+   when the public website has been fetched successfully, not just because a
+   repository lists a homepage or a deployment reports success.
 
-   The five 2023 entries are the Flutter apps, imported from the owner's
-   GitHub on 2026-10-30. They are source-only by nature (no app store listing,
-   no web build), so each one shows a "Source only" badge instead of a Live
-   button, and two of them link a companion repository through extra_links.
-   Full verification log: docs/ux-research.md §4
+   November additions and screenshot provenance: docs/project-refresh-2026-11.md.
+   Original verification log: docs/ux-research.md §4.
+   The Flutter apps remain source-only, with companion repos in extra_links.
    ------------------------------------------------------------------------- */
 export const projectFilters = [
   { id: "all", label: "All work" },
@@ -129,6 +117,57 @@ export const projectFilters = [
 ];
 
 export const projects = [
+  {
+    id: "apex-energy",
+    name: "ApexEnergy Resources",
+    category: "landing",
+    year: "2026",
+    role: "Frontend engineer",
+    tagline: "An investor-facing energy website with an interactive gas-development roadmap.",
+    description:
+      "Corporate website for ApexEnergy Resources Ltd: a phased CNG and LNG strategy, the Gwagwalada Energy Hub, an adjustable illustrative economics model, investor FAQs and an enquiry flow.",
+    tags: ["React 19", "TypeScript", "Tailwind 4", "Radix UI", "Framer Motion"],
+    image: coverApexEnergy,
+    image_alt: "ApexEnergy investor website homepage, captured from a local repository build",
+    image_caption: "Local build screenshot",
+    // The listed homepage could not be verified, and the deployment preview
+    // requires a Vercel login. Do not advertise either as a public live site.
+    source_code_link: "https://github.com/LottaCodr/apex-energy",
+    note: "Repository preview",
+  },
+  {
+    id: "bale-drop",
+    name: "Bale Drop",
+    category: "web",
+    year: "2026",
+    role: "Full-stack engineer",
+    tagline: "An Okirika marketplace where buyers can split a bale instead of buying it alone.",
+    description:
+      "Next.js marketplace for second-hand clothing in Nigeria, with shared bale bookings, vendor and admin workspaces, Supabase-backed accounts, Paystack checkout, escrow workflows and order tracking.",
+    tags: ["Next.js 15", "TypeScript", "Supabase", "Paystack", "Tailwind"],
+    image: coverBaleDrop,
+    image_alt: "Bale Drop storefront with bale-split cards, captured locally using repository demo data",
+    image_caption: "Local build screenshot · demo catalogue",
+    live_url: "https://bale-drop.vercel.app",
+    source_code_link: "https://github.com/LottaCodr/bale-drop",
+  },
+  {
+    id: "top-one-percent",
+    name: "Top One Percent",
+    category: "landing",
+    year: "2026",
+    role: "Frontend engineer",
+    tagline: "A studio website that turns service selection into a priced project brief.",
+    description:
+      "Marketing site for an Abuja tech and media studio, with a scope estimator, NGN and USD pricing, light and dark themes, a command palette, case-study dialogs and a WhatsApp brief builder.",
+    tags: ["React 19", "Vite", "Tailwind 4", "Radix UI", "React Router"],
+    image: coverTopOnePercent,
+    image_alt: "Top One Percent scope estimator in its dark theme, captured from a local repository build",
+    image_caption: "Local build screenshot",
+    // Verified 2026-11-23. The repository's top-six-smoky alias is outdated.
+    live_url: "https://topltd.vercel.app",
+    source_code_link: "https://github.com/LottaCodr/topsite",
+  },
   {
     id: "nile-valley-emr",
     name: "Nile Valley EMR",
@@ -416,6 +455,22 @@ export const projects = [
     live_url: "https://lotaport.vercel.app",
     source_code_link: "https://github.com/LottaCodr/My-3D-Portfolio",
   },
+];
+
+/* Counts are derived from the same data as the grid and command palette. */
+export const projectCounts = {
+  total: projects.length,
+  live: projects.filter((project) => project.live_url).length,
+};
+
+/* Public GitHub API snapshot, 2026-11-23. Not a count of private repositories. */
+export const publicRepoCount = 117;
+
+export const stats = [
+  { label: "Projects built", value: String(projectCounts.total), suffix: "" },
+  { label: "Live websites", value: String(projectCounts.live), suffix: "" },
+  { label: "Public repos", value: String(publicRepoCount), suffix: "" },
+  { label: "Years building", value: "5", suffix: "+" },
 ];
 
 /* ---------------------------------------------------------------------------

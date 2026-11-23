@@ -1,10 +1,10 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, within, fireEvent, act } from "@testing-library/react";
+import { render, screen, within, fireEvent, act, waitFor } from "@testing-library/react";
 
 import App from "../App";
-import { projects, caseStudies, stats, socials, profile } from "../constants";
+import { projects, caseStudies, stats, socials, profile, projectCounts, publicRepoCount } from "../constants";
 
 /* Vitest always runs from the project root, so cwd is the repo root. */
 const SRC_DIR = resolve(process.cwd(), "src");
@@ -20,8 +20,11 @@ const stripComments = (src) =>
  * Ground truth, established during the research pass on 2026-09-08.
  * Every URL was fetched; the two marked dead returned
  * `404 DEPLOYMENT_NOT_FOUND`. See docs/ux-research.md §4.
+ * November additions were fetched on 2026-11-23; see docs/project-refresh-2026-11.md.
  * ------------------------------------------------------------------------- */
 const VERIFIED_LIVE = new Set([
+  "https://bale-drop.vercel.app",
+  "https://topltd.vercel.app",
   "https://nile-valley-emr.vercel.app",
   "https://garden-fairy.vercel.app",
   "https://agro-investment-delta.vercel.app",
@@ -58,6 +61,44 @@ beforeEach(() => {
  * 1. Data integrity
  * ======================================================================== */
 describe("project data", () => {
+  it("includes the three recent websites first, without duplicating existing work", () => {
+    expect(projects.slice(0, 3).map((project) => project.id)).toEqual([
+      "apex-energy", "bale-drop", "top-one-percent",
+    ]);
+    expect(projects.find((project) => project.id === "bale-drop")).toMatchObject({
+      category: "web",
+      live_url: "https://bale-drop.vercel.app",
+      source_code_link: "https://github.com/LottaCodr/bale-drop",
+    });
+    expect(projects.find((project) => project.id === "top-one-percent")).toMatchObject({
+      category: "landing",
+      live_url: "https://topltd.vercel.app",
+      source_code_link: "https://github.com/LottaCodr/topsite",
+    });
+  });
+
+  it("does not advertise the unverified ApexEnergy deployment as live", () => {
+    const apex = projects.find((project) => project.id === "apex-energy");
+    expect(apex.source_code_link).toBe("https://github.com/LottaCodr/apex-energy");
+    expect(apex.note).toBe("Repository preview");
+    expect(apex.live_url).toBeUndefined();
+  });
+
+  it("ships lightweight raster screenshots with honest local-preview descriptions", () => {
+    for (const id of ["apex-energy", "bale-drop", "top-one-percent"]) {
+      const project = projects.find((entry) => entry.id === id);
+      expect(project.image).toContain(`${id}.webp`);
+      expect(project.image_alt).toMatch(/captured.*local/i);
+      expect(project.image_caption).toMatch(/local build screenshot/i);
+      const image = readFileSync(resolve(SRC_DIR, "assets", "covers", `${id}.webp`));
+      expect(image.toString("ascii", 0, 4)).toBe("RIFF");
+      expect(image.toString("ascii", 8, 12)).toBe("WEBP");
+      expect(image.length).toBeGreaterThan(10000);
+      expect(image.length).toBeLessThan(200000);
+    }
+    expect(projects.find((project) => project.id === "bale-drop").image_caption).toMatch(/demo catalogue/i);
+  });
+
   it("gives every project at least one link", () => {
     const unlinked = projects.filter(
       (p) => !p.source_code_link && !p.live_url,
@@ -149,6 +190,24 @@ describe("case studies", () => {
 });
 
 describe("profile metrics", () => {
+  it("derives project and live totals from the displayed catalogue", () => {
+    expect(projectCounts.total).toBe(projects.length);
+    expect(projectCounts.live).toBe(projects.filter((project) => project.live_url).length);
+    expect(stats.find((stat) => stat.label === "Projects built").value).toBe(String(projectCounts.total));
+    expect(stats.find((stat) => stat.label === "Live websites").value).toBe(String(projectCounts.live));
+    expect(stats.find((stat) => stat.label === "Public repos").value).toBe(String(publicRepoCount));
+  });
+
+  it("keeps search and social descriptions in sync with the catalogue", () => {
+    const document = new DOMParser().parseFromString(
+      readFileSync(resolve(process.cwd(), "index.html"), "utf8"), "text/html",
+    );
+    const summary = `${projectCounts.total} projects, ${projectCounts.live} live websites.`;
+    for (const selector of ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]']) {
+      expect(document.querySelector(selector).content).toContain(summary);
+    }
+  });
+
   it("does not repeat the invented follower/star counts", () => {
     const blob = JSON.stringify({ stats, profile });
     // The old About section claimed 847 followers and 12 stars; the GitHub API
@@ -170,6 +229,28 @@ describe("profile metrics", () => {
  * 2. Rendered accessibility & structure
  * ======================================================================== */
 describe("rendered app", () => {
+  it("renders the new screenshots, source links and only verified live actions", () => {
+    render(<App />);
+    for (const id of ["apex-energy", "bale-drop", "top-one-percent"]) {
+      const project = projects.find((entry) => entry.id === id);
+      const card = screen.getByRole("heading", { level: 3, name: project.name }).closest("article");
+      const image = within(card).getByRole("img", { name: project.image_alt });
+      expect(image).toHaveAttribute("src", project.image);
+      expect(image).toHaveAttribute("width", "1600");
+      expect(image).toHaveAttribute("height", "1000");
+      expect(image).toHaveAttribute("loading", "lazy");
+      expect(within(card).getByText(project.image_caption)).toBeInTheDocument();
+      expect(within(card).getByRole("link", { name: /view source on GitHub/i })).toHaveAttribute("href", project.source_code_link);
+      if (project.live_url) {
+        expect(within(card).getByRole("link", { name: /live site/i })).toHaveAttribute("href", project.live_url);
+      } else {
+        expect(within(card).queryByRole("link", { name: /live site/i })).not.toBeInTheDocument();
+        expect(within(card).queryByText("Live")).not.toBeInTheDocument();
+      }
+    }
+    expect(screen.getByRole("heading", { name: `${projectCounts.total} projects. ${projectCounts.live} live websites.` })).toBeInTheDocument();
+  });
+
   it("mounts without throwing", () => {
     const { container } = render(<App />);
     expect(container.querySelector("#main")).toBeInTheDocument();
@@ -246,7 +327,7 @@ describe("rendered app", () => {
   it("renders every project with a clickable link", () => {
     render(<App />);
     const articles = screen.getAllByRole("article");
-    // 20 project cards; case studies are <article> too but live in another section
+    // Project cards; case studies are <article> too but live in another section
     expect(articles.length).toBeGreaterThanOrEqual(projects.length);
 
     const projectNames = projects.map((p) => p.name);
@@ -339,6 +420,23 @@ describe("document structure", () => {
  * 3. Interaction
  * ======================================================================== */
 describe("work filters", () => {
+  it.each([
+    ["Web apps", ["Bale Drop"], ["ApexEnergy Resources", "Top One Percent"]],
+    ["Landing sites", ["ApexEnergy Resources", "Top One Percent"], ["Bale Drop"]],
+  ])("shows the new websites in the %s filter", async (label, included, excluded) => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: new RegExp(`^${label}`) }));
+    for (const name of included) {
+      expect(screen.getByRole("heading", { level: 3, name })).toBeInTheDocument();
+    }
+    // AnimatePresence keeps exiting cards mounted until their transition ends.
+    await waitFor(() => {
+      for (const name of excluded) {
+        expect(screen.queryByRole("heading", { level: 3, name })).not.toBeInTheDocument();
+      }
+    }, { timeout: 2000 });
+  });
+
   it("narrows the grid and announces the count", () => {
     render(<App />);
 
@@ -348,11 +446,12 @@ describe("work filters", () => {
     fireEvent.click(mobileBtn);
     expect(mobileBtn).toHaveAttribute("aria-pressed", "true");
 
-    expect(screen.getByText(/Showing 8 of 20 projects/i)).toBeInTheDocument();
+    const mobileCount = projects.filter((project) => project.category === "mobile").length;
+    expect(screen.getByText(`Showing ${mobileCount} of ${projects.length} projects.`)).toBeInTheDocument();
 
     const allBtn = screen.getByRole("button", { name: /^All work/i });
     fireEvent.click(allBtn);
-    expect(screen.getByText(/Showing 20 of 20 projects/i)).toBeInTheDocument();
+    expect(screen.getByText(`Showing ${projects.length} of ${projects.length} projects.`)).toBeInTheDocument();
   });
 });
 

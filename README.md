@@ -6,7 +6,7 @@
 
 <p align="center">
   React and TypeScript web platforms, mobile apps and AI pipelines.<br />
-  20 shipped products, 9 of them live.
+  23 projects, 11 live websites.
 </p>
 
 ---
@@ -56,7 +56,7 @@ npm run dev        # local dev server, bound to 0.0.0.0
 npm run build      # production build, output in dist/
 npm run preview    # serve the production build
 npm run lint       # eslint, zero warnings allowed
-npm test           # 41 tests: data integrity, a11y, structure, interaction, command palette
+npm test           # data integrity, thumbnails, a11y, filters, command palette
 ```
 
 ## Design system
@@ -132,6 +132,17 @@ menu, `aria-live` on the filter count, form status and clipboard confirmations, 
 `prefers-reduced-motion` honoured in both CSS and Framer Motion.
 
 ## Project assets
+
+The November 2026 additions are ApexEnergy Resources, Bale Drop and Top One
+Percent. Their thumbnails are real browser screenshots of local repository
+builds. Bale Drop's capture uses its development sample catalogue and is labelled
+accordingly. ApexEnergy remains a repository preview until its public deployment
+can be verified. Source commits and link checks are recorded in
+[`docs/project-refresh-2026-11.md`](docs/project-refresh-2026-11.md).
+
+The hero statistics and work heading derive their project totals from `projects`.
+If you add a project, also update the static descriptions in `index.html` and the
+README summary; a regression test checks the SEO counts against the catalogue.
 
 Covers live in [`src/assets/covers/`](src/assets/covers/) as WebP. To add one, drop a PNG
 into that folder and run:

@@ -29,6 +29,9 @@ import threejs from "./tech/threejs.svg";
    These are real raster images at 16:10, matching the aspect-ratio the
    ProjectCard reserves so the grid never shifts on load.
    ------------------------------------------------------------------------- */
+import coverApexEnergy from "./covers/apex-energy.webp";
+import coverBaleDrop from "./covers/bale-drop.webp";
+import coverTopOnePercent from "./covers/top-one-percent.webp";
 import coverHealthCare from "./covers/health-care.webp";
 import coverGardenFairy from "./covers/garden-fairy.webp";
 import coverGardenFairyServer from "./covers/garden-fairy-server.webp";
@@ -69,6 +72,9 @@ export {
   typescript,
   threejs,
   /* Project covers */
+  coverApexEnergy,
+  coverBaleDrop,
+  coverTopOnePercent,
   coverHealthCare,
   coverGardenFairy,
   coverGardenFairyServer,
