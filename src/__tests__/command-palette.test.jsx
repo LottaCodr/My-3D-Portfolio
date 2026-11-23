@@ -18,6 +18,24 @@ const openPalette = () =>
   fireEvent.keyDown(document, { key: "k", metaKey: true });
 
 describe("command palette", () => {
+  it.each([
+    ["ApexEnergy Resources", "https://github.com/LottaCodr/apex-energy"],
+    ["Bale Drop", "https://bale-drop.vercel.app"],
+    ["Top One Percent", "https://topltd.vercel.app"],
+  ])("finds %s and opens its correct public destination", async (name, url) => {
+    const open = vi.spyOn(window, "open").mockImplementation(() => null);
+    render(<App />);
+    openPalette();
+    const input = await screen.findByPlaceholderText(/jump to a section, project or action/i);
+    fireEvent.change(input, { target: { value: name } });
+    const option = await screen.findByRole("option", { name: new RegExp(name) });
+    fireEvent.click(option);
+    expect(open).toHaveBeenCalledWith(url, "_blank", "noopener,noreferrer");
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  });
+
   it("opens from the keyboard shortcut and exposes a labelled dialog", async () => {
     render(<App />);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();

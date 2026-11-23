@@ -1,6 +1,6 @@
 import { Suspense, lazy } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { profile, stats } from "../constants";
+import { profile, stats, projectCounts } from "../constants";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import {
@@ -165,7 +165,7 @@ export default function Hero() {
             </motion.h1>
 
             <motion.p className="lede mt-6" {...rise(0.2)}>
-              {profile.pitch}
+              {profile.pitch} {projectCounts.total} projects, {projectCounts.live} live websites.
             </motion.p>
 
             <motion.div
